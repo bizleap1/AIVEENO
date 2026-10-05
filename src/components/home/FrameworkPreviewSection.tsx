@@ -30,7 +30,7 @@ export default function FrameworkPreviewSection() {
             >
               <div className="inline-flex items-center gap-2 text-[11.5px] font-mono tracking-[0.16em] uppercase text-[#6F7479]">
                 <span className="w-3.5 h-px bg-[#D4A64A]" />
-                <span>05 // Framework Preview</span>
+                <span>Framework Preview</span>
               </div>
 
               <h2 className="text-3xl sm:text-5xl font-sans font-medium tracking-tight text-[#0D1117] leading-[1.08]">

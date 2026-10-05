@@ -11,7 +11,7 @@ export default function TransformationScopeSection() {
         {/* Section Header */}
         <SectionIntro
           theme="light"
-          eyebrow="07 // AI Capabilities"
+          eyebrow="AI Capabilities"
           title={whatTransformationIncludes.title}
           description={whatTransformationIncludes.subtitle}
         />

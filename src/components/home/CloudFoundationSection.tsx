@@ -81,7 +81,7 @@ export default function CloudFoundationSection() {
             >
               <div className="inline-flex items-center gap-2 text-[11.5px] font-mono tracking-[0.16em] uppercase text-[#6F7479]">
                 <span className="w-3.5 h-px bg-[#D4A64A]" />
-                <span>08 // Cloud & Technology</span>
+                <span>Cloud & Technology</span>
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-sans font-medium text-[#0D1117] tracking-[-0.035em] leading-[1.04]">

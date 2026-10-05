@@ -24,9 +24,9 @@ export default function OpportunityMapSection() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-[#D9DDDA]">
           <div className="space-y-3.5 max-w-2xl">
-            <div className="inline-flex items-center gap-2 text-[11.5px] font-mono tracking-[0.16em] uppercase text-[#6F7479]">
+            <div className="inline-flex items-center gap-2 text-[11.5px] font-sans font-medium tracking-[0.12em] uppercase text-[#6F7479]">
               <span className="w-3.5 h-px bg-[#D4A64A]" />
-              <span>04 // Transformation Opportunity Map</span>
+              <span>Transformation Opportunity Map</span>
             </div>
             <h2 className="font-sans font-medium text-[34px] sm:text-[44px] lg:text-[48px] text-[#0D1117] tracking-[-0.03em] leading-[1.05]">
               Where AI creates meaningful business value.

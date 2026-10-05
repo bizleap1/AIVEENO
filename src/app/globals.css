@@ -53,69 +53,71 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Global Headings: Instrument Sans for all h1–h6 and .font-heading */
-h1, h2, h3, h4, h5, h6,
-.font-heading {
-  font-family: var(--font-sans), "Instrument Sans", sans-serif;
-  font-weight: 500;
-}
-
-/* H1 Locked: 104px / 500 / 0.94 / -0.045em (Mobile: 54-60px / 500 / 0.94 / -0.04em) */
-h1, .hero-h1-display {
-  font-family: var(--font-sans), "Instrument Sans", sans-serif;
-  font-weight: 500;
-  font-size: 56px;
-  line-height: 0.94;
-  letter-spacing: -0.04em;
-  color: #0D1117;
-}
-
-@media (min-width: 640px) {
-  h1, .hero-h1-display {
-    font-size: 80px;
-    letter-spacing: -0.042em;
+@layer base {
+  /* Global Headings: Instrument Sans for all h1–h6 and .font-heading */
+  h1, h2, h3, h4, h5, h6,
+  .font-heading {
+    font-family: var(--font-sans), "Instrument Sans", sans-serif;
+    font-weight: 500;
   }
-}
 
-@media (min-width: 1024px) {
+  /* H1 Default: 104px / 500 / 0.94 / -0.045em (Mobile: 54-60px / 500 / 0.94 / -0.04em) */
   h1, .hero-h1-display {
-    font-size: 104px;
+    font-family: var(--font-sans), "Instrument Sans", sans-serif;
+    font-weight: 500;
+    font-size: 56px;
     line-height: 0.94;
-    letter-spacing: -0.045em;
+    letter-spacing: -0.04em;
+    color: #0D1117;
   }
-}
 
-/* H2 Locked: 64px / 500 / 1.0 / -0.035em */
-h2 {
-  font-weight: 500;
-  font-size: 38px;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: #0D1117;
-}
+  @media (min-width: 640px) {
+    h1, .hero-h1-display {
+      font-size: 80px;
+      letter-spacing: -0.042em;
+    }
+  }
 
-@media (min-width: 1024px) {
+  @media (min-width: 1024px) {
+    h1, .hero-h1-display {
+      font-size: 104px;
+      line-height: 0.94;
+      letter-spacing: -0.045em;
+    }
+  }
+
+  /* H2 Default: 38px mobile / 64px desktop */
   h2 {
-    font-size: 64px;
-    line-height: 1.0;
-    letter-spacing: -0.035em;
+    font-weight: 500;
+    font-size: 38px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: #0D1117;
   }
-}
 
-/* H3 Locked: 32px / 500 / 1.1 / -0.025em */
-h3 {
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: #0D1117;
-}
+  @media (min-width: 1024px) {
+    h2 {
+      font-size: 64px;
+      line-height: 1.0;
+      letter-spacing: -0.035em;
+    }
+  }
 
-@media (min-width: 1024px) {
+  /* H3 Default: 24px mobile / 32px desktop */
   h3 {
-    font-size: 32px;
-    line-height: 1.1;
-    letter-spacing: -0.025em;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #0D1117;
+  }
+
+  @media (min-width: 1024px) {
+    h3 {
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+    }
   }
 }
 

@@ -86,9 +86,8 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
       >
         <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
           <div className="flex items-center justify-between">
-            
-            {/* LEFT SECTION: AI Transformation | Cloud & Technology */}
-            <nav className="hidden lg:flex items-center gap-7 xl:gap-8 min-w-[320px]">
+            {/* LEFT SECTION: AI Transformation | Cloud & Technology (Aligned towards Logo) */}
+            <nav className="hidden lg:flex items-center justify-end gap-6 xl:gap-8 flex-1 pr-6 xl:pr-8">
               
               {/* 1. AI Transformation (Dropdown) */}
               <div
@@ -223,7 +222,7 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                 {/* Cloud & Technology Dropdown Menu */}
                 {activeMenu === "cloud" && (
                   <div
-                    className="absolute top-full left-0 mt-2.5 w-[660px] rounded-[14px] border border-[#E8EDEB] bg-[#F5F7F6]/98 backdrop-blur-xl p-5 shadow-[0_16px_36px_-6px_rgba(13,17,23,0.08)] animate-in fade-in zoom-in-95 duration-150 z-50"
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 w-[660px] max-w-[calc(100vw-32px)] rounded-[14px] border border-[#E8EDEB] bg-[#F5F7F6]/98 backdrop-blur-xl p-5 shadow-[0_16px_36px_-6px_rgba(13,17,23,0.08)] animate-in fade-in zoom-in-95 duration-150 z-50"
                     onMouseEnter={() => handleMouseEnter("cloud")}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -270,66 +269,68 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
             </nav>
 
             {/* LOGO: Left on mobile, Center on desktop */}
-            <div className="flex items-center justify-start lg:justify-center">
+            <div className="flex items-center justify-start lg:justify-center shrink-0">
               <Logo variant="dark" />
             </div>
 
-            {/* RIGHT SECTION: About | Contact | Book a Discovery Call */}
-            <nav className="hidden lg:flex items-center justify-end gap-6 xl:gap-8 min-w-[320px]">
-              {/* About */}
-              <div className="relative flex flex-col items-center">
-                <Link
-                  href="/about"
-                  className={cn(
-                    "relative text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors py-1",
-                    isAboutActive
-                      ? "text-[#0D1B2A] font-medium"
-                      : "text-[#6F7479] hover:text-[#0D1B2A] font-normal"
-                  )}
-                >
-                  <span>About</span>
-                  {isAboutActive && (
-                    <span
-                      className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]"
-                      aria-hidden="true"
-                    />
-                  )}
-                </Link>
-              </div>
+            {/* RIGHT SECTION: About | Contact (Aligned towards Logo) + Book a Discovery Call (pinned right) */}
+            <div className="hidden lg:flex items-center justify-between flex-1 pl-6 xl:pl-8">
+              <nav className="flex items-center gap-6 xl:gap-8">
+                {/* About */}
+                <div className="relative flex flex-col items-center">
+                  <Link
+                    href="/about"
+                    className={cn(
+                      "relative text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors py-1",
+                      isAboutActive
+                        ? "text-[#0D1B2A] font-medium"
+                        : "text-[#6F7479] hover:text-[#0D1B2A] font-normal"
+                    )}
+                  >
+                    <span>About</span>
+                    {isAboutActive && (
+                      <span
+                        className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </Link>
+                </div>
 
-              {/* Contact */}
-              <div className="relative flex flex-col items-center">
-                <Link
-                  href="/contact"
-                  className={cn(
-                    "relative text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors py-1",
-                    isContactActive
-                      ? "text-[#0D1B2A] font-medium"
-                      : "text-[#6F7479] hover:text-[#0D1B2A] font-normal"
-                  )}
-                >
-                  <span>Contact</span>
-                  {isContactActive && (
-                    <span
-                      className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]"
-                      aria-hidden="true"
-                    />
-                  )}
-                </Link>
-              </div>
+                {/* Contact */}
+                <div className="relative flex flex-col items-center">
+                  <Link
+                    href="/contact"
+                    className={cn(
+                      "relative text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors py-1",
+                      isContactActive
+                        ? "text-[#0D1B2A] font-medium"
+                        : "text-[#6F7479] hover:text-[#0D1B2A] font-normal"
+                    )}
+                  >
+                    <span>Contact</span>
+                    {isContactActive && (
+                      <span
+                        className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]"
+                        aria-hidden="true"
+                      />
+                    )}
+                  </Link>
+                </div>
+              </nav>
 
               {/* Primary CTA: Book a Discovery Call */}
               <button
                 type="button"
                 onClick={() => handleDiscoveryClick("Navbar: Book a Discovery Call")}
-                className="inline-flex items-center justify-center h-[38px] px-[18px] rounded-[8px] bg-[#0D1117] text-[#F5F7F6] text-[13.5px] font-medium border border-transparent hover:border-[#D4A64A]/70 hover:bg-[#151B22] hover:-translate-y-px transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4A64A]"
+                className="inline-flex items-center justify-center h-[38px] px-[18px] rounded-[8px] bg-[#0D1117] text-[#F5F7F6] text-[13.5px] font-medium border border-transparent hover:border-[#D4A64A]/70 hover:bg-[#151B22] hover:-translate-y-px transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4A64A] shrink-0"
               >
                 <span>Book a Discovery Call</span>
               </button>
-            </nav>
+            </div>
 
             {/* Tablet / Mobile Controls: Compact Discovery Call + Hamburger */}
-            <div className="flex lg:hidden items-center gap-2 sm:gap-2.5">
+            <div className="flex lg:hidden items-center gap-2 sm:gap-2.5 ml-auto">
               <button
                 type="button"
                 onClick={() => handleDiscoveryClick("Mobile Header")}
