@@ -1,0 +1,466 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans), "Instrument Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-instrument: var(--font-sans), "Instrument Sans", sans-serif;
+  --font-heading: var(--font-sans), "Instrument Sans", sans-serif;
+
+  --color-canvas-bg: #F5F7F6;
+  --color-primary-text: #0D1117;
+  --color-secondary-text: #6F7479;
+  --color-border-grid: #D9DDDA;
+  --color-accent-gold: #C9A24A;
+}
+
+:root {
+  --background: #F5F7F6;
+  --foreground: #0D1117;
+  --primary-text: #0D1117;
+  --secondary-text: #6F7479;
+  --border-grid: #D9DDDA;
+  --accent-gold: #C9A24A;
+
+  /* Enterprise Motion Tokens */
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-ui: cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --duration-fast: 200ms;
+  --duration-ui: 300ms;
+  --duration-reveal: 650ms;
+  --duration-editorial: 800ms;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), "Instrument Sans", sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Headings: Instrument Sans for all h1–h6 and .font-heading */
+h1, h2, h3, h4, h5, h6,
+.font-heading {
+  font-family: var(--font-sans), "Instrument Sans", sans-serif;
+  font-weight: 500;
+}
+
+/* H1 Locked: 104px / 500 / 0.94 / -0.045em (Mobile: 54-60px / 500 / 0.94 / -0.04em) */
+h1, .hero-h1-display {
+  font-family: var(--font-sans), "Instrument Sans", sans-serif;
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  color: #0D1117;
+}
+
+@media (min-width: 640px) {
+  h1, .hero-h1-display {
+    font-size: 80px;
+    letter-spacing: -0.042em;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1, .hero-h1-display {
+    font-size: 104px;
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+  }
+}
+
+/* H2 Locked: 64px / 500 / 1.0 / -0.035em */
+h2 {
+  font-weight: 500;
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #0D1117;
+}
+
+@media (min-width: 1024px) {
+  h2 {
+    font-size: 64px;
+    line-height: 1.0;
+    letter-spacing: -0.035em;
+  }
+}
+
+/* H3 Locked: 32px / 500 / 1.1 / -0.025em */
+h3 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #0D1117;
+}
+
+@media (min-width: 1024px) {
+  h3 {
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Body Large: 24px / 400 / 1.4 (Mobile: 18px / 1.45) */
+.body-large {
+  font-size: 18px;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+  color: #6F7479;
+}
+
+@media (min-width: 1024px) {
+  .body-large {
+    font-size: 24px;
+    line-height: 1.4;
+  }
+}
+
+/* Eyebrow Label: 13px / 500 / uppercase / 0.08em */
+.eyebrow-label {
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555B61;
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Technical architectural grid on dark background: 1px thin grid, 32px intervals */
+.dark-technical-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(38, 38, 38, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(38, 38, 38, 0.45) 1px, transparent 1px);
+}
+
+.light-technical-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(42, 47, 54, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(42, 47, 54, 0.08) 1px, transparent 1px);
+}
+
+/* Subtle moving stream dash along SVG paths without glow */
+@keyframes techStream {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+.animate-tech-stream {
+  stroke-dasharray: 4, 8;
+  animation: techStream 4.5s linear infinite;
+}
+
+/* Restrained technical trace paths for enterprise architecture visual */
+@keyframes technicalTraceOne {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes technicalTraceTwo {
+  0% {
+    stroke-dashoffset: 900;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes technicalTraceThree {
+  0% {
+    stroke-dashoffset: 800;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-trace-1 {
+  stroke-dasharray: 140 860;
+  animation: technicalTraceOne 6s linear infinite;
+}
+
+.animate-trace-2 {
+  stroke-dasharray: 110 790;
+  animation: technicalTraceTwo 7.5s linear infinite;
+  animation-delay: -2.5s;
+}
+
+.animate-trace-3 {
+  stroke-dasharray: 90 710;
+  animation: technicalTraceThree 5.8s linear infinite;
+  animation-delay: -4s;
+}
+
+.animate-technical-trace {
+  stroke-dasharray: 130 790;
+  animation: technicalTraceOne 5.5s linear infinite;
+}
+
+/* Precise ray burst animation synchronized with 8.mp4 choreography (Calm & Elegant Speed) */
+@keyframes silverRayBurst {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+  28% {
+    stroke-dashoffset: -320;
+    opacity: 1;
+  }
+  31% {
+    stroke-dashoffset: -320;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: -320;
+    opacity: 0;
+  }
+}
+
+@keyframes silverRayBurstDown {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+  2.5% {
+    opacity: 1;
+  }
+  19% {
+    stroke-dashoffset: -80;
+    opacity: 1;
+  }
+  22% {
+    stroke-dashoffset: -80;
+    opacity: 0;
+  }
+  100% {
+    stroke-dashoffset: -80;
+    opacity: 0;
+  }
+}
+
+/* Staggered ray classes matching 8.mp4 sequence (Slow, graceful enterprise glide) */
+.animate-ray-tl {
+  stroke-dasharray: 44 380;
+  animation: silverRayBurst 5.4s cubic-bezier(0.25, 0.1, 0.25, 1) infinite 0s backwards;
+}
+
+.animate-ray-down {
+  stroke-dasharray: 26 140;
+  animation: silverRayBurstDown 5.4s cubic-bezier(0.25, 0.1, 0.25, 1) infinite 0.8s backwards;
+}
+
+.animate-ray-ml {
+  stroke-dasharray: 44 380;
+  animation: silverRayBurst 5.4s cubic-bezier(0.25, 0.1, 0.25, 1) infinite 1.5s backwards;
+}
+
+.animate-ray-mr {
+  stroke-dasharray: 44 380;
+  animation: silverRayBurst 5.4s cubic-bezier(0.25, 0.1, 0.25, 1) infinite 2.0s backwards;
+}
+
+.animate-ray-bl {
+  stroke-dasharray: 44 380;
+  animation: silverRayBurst 5.4s cubic-bezier(0.25, 0.1, 0.25, 1) infinite 2.5s backwards;
+}
+
+.animate-ray-br {
+  stroke-dasharray: 44 380;
+  animation: silverRayBurst 5.4s cubic-bezier(0.25, 0.1, 0.25, 1) infinite 3.0s backwards;
+}
+
+.animate-ray-tr {
+  stroke-dasharray: 44 380;
+  animation: silverRayBurst 5.4s cubic-bezier(0.25, 0.1, 0.25, 1) infinite 3.5s backwards;
+}
+
+/* Node terminal arrival glow synchronized with slower pulse */
+@keyframes pipPulseArrival {
+  0%, 25% {
+    opacity: 0.35;
+  }
+  28.5% {
+    opacity: 1;
+  }
+  34%, 100% {
+    opacity: 0.35;
+  }
+}
+
+.animate-pip-tl {
+  animation: pipPulseArrival 5.4s ease-out infinite 0s backwards;
+}
+.animate-pip-ml {
+  animation: pipPulseArrival 5.4s ease-out infinite 1.5s backwards;
+}
+.animate-pip-mr {
+  animation: pipPulseArrival 5.4s ease-out infinite 2.0s backwards;
+}
+.animate-pip-bl {
+  animation: pipPulseArrival 5.4s ease-out infinite 2.5s backwards;
+}
+.animate-pip-br {
+  animation: pipPulseArrival 5.4s ease-out infinite 3.0s backwards;
+}
+.animate-pip-tr {
+  animation: pipPulseArrival 5.4s ease-out infinite 3.5s backwards;
+}
+
+/* Restrained entrance animation: gentle fade and subtle translation */
+@keyframes enterFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-enter-1 {
+  animation: enterFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-enter-2 {
+  opacity: 0;
+  animation: enterFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.12s forwards;
+}
+
+.animate-enter-3 {
+  opacity: 0;
+  animation: enterFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.22s forwards;
+}
+
+.animate-enter-visual {
+  opacity: 0;
+  animation: enterFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+/* Slow, subtle cinematic ambient lighting shifts (calm and atmospheric, 25deg diagonal angle matching 8.mp4) */
+@keyframes warmBeamSweep {
+  0%, 100% {
+    opacity: 0.85;
+    transform: rotate(-25deg) translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: rotate(-23deg) translate(14px, -8px) scale(1.03);
+  }
+}
+
+.animate-warm-beam {
+  animation: warmBeamSweep 14s ease-in-out infinite;
+}
+
+@keyframes ambientFillSlow {
+  0%, 100% {
+    opacity: 0.75;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translate(-10px, 8px) scale(1.03);
+  }
+}
+
+.animate-ambient-fill {
+  animation: ambientFillSlow 15s ease-in-out infinite;
+}
+
+@keyframes enterDiagram {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-enter-diagram {
+  opacity: 0;
+  animation: enterDiagram 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-warm-beam,
+  .animate-ambient-fill {
+    animation: none !important;
+    opacity: 0.88 !important;
+    transform: rotate(-25deg) !important;
+  }
+  .animate-enter-diagram {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .animate-ray-tl,
+  .animate-ray-down,
+  .animate-ray-ml,
+  .animate-ray-mr,
+  .animate-ray-bl,
+  .animate-ray-br,
+  .animate-ray-tr,
+  .animate-pip-tl,
+  .animate-pip-ml,
+  .animate-pip-mr,
+  .animate-pip-bl,
+  .animate-pip-br,
+  .animate-pip-tr {
+    animation: none !important;
+    opacity: 0.35 !important;
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+/* Suppress dev overlay indicator icon in browser captures */
+[data-nextjs-dev-overlay-indicator],
+[data-nextjs-toast],
+nextjs-portal {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+
+
