@@ -1,18 +1,26 @@
 "use client";
 
 /**
- * Aiveeno — Section 02: THE SHIFT
+ * Aiveeno — Section 02: THE SHIFT (LOCKED & REFINED)
  * 
- * Layout Architecture:
- * - Desktop: 50/50 side-by-side comparison, fit-to-screen (approx 85–95vh max below sticky navbar).
- * - Mobile: Dedicated stacked single-column editorial layout:
- *   - Eyebrow: THE SHIFT
- *   - Headline: "Adopting AI is not the same as transforming with AI." (40–44px, Instrument Sans 500, line-height 0.96)
- *   - State 1: ADOPT AI ("Add tools to existing work.") with 220–260px tall horizontal business flow + disconnected abstract additions.
- *   - Thin Divider with 48–56px spacing.
- *   - State 2: TRANSFORM THE BUSINESS WITH AI ("Redesign how the business operates.") with 220–260px tall clean integrated operating backbone.
- * - Zero SaaS clutter: No white card boxes, no racetrack loops, no unnecessary arrows, no tiny labels.
- * - Palette: #E8EDEB background, #0D1B2A text, #3B4A5A secondary, #D4A64A subtle brass focal accent.
+ * Visual Architecture:
+ * - LEFT (Adopt AI): 4 Isolated Islands
+ *   - Each area has a genuinely differentiated internal structure:
+ *     - Workflows: Sequential process routing rails
+ *     - Data: Concentric data-store schema rings
+ *     - Systems: Technical modular architecture block
+ *     - Decisions: Decision-tree logic diamond
+ *   - Disconnected local interventions; zero shared operating structure.
+ *   - Visually reads as: FRAGMENTED / DISCONNECTED SILOS.
+ * - RIGHT (Transform the business with AI): 1 Connected Operating Matrix
+ *   - Subtler architectural grid (25% lighter) to keep focus on living business relationships.
+ *   - Central Brass nexus labeled "OPERATING MODEL" anchoring all cross-relationships.
+ *   - All 4 areas deeply integrated into a single unified business operation.
+ *   - Visually reads as: INTEGRATED OPERATING MODEL.
+ * - Layout:
+ *   - Desktop: 50/50 comparison, fit-to-screen (approx 85–95vh max below sticky navbar).
+ *   - Mobile: Dedicated stacked single-column editorial layout (220–260px visual height, 48–56px gap).
+ * - Palette: #E8EDEB background, #0D1B2A primary, #3B4A5A secondary, #D4A64A restrained brass accent.
  */
 
 export default function TheShiftSection() {
@@ -25,8 +33,6 @@ export default function TheShiftSection() {
         
         {/* ========================================================================= */}
         {/* 01 — PERMANENT MAIN HEADLINE                                              */}
-        {/* Mobile: 40–44px, line-height 0.96, font-weight 500                        */}
-        {/* Desktop: Balanced ~23-34px scale, line-height 1.12                        */}
         {/* ========================================================================= */}
         <div className="max-w-[1040px]">
           {/* Eyebrow */}
@@ -36,21 +42,19 @@ export default function TheShiftSection() {
           </div>
 
           {/* Main Headline */}
-          <h2 className="mt-3 sm:mt-4 lg:mt-2.5 font-sans font-medium text-[38px] min-[390px]:text-[42px] sm:text-[44px] lg:text-[clamp(23px,2.5vw,34px)] text-[#0D1B2A] tracking-[-0.035em] leading-[0.96] lg:leading-[1.12]">
+          <h2 className="mt-3 sm:mt-4 lg:mt-2.5 font-sans font-medium text-[36px] min-[390px]:text-[39px] sm:text-[41px] lg:text-[clamp(21px,2.3vw,32px)] text-[#0D1B2A] tracking-[-0.035em] leading-[0.98] lg:leading-[1.12]">
             Adopting AI is not the same as transforming with AI.
           </h2>
         </div>
 
         {/* ========================================================================= */}
         {/* 02 — COMPARISON CONTAINER                                                 */}
-        {/* Mobile: Stacked single-column with 48–56px gap + thin divider            */}
-        {/* Desktop: 50/50 side-by-side comparison                                    */}
         {/* ========================================================================= */}
         <div className="mt-8 sm:mt-10 lg:mt-6 border-t border-[#0D1B2A]/[0.10]">
           <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch">
             
             {/* ----------------------------------------------------------------- */}
-            {/* STATE 01: ADOPT AI                                                */}
+            {/* STATE 01: ADOPT AI (4 DIFFERENTIATED ISOLATED ISLANDS)             */}
             {/* ----------------------------------------------------------------- */}
             <div className="pt-6 sm:pt-8 pb-12 sm:pb-14 lg:py-4 pr-0 lg:pr-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#0D1B2A]/[0.10]">
               <div>
@@ -62,210 +66,122 @@ export default function TheShiftSection() {
                 </p>
               </div>
 
-              {/* Visual Left: Linear Operating Flow + Flat Abstract Disconnected Modules */}
+              {/* Visual Left: 4 Differentiated Islands in Empty Negative Space */}
               <div className="mt-6 sm:mt-8 lg:mt-4 w-full flex items-center justify-center">
-                {/* --- MOBILE VISUAL (220–260px high, dedicated viewport scale) --- */}
+                
+                {/* --- MOBILE VISUAL (350x250, dedicated stacked scale) --- */}
                 <svg
-                  viewBox="0 0 380 220"
+                  viewBox="0 0 350 250"
                   className="w-full h-[220px] min-[390px]:h-[240px] sm:h-[260px] lg:hidden overflow-visible select-none"
-                  aria-label="Adopt AI linear flow with disconnected additions"
+                  aria-label="Adopt AI: Four differentiated isolated business islands with no shared structure"
                 >
-                  {/* Linear Baseline Flow */}
-                  <line
-                    x1="20"
-                    y1="145"
-                    x2="360"
-                    y2="145"
-                    stroke="#0D1B2A"
-                    strokeOpacity="0.24"
-                    strokeWidth="1.5"
-                  />
-
-                  {/* Flow Directional Ticks */}
-                  <polygon points="90,142 96,145 90,148" fill="#0D1B2A" fillOpacity="0.28" />
-                  <polygon points="190,142 196,145 190,148" fill="#0D1B2A" fillOpacity="0.28" />
-                  <polygon points="290,142 296,145 290,148" fill="#0D1B2A" fillOpacity="0.28" />
-
-                  {/* 4 Process Nodes */}
-                  <circle cx="42" cy="145" r="4.5" fill="#0D1B2A" fillOpacity="0.85" />
-                  <text
-                    x="42"
-                    y="178"
-                    textAnchor="middle"
-                    fill="#0D1B2A"
-                    fontSize="13.5"
-                    fontFamily="inherit"
-                    fontWeight="500"
-                  >
+                  {/* ISLAND 1: Workflows (Top-Left: Process Routing Rails) */}
+                  <circle cx="75" cy="65" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.13" strokeWidth="1" />
+                  <line x1="61" y1="61" x2="89" y2="61" stroke="#0D1B2A" strokeOpacity="0.32" strokeWidth="1" />
+                  <line x1="61" y1="69" x2="89" y2="69" stroke="#0D1B2A" strokeOpacity="0.32" strokeWidth="1" />
+                  <circle cx="67" cy="61" r="1.8" fill="#0D1B2A" fillOpacity="0.75" />
+                  <circle cx="83" cy="69" r="1.8" fill="#0D1B2A" fillOpacity="0.75" />
+                  <text x="75" y="106" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
                     Workflows
                   </text>
+                  {/* Local Intervention Arc */}
+                  <path d="M 49 51 A 34 34 0 0 1 101 41" fill="none" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.5" />
+                  <circle cx="101" cy="41" r="2" fill="#0D1B2A" fillOpacity="0.6" />
 
-                  <circle cx="140" cy="145" r="4.5" fill="#0D1B2A" fillOpacity="0.85" />
-                  <text
-                    x="140"
-                    y="178"
-                    textAnchor="middle"
-                    fill="#0D1B2A"
-                    fontSize="13.5"
-                    fontFamily="inherit"
-                    fontWeight="500"
-                  >
+                  {/* ISLAND 2: Data (Top-Right: Concentric Schema Rings) */}
+                  <circle cx="275" cy="65" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.15" strokeWidth="1" strokeDasharray="2 2" />
+                  <circle cx="275" cy="65" r="15" fill="none" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1" />
+                  <circle cx="275" cy="65" r="6" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1" />
+                  <circle cx="275" cy="65" r="2" fill="#0D1B2A" fillOpacity="0.8" />
+                  <text x="275" y="106" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
                     Data
                   </text>
+                  {/* Local Intervention Arc */}
+                  <path d="M 249 79 A 34 34 0 0 0 301 89" fill="none" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.5" />
+                  <circle cx="301" cy="89" r="2" fill="#0D1B2A" fillOpacity="0.6" />
 
-                  <circle cx="240" cy="145" r="4.5" fill="#0D1B2A" fillOpacity="0.85" />
-                  <text
-                    x="240"
-                    y="178"
-                    textAnchor="middle"
-                    fill="#0D1B2A"
-                    fontSize="13.5"
-                    fontFamily="inherit"
-                    fontWeight="500"
-                  >
-                    Decisions
-                  </text>
-
-                  <circle cx="338" cy="145" r="4.5" fill="#0D1B2A" fillOpacity="0.85" />
-                  <text
-                    x="338"
-                    y="178"
-                    textAnchor="middle"
-                    fill="#0D1B2A"
-                    fontSize="13.5"
-                    fontFamily="inherit"
-                    fontWeight="500"
-                  >
+                  {/* ISLAND 3: Systems (Bottom-Left: Modular Architecture Block) */}
+                  <circle cx="75" cy="180" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.14" strokeWidth="1" strokeDasharray="6 3" />
+                  <rect x="67" y="172" width="16" height="16" rx="2" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <line x1="67" y1="180" x2="83" y2="180" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1" />
+                  <circle cx="75" cy="180" r="2" fill="#0D1B2A" fillOpacity="0.8" />
+                  <text x="75" y="221" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
                     Systems
                   </text>
+                  {/* Local Intervention Arc */}
+                  <path d="M 47 193 A 34 34 0 0 1 89 210" fill="none" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.5" />
+                  <circle cx="89" cy="210" r="2" fill="#0D1B2A" fillOpacity="0.6" />
 
-                  {/* 3 Flat Abstract Disconnected Additions sitting outside the flow */}
-                  {/* Addition 1: floating above Workflows */}
-                  <rect
-                    x="20"
-                    y="50"
-                    width="44"
-                    height="16"
-                    rx="2"
-                    fill="#D6DDD9"
-                    stroke="#0D1B2A"
-                    strokeOpacity="0.30"
-                    strokeWidth="1"
-                  />
-                  <line
-                    x1="42"
-                    y1="66"
-                    x2="42"
-                    y2="108"
-                    stroke="#0D1B2A"
-                    strokeOpacity="0.25"
-                    strokeWidth="1.2"
-                    strokeDasharray="2.5 2.5"
-                  />
-
-                  {/* Addition 2: floating between Data and Decisions */}
-                  <rect
-                    x="168"
-                    y="38"
-                    width="44"
-                    height="16"
-                    rx="2"
-                    fill="#D6DDD9"
-                    stroke="#0D1B2A"
-                    strokeOpacity="0.30"
-                    strokeWidth="1"
-                  />
-                  <line
-                    x1="190"
-                    y1="54"
-                    x2="190"
-                    y2="100"
-                    stroke="#0D1B2A"
-                    strokeOpacity="0.25"
-                    strokeWidth="1.2"
-                    strokeDasharray="2.5 2.5"
-                  />
-
-                  {/* Addition 3: floating above Systems */}
-                  <rect
-                    x="316"
-                    y="52"
-                    width="44"
-                    height="16"
-                    rx="2"
-                    fill="#D6DDD9"
-                    stroke="#0D1B2A"
-                    strokeOpacity="0.30"
-                    strokeWidth="1"
-                  />
-                  <line
-                    x1="338"
-                    y1="68"
-                    x2="338"
-                    y2="110"
-                    stroke="#0D1B2A"
-                    strokeOpacity="0.25"
-                    strokeWidth="1.2"
-                    strokeDasharray="2.5 2.5"
-                  />
+                  {/* ISLAND 4: Decisions (Bottom-Right: Logic Gate Diamond) */}
+                  <circle cx="275" cy="180" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.14" strokeWidth="1" />
+                  <polygon points="275,168 286,180 275,192 264,180" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <circle cx="275" cy="180" r="2" fill="#0D1B2A" fillOpacity="0.8" />
+                  <line x1="258" y1="180" x2="262" y2="180" stroke="#0D1B2A" strokeOpacity="0.3" strokeWidth="1" />
+                  <line x1="288" y1="180" x2="292" y2="180" stroke="#0D1B2A" strokeOpacity="0.3" strokeWidth="1" />
+                  <text x="275" y="221" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
+                    Decisions
+                  </text>
                 </svg>
 
-                {/* --- DESKTOP VISUAL (Compact horizontal screen-fit scale) --- */}
+                {/* --- DESKTOP VISUAL (440x230, compact horizontal screen-fit scale) --- */}
                 <svg
-                  viewBox="0 0 540 110"
-                  className="hidden lg:block w-full h-auto max-w-[540px] mx-auto overflow-visible select-none"
+                  viewBox="0 0 440 230"
+                  className="hidden lg:block w-full h-auto max-w-[440px] mx-auto overflow-visible select-none"
                   aria-hidden="true"
                 >
-                  <line
-                    x1="20"
-                    y1="75"
-                    x2="520"
-                    y2="75"
-                    stroke="#0D1B2A"
-                    strokeOpacity="0.22"
-                    strokeWidth="1.5"
-                  />
-
-                  <polygon points="120,72 126,75 120,78" fill="#0D1B2A" fillOpacity="0.25" />
-                  <polygon points="260,72 266,75 260,78" fill="#0D1B2A" fillOpacity="0.25" />
-                  <polygon points="400,72 406,75 400,78" fill="#0D1B2A" fillOpacity="0.25" />
-
-                  {/* 4 Process Nodes */}
-                  <circle cx="55" cy="75" r="3.5" fill="#0D1B2A" fillOpacity="0.8" />
-                  <text x="55" y="98" textAnchor="middle" fill="#0D1B2A" fontSize="12.5" fontFamily="inherit" fontWeight="500">
+                  {/* ISLAND 1: Workflows (Top-Left: Process Routing Rails) */}
+                  <circle cx="100" cy="60" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.13" strokeWidth="1" />
+                  <line x1="86" y1="56" x2="114" y2="56" stroke="#0D1B2A" strokeOpacity="0.30" strokeWidth="1" />
+                  <line x1="86" y1="64" x2="114" y2="64" stroke="#0D1B2A" strokeOpacity="0.30" strokeWidth="1" />
+                  <circle cx="92" cy="56" r="1.8" fill="#0D1B2A" fillOpacity="0.75" />
+                  <circle cx="108" cy="64" r="1.8" fill="#0D1B2A" fillOpacity="0.75" />
+                  <text x="100" y="100" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Workflows
                   </text>
+                  {/* Local intervention */}
+                  <path d="M 74 46 A 34 34 0 0 1 126 36" fill="none" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.5" />
+                  <circle cx="126" cy="36" r="2" fill="#0D1B2A" fillOpacity="0.6" />
 
-                  <circle cx="195" cy="75" r="3.5" fill="#0D1B2A" fillOpacity="0.8" />
-                  <text x="195" y="98" textAnchor="middle" fill="#0D1B2A" fontSize="12.5" fontFamily="inherit" fontWeight="500">
+                  {/* ISLAND 2: Data (Top-Right: Concentric Schema Rings) */}
+                  <circle cx="340" cy="60" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.15" strokeWidth="1" strokeDasharray="2 2" />
+                  <circle cx="340" cy="60" r="15" fill="none" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1" />
+                  <circle cx="340" cy="60" r="6" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.42" strokeWidth="1" />
+                  <circle cx="340" cy="60" r="2" fill="#0D1B2A" fillOpacity="0.75" />
+                  <text x="340" y="100" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Data
                   </text>
+                  {/* Local intervention */}
+                  <path d="M 314 74 A 34 34 0 0 0 366 84" fill="none" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.5" />
+                  <circle cx="366" cy="84" r="2" fill="#0D1B2A" fillOpacity="0.6" />
 
-                  <circle cx="335" cy="75" r="3.5" fill="#0D1B2A" fillOpacity="0.8" />
-                  <text x="335" y="98" textAnchor="middle" fill="#0D1B2A" fontSize="12.5" fontFamily="inherit" fontWeight="500">
-                    Decisions
-                  </text>
-
-                  <circle cx="475" cy="75" r="3.5" fill="#0D1B2A" fillOpacity="0.8" />
-                  <text x="475" y="98" textAnchor="middle" fill="#0D1B2A" fontSize="12.5" fontFamily="inherit" fontWeight="500">
+                  {/* ISLAND 3: Systems (Bottom-Left: Modular Architecture Block) */}
+                  <circle cx="100" cy="165" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.14" strokeWidth="1" strokeDasharray="6 3" />
+                  <rect x="93" y="158" width="14" height="14" rx="1.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.42" strokeWidth="1.2" />
+                  <line x1="93" y1="165" x2="107" y2="165" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1" />
+                  <circle cx="100" cy="165" r="2" fill="#0D1B2A" fillOpacity="0.75" />
+                  <text x="100" y="205" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Systems
                   </text>
+                  {/* Local intervention */}
+                  <path d="M 72 178 A 34 34 0 0 1 114 195" fill="none" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.5" />
+                  <circle cx="114" cy="195" r="2" fill="#0D1B2A" fillOpacity="0.6" />
 
-                  {/* Abstract Modules */}
-                  <rect x="37" y="22" width="36" height="12" rx="2" fill="#D6DDD9" stroke="#0D1B2A" strokeOpacity="0.28" strokeWidth="1" />
-                  <line x1="55" y1="34" x2="55" y2="56" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="2 2" />
-
-                  <rect x="249" y="16" width="36" height="12" rx="2" fill="#D6DDD9" stroke="#0D1B2A" strokeOpacity="0.28" strokeWidth="1" />
-                  <line x1="267" y1="28" x2="267" y2="50" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="2 2" />
-
-                  <rect x="457" y="24" width="36" height="12" rx="2" fill="#D6DDD9" stroke="#0D1B2A" strokeOpacity="0.28" strokeWidth="1" />
-                  <line x1="475" y1="36" x2="475" y2="58" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1.2" strokeDasharray="2 2" />
+                  {/* ISLAND 4: Decisions (Bottom-Right: Logic Gate Diamond) */}
+                  <circle cx="340" cy="165" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.14" strokeWidth="1" />
+                  <polygon points="340,154 349,165 340,176 331,165" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.42" strokeWidth="1.2" />
+                  <circle cx="340" cy="165" r="2" fill="#0D1B2A" fillOpacity="0.75" />
+                  <line x1="324" y1="165" x2="328" y2="165" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1" />
+                  <line x1="352" y1="165" x2="356" y2="165" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1" />
+                  <text x="340" y="205" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
+                    Decisions
+                  </text>
                 </svg>
+
               </div>
             </div>
 
             {/* ----------------------------------------------------------------- */}
-            {/* STATE 02: TRANSFORM THE BUSINESS WITH AI                          */}
+            {/* STATE 02: TRANSFORM THE BUSINESS WITH AI (OPERATING MODEL MATRIX)  */}
             {/* ----------------------------------------------------------------- */}
             <div className="pt-12 sm:pt-14 lg:py-4 pl-0 lg:pl-10 flex flex-col justify-between">
               <div>
@@ -277,162 +193,175 @@ export default function TheShiftSection() {
                 </p>
               </div>
 
-              {/* Visual Right: ONE Clean Continuous Operating Backbone */}
+              {/* Visual Right: 1 Shared Continuous System Field / Operating Model Matrix */}
               <div className="mt-6 sm:mt-8 lg:mt-4 w-full flex items-center justify-center">
-                {/* --- MOBILE VISUAL (220–260px high, dedicated viewport scale) --- */}
+                
+                {/* --- MOBILE VISUAL (350x250, dedicated stacked scale) --- */}
                 <svg
-                  viewBox="0 0 380 220"
+                  viewBox="0 0 350 250"
                   className="w-full h-[220px] min-[390px]:h-[240px] sm:h-[260px] lg:hidden overflow-visible select-none"
-                  aria-label="Transform the business with AI continuous operating backbone"
+                  aria-label="Transform the business with AI: Operating model uniting Workflows, Data, Decisions and Systems"
                 >
-                  {/* Clean Continuous Shared Backbone Rail (Dual-Track Precision Architecture) */}
-                  <line
-                    x1="20"
-                    y1="141"
-                    x2="360"
-                    y2="141"
+                  {/* Subtle Shared Operating Field Matrix (25% Lighter / Non-Dominant) */}
+                  <rect
+                    x="30"
+                    y="25"
+                    width="290"
+                    height="195"
+                    fill="none"
                     stroke="#0D1B2A"
-                    strokeOpacity="0.20"
+                    strokeOpacity="0.05"
                     strokeWidth="1"
                   />
-                  <line
-                    x1="20"
-                    y1="145"
-                    x2="360"
-                    y2="145"
-                    stroke="#D4A64A"
-                    strokeWidth="2"
-                  />
-                  <line
-                    x1="20"
-                    y1="149"
-                    x2="360"
-                    y2="149"
-                    stroke="#0D1B2A"
-                    strokeOpacity="0.20"
-                    strokeWidth="1"
-                  />
+                  {/* Delicate Corner Tick Markers */}
+                  <path d="M 26 25 L 30 25 L 30 21" fill="none" stroke="#0D1B2A" strokeOpacity="0.15" strokeWidth="1" />
+                  <path d="M 324 25 L 320 25 L 320 21" fill="none" stroke="#0D1B2A" strokeOpacity="0.15" strokeWidth="1" />
+                  <path d="M 26 220 L 30 220 L 30 224" fill="none" stroke="#0D1B2A" strokeOpacity="0.15" strokeWidth="1" />
+                  <path d="M 324 220 L 320 220 L 320 224" fill="none" stroke="#0D1B2A" strokeOpacity="0.15" strokeWidth="1" />
 
-                  {/* 4 Integrated Stations Connected Directly Into the Backbone */}
-                  {/* Station 1: Workflows */}
-                  <circle cx="42" cy="145" r="8" fill="#E8EDEB" stroke="#0D1B2A" strokeWidth="1.5" />
-                  <circle cx="42" cy="145" r="3.5" fill="#D4A64A" />
+                  {/* Faint Internal Coordinate Guides */}
+                  <line x1="30" y1="122.5" x2="320" y2="122.5" stroke="#0D1B2A" strokeOpacity="0.06" strokeWidth="1" />
+                  <line x1="175" y1="25" x2="175" y2="220" stroke="#0D1B2A" strokeOpacity="0.06" strokeWidth="1" />
+
+                  {/* Active Relationship Framework Linking All 4 Areas */}
+                  <line x1="75" y1="65" x2="275" y2="65" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1.2" />
+                  <line x1="275" y1="65" x2="275" y2="180" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1.2" />
+                  <line x1="275" y1="180" x2="75" y2="180" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1.2" />
+                  <line x1="75" y1="180" x2="75" y2="65" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1.2" />
+
+                  {/* Cross-Diagonal Interconnections Converging at the Nexus */}
+                  <line x1="75" y1="65" x2="275" y2="180" stroke="#0D1B2A" strokeOpacity="0.16" strokeWidth="1" />
+                  <line x1="75" y1="180" x2="275" y2="65" stroke="#0D1B2A" strokeOpacity="0.16" strokeWidth="1" />
+
+                  {/* Central Operating Model Brass Integration Nexus */}
+                  <circle cx="175" cy="122.5" r="9" fill="#E8EDEB" stroke="#D4A64A" strokeWidth="1.2" />
+                  <circle cx="175" cy="122.5" r="2.8" fill="#D4A64A" />
                   <text
-                    x="42"
-                    y="178"
+                    x="175"
+                    y="141"
                     textAnchor="middle"
                     fill="#0D1B2A"
-                    fontSize="13.5"
-                    fontFamily="inherit"
-                    fontWeight="500"
+                    fillOpacity="0.75"
+                    fontSize="9"
+                    fontFamily="monospace"
+                    letterSpacing="0.08em"
                   >
+                    OPERATING MODEL
+                  </text>
+
+                  {/* 4 Coordinated Stations */}
+                  {/* Workflows */}
+                  <circle cx="75" cy="65" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <circle cx="75" cy="65" r="2.5" fill="#D4A64A" />
+                  <text x="75" y="106" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
                     Workflows
                   </text>
 
-                  {/* Station 2: Data */}
-                  <circle cx="140" cy="145" r="8" fill="#E8EDEB" stroke="#0D1B2A" strokeWidth="1.5" />
-                  <circle cx="140" cy="145" r="3.5" fill="#D4A64A" />
-                  <text
-                    x="140"
-                    y="178"
-                    textAnchor="middle"
-                    fill="#0D1B2A"
-                    fontSize="13.5"
-                    fontFamily="inherit"
-                    fontWeight="500"
-                  >
+                  {/* Data */}
+                  <circle cx="275" cy="65" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <circle cx="275" cy="65" r="2.5" fill="#D4A64A" />
+                  <text x="275" y="106" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
                     Data
                   </text>
 
-                  {/* Station 3: Decisions */}
-                  <circle cx="240" cy="145" r="8" fill="#E8EDEB" stroke="#0D1B2A" strokeWidth="1.5" />
-                  <circle cx="240" cy="145" r="3.5" fill="#D4A64A" />
-                  <text
-                    x="240"
-                    y="178"
-                    textAnchor="middle"
-                    fill="#0D1B2A"
-                    fontSize="13.5"
-                    fontFamily="inherit"
-                    fontWeight="500"
-                  >
-                    Decisions
+                  {/* Systems */}
+                  <circle cx="75" cy="180" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <circle cx="75" cy="180" r="2.5" fill="#D4A64A" />
+                  <text x="75" y="221" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
+                    Systems
                   </text>
 
-                  {/* Station 4: Systems */}
-                  <circle cx="338" cy="145" r="8" fill="#E8EDEB" stroke="#0D1B2A" strokeWidth="1.5" />
-                  <circle cx="338" cy="145" r="3.5" fill="#D4A64A" />
-                  <text
-                    x="338"
-                    y="178"
-                    textAnchor="middle"
-                    fill="#0D1B2A"
-                    fontSize="13.5"
-                    fontFamily="inherit"
-                    fontWeight="500"
-                  >
-                    Systems
+                  {/* Decisions */}
+                  <circle cx="275" cy="180" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <circle cx="275" cy="180" r="2.5" fill="#D4A64A" />
+                  <text x="275" y="221" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
+                    Decisions
                   </text>
                 </svg>
 
-                {/* --- DESKTOP VISUAL (Compact horizontal screen-fit scale) --- */}
+                {/* --- DESKTOP VISUAL (440x230, compact horizontal screen-fit scale) --- */}
                 <svg
-                  viewBox="0 0 540 110"
-                  className="hidden lg:block w-full h-auto max-w-[540px] mx-auto overflow-visible select-none"
+                  viewBox="0 0 440 230"
+                  className="hidden lg:block w-full h-auto max-w-[440px] mx-auto overflow-visible select-none"
                   aria-hidden="true"
                 >
-                  <line
-                    x1="20"
-                    y1="72"
-                    x2="520"
-                    y2="72"
+                  {/* Subtle Shared Operating Field Matrix (25% Lighter / Non-Dominant) */}
+                  <rect
+                    x="50"
+                    y="20"
+                    width="340"
+                    height="190"
+                    fill="none"
                     stroke="#0D1B2A"
-                    strokeOpacity="0.20"
+                    strokeOpacity="0.05"
                     strokeWidth="1"
                   />
-                  <line
-                    x1="20"
-                    y1="75"
-                    x2="520"
-                    y2="75"
-                    stroke="#D4A64A"
-                    strokeWidth="1.5"
-                  />
-                  <line
-                    x1="20"
-                    y1="78"
-                    x2="520"
-                    y2="78"
-                    stroke="#0D1B2A"
-                    strokeOpacity="0.20"
-                    strokeWidth="1"
-                  />
+                  {/* Delicate Corner Tick Markers */}
+                  <path d="M 46 20 L 50 20 L 50 16" fill="none" stroke="#0D1B2A" strokeOpacity="0.14" strokeWidth="1" />
+                  <path d="M 394 20 L 390 20 L 390 16" fill="none" stroke="#0D1B2A" strokeOpacity="0.14" strokeWidth="1" />
+                  <path d="M 46 210 L 50 210 L 50 214" fill="none" stroke="#0D1B2A" strokeOpacity="0.14" strokeWidth="1" />
+                  <path d="M 394 210 L 390 210 L 390 214" fill="none" stroke="#0D1B2A" strokeOpacity="0.14" strokeWidth="1" />
 
-                  {/* 4 Integrated Stations */}
-                  <circle cx="55" cy="75" r="6" fill="#E8EDEB" stroke="#0D1B2A" strokeWidth="1.5" />
-                  <circle cx="55" cy="75" r="2.5" fill="#D4A64A" />
-                  <text x="55" y="98" textAnchor="middle" fill="#0D1B2A" fontSize="12.5" fontFamily="inherit" fontWeight="500">
+                  {/* Faint Internal Coordinate Guides */}
+                  <line x1="50" y1="115" x2="390" y2="115" stroke="#0D1B2A" strokeOpacity="0.06" strokeWidth="1" />
+                  <line x1="220" y1="20" x2="220" y2="210" stroke="#0D1B2A" strokeOpacity="0.06" strokeWidth="1" />
+
+                  {/* Active Relationship Framework Linking All 4 Areas */}
+                  <line x1="100" y1="60" x2="340" y2="60" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1.2" />
+                  <line x1="340" y1="60" x2="340" y2="165" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1.2" />
+                  <line x1="340" y1="165" x2="100" y2="165" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1.2" />
+                  <line x1="100" y1="165" x2="100" y2="60" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1.2" />
+
+                  {/* Cross-Diagonal Interconnections Converging at the Nexus */}
+                  <line x1="100" y1="60" x2="340" y2="165" stroke="#0D1B2A" strokeOpacity="0.16" strokeWidth="1" />
+                  <line x1="100" y1="165" x2="340" y2="60" stroke="#0D1B2A" strokeOpacity="0.16" strokeWidth="1" />
+
+                  {/* Central Operating Model Brass Integration Nexus */}
+                  <circle cx="220" cy="115" r="9" fill="#E8EDEB" stroke="#D4A64A" strokeWidth="1.2" />
+                  <circle cx="220" cy="115" r="2.8" fill="#D4A64A" />
+                  <text
+                    x="220"
+                    y="134"
+                    textAnchor="middle"
+                    fill="#0D1B2A"
+                    fillOpacity="0.75"
+                    fontSize="8.5"
+                    fontFamily="monospace"
+                    letterSpacing="0.08em"
+                  >
+                    OPERATING MODEL
+                  </text>
+
+                  {/* 4 Coordinated Stations */}
+                  {/* Workflows */}
+                  <circle cx="100" cy="60" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
+                  <circle cx="100" cy="60" r="2.5" fill="#D4A64A" />
+                  <text x="100" y="100" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Workflows
                   </text>
 
-                  <circle cx="195" cy="75" r="6" fill="#E8EDEB" stroke="#0D1B2A" strokeWidth="1.5" />
-                  <circle cx="195" cy="75" r="2.5" fill="#D4A64A" />
-                  <text x="195" y="98" textAnchor="middle" fill="#0D1B2A" fontSize="12.5" fontFamily="inherit" fontWeight="500">
+                  {/* Data */}
+                  <circle cx="340" cy="60" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
+                  <circle cx="340" cy="60" r="2.5" fill="#D4A64A" />
+                  <text x="340" y="100" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Data
                   </text>
 
-                  <circle cx="335" cy="75" r="6" fill="#E8EDEB" stroke="#0D1B2A" strokeWidth="1.5" />
-                  <circle cx="335" cy="75" r="2.5" fill="#D4A64A" />
-                  <text x="335" y="98" textAnchor="middle" fill="#0D1B2A" fontSize="12.5" fontFamily="inherit" fontWeight="500">
-                    Decisions
-                  </text>
-
-                  <circle cx="475" cy="75" r="6" fill="#E8EDEB" stroke="#0D1B2A" strokeWidth="1.5" />
-                  <circle cx="475" cy="75" r="2.5" fill="#D4A64A" />
-                  <text x="475" y="98" textAnchor="middle" fill="#0D1B2A" fontSize="12.5" fontFamily="inherit" fontWeight="500">
+                  {/* Systems */}
+                  <circle cx="100" cy="165" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
+                  <circle cx="100" cy="165" r="2.5" fill="#D4A64A" />
+                  <text x="100" y="205" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Systems
                   </text>
+
+                  {/* Decisions */}
+                  <circle cx="340" cy="165" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
+                  <circle cx="340" cy="165" r="2.5" fill="#D4A64A" />
+                  <text x="340" y="205" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
+                    Decisions
+                  </text>
                 </svg>
+
               </div>
             </div>
 
