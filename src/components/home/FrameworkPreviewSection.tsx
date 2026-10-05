@@ -3,162 +3,254 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { homepageData } from "@/data/homepage";
-import { ArrowUpRight, RotateCw } from "lucide-react";
-import { motion } from "motion/react";
-import { cn } from "@/lib/utils";
+
+/**
+ * Aiveeno — Section 05: FRAMEWORK PREVIEW
+ * 
+ * Based directly on client brief & locked homepage sequence:
+ * - Eyebrow: "OUR FRAMEWORK"
+ * - Headline: "From opportunity to transformation."
+ * - High-level methodology visual (not detailed process)
+ * - 7 client-approved stages from the flagship framework:
+ *   Discovery → Assessment → Prioritization → Solution Design → Build → Adoption → Optimization
+ * - Connected horizontal lifecycle / system diagram, text minimal
+ * - CTA: "Explore Our Framework" — no arrow
+ * - Single font system: 100% Instrument Sans
+ */
+
+interface FrameworkStage {
+  number: string;
+  name: string;
+  summary: string;
+}
+
+const FRAMEWORK_STAGES: FrameworkStage[] = [
+  {
+    number: "01",
+    name: "Discovery",
+    summary: "Context & operational goals",
+  },
+  {
+    number: "02",
+    name: "Assessment",
+    summary: "Workflows, systems & data",
+  },
+  {
+    number: "03",
+    name: "Prioritization",
+    summary: "Value vs. feasibility",
+  },
+  {
+    number: "04",
+    name: "Solution Design",
+    summary: "Architecture & operating model",
+  },
+  {
+    number: "05",
+    name: "Build",
+    summary: "Engineering & integration",
+  },
+  {
+    number: "06",
+    name: "Adoption",
+    summary: "People, workflows & training",
+  },
+  {
+    number: "07",
+    name: "Optimization",
+    summary: "Continuous scale & leverage",
+  },
+];
 
 export default function FrameworkPreviewSection() {
-  const { frameworkPreview } = homepageData;
   const [activeStage, setActiveStage] = useState<number>(0);
 
   return (
-    <section id="framework-preview" className="relative w-full bg-[#F5F7F6] text-[#0D1117] border-b border-[#D9DDDA] py-20 sm:py-28 select-none overflow-hidden">
+    <section
+      id="framework-preview"
+      className="relative w-full bg-[#FFFFFF] text-[#0D1B2A] select-none pt-8 pb-16 sm:pt-10 sm:pb-20 lg:pt-12 lg:pb-24 scroll-mt-[76px] overflow-hidden border-b border-[#0D1B2A]/[0.08]"
+    >
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
-          {/* ================================================================= */}
-          {/* LEFT COLUMN: Sticky Section Heading & Lifecycle Principle         */}
-          {/* ================================================================= */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
-            <motion.div 
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="space-y-4"
-            >
-              <div className="inline-flex items-center gap-2 text-[11.5px] font-mono tracking-[0.16em] uppercase text-[#6F7479]">
-                <span className="w-3.5 h-px bg-[#D4A64A]" />
-                <span>Framework Preview</span>
-              </div>
+        
+        {/* ========================================================================= */}
+        {/* 01 — SECTION HEADER                                                       */}
+        {/* ========================================================================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-[58%_42%] lg:gap-12 items-end justify-between">
+          <div>
+            {/* Eyebrow: OUR FRAMEWORK */}
+            <div className="inline-flex items-center gap-2 text-[11px] sm:text-[11.5px] font-sans font-medium uppercase tracking-[0.12em] text-[#3B4A5A]">
+              <span className="w-3.5 h-px bg-[#D4A64A]" />
+              <span>Our Framework</span>
+            </div>
 
-              <h2 className="text-3xl sm:text-5xl font-sans font-medium tracking-tight text-[#0D1117] leading-[1.08]">
-                {frameworkPreview.title}
-              </h2>
-
-              <p className="text-[15px] sm:text-base text-[#6F7479] leading-relaxed font-normal">
-                {frameworkPreview.subtitle}
-              </p>
-
-              <div className="pt-2">
-                <Link
-                  href={frameworkPreview.cta.href}
-                  className="group inline-flex items-center text-[13.5px] font-mono font-medium text-[#0D1117] hover:text-[#D4A64A] transition-colors"
-                >
-                  <span>{frameworkPreview.cta.label}</span>
-                </Link>
-              </div>
-
-              {/* Connected Lifecycle Feedback Loop Cue */}
-              <div className="mt-8 pt-6 border-t border-[#D9DDDA] rounded-[4px] bg-[#FFFFFF] p-5 border space-y-2 shadow-xs">
-                <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-[#0D1117]">
-                  <RotateCw className="h-3.5 w-3.5 text-[#D4A64A]" />
-                  <span>Iterative Lifecycle Loop</span>
-                </div>
-                <p className="text-[12.5px] text-[#6F7479] leading-relaxed">
-                  Stage 06 (Continuous Refinement) directly triggers Stage 01 feedback loops. Transformation is an ongoing organizational capability, not a one-time project.
-                </p>
-              </div>
-            </motion.div>
+            {/* Headline */}
+            <h2 className="mt-5 sm:mt-6 font-sans font-medium text-[34px] min-[390px]:text-[38px] sm:text-[44px] lg:text-[48px] xl:text-[52px] text-[#0D1B2A] tracking-[-0.035em] leading-[1.02] lg:leading-[1.04]">
+              From opportunity to transformation.
+            </h2>
           </div>
 
-          {/* ================================================================= */}
-          {/* RIGHT COLUMN: Connected Process Lifecycle Progression              */}
-          {/* ================================================================= */}
-          <div className="lg:col-span-7 relative">
+          {/* Supporting Copy */}
+          <div className="mt-4 lg:mt-0 flex flex-col justify-end">
+            <p className="text-[15.5px] sm:text-[16.5px] lg:text-[17px] text-[#3B4A5A] leading-[1.52] font-normal max-w-[480px]">
+              A disciplined, phased methodology designed to move from business reality to reliable production systems that stick.
+            </p>
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* 02 — CONNECTED HORIZONTAL LIFECYCLE / SYSTEM DIAGRAM (7 Stages)           */}
+        {/* ========================================================================= */}
+        <div className="mt-10 sm:mt-12 lg:mt-14">
+          
+          {/* Desktop & Tablet: Connected 7-Stage Horizontal Pipeline */}
+          <div className="hidden md:block relative bg-[#F5F7F6] border border-[#0D1B2A]/[0.08] rounded-[4px] p-6 lg:p-8 overflow-hidden">
             
-            {/* Continuous Vertical Connecting Spine Line */}
-            <div className="absolute left-[15px] top-6 bottom-16 w-px bg-[#D9DDDA]" />
+            {/* Continuous Horizontal Structural Rail */}
+            <div className="absolute top-[48px] left-[6%] right-[6%] h-[2px] bg-[#0D1B2A]/[0.10] z-0" />
+            
+            {/* Active Stage Rail Highlight */}
+            <div
+              className="absolute top-[48px] left-[6%] h-[2px] bg-[#D4A64A] transition-all duration-300 ease-out z-0"
+              style={{
+                width: `${(activeStage / (FRAMEWORK_STAGES.length - 1)) * 88}%`,
+              }}
+            />
 
-            <div className="space-y-6">
-              {frameworkPreview.stages.map((stage, idx) => {
-                const isSelected = activeStage === idx;
+            {/* 7 Horizontal Stations */}
+            <div className="relative z-10 grid grid-cols-7 gap-2 lg:gap-3 items-start">
+              {FRAMEWORK_STAGES.map((stage, idx) => {
+                const isActive = activeStage === idx;
+                const isPassed = activeStage > idx;
+
                 return (
-                  <motion.div
-                    key={stage.stageNumber}
-                    initial={{ opacity: 0.5, y: 16 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, amount: 0.35 }}
+                  <button
+                    key={stage.number}
+                    type="button"
+                    onClick={() => setActiveStage(idx)}
                     onMouseEnter={() => setActiveStage(idx)}
-                    transition={{ duration: 0.5, delay: idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
-                    className={cn(
-                      "relative pl-10 sm:pl-12 pr-6 py-6 rounded-[4px] border transition-all duration-[240ms] ease-out cursor-pointer",
-                      isSelected 
-                        ? "bg-[#FFFFFF] border-[#D4A64A] shadow-md" 
-                        : "bg-[#FFFFFF]/80 border-[#D9DDDA] hover:border-[#6F7479] hover:bg-[#FFFFFF]"
-                    )}
+                    className="group relative flex flex-col items-center text-center cursor-pointer transition-all duration-200 focus:outline-none"
+                    aria-label={`Framework Stage ${stage.number}: ${stage.name}`}
                   >
-                    {/* Node Dot on the continuous vertical spine */}
-                    <div className="absolute left-[11px] top-7 flex items-center justify-center">
-                      <span 
-                        className={cn(
-                          "h-[9px] w-[9px] rounded-full transition-all duration-200",
-                          isSelected 
-                            ? "bg-[#D4A64A] scale-125 shadow-xs" 
-                            : "bg-[#F5F7F6] border border-[#6F7479]"
-                        )} 
-                      />
-                    </div>
-
-                    {/* Top Row: Stage Tag & Principle */}
-                    <div className="flex flex-wrap items-baseline justify-between gap-2 pb-3 border-b border-[#D9DDDA]">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-[12px] font-medium text-[#0D1117]">
-                          STAGE // {stage.stageNumber}
-                        </span>
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-[#6F7479] bg-[#F5F7F6] border border-[#D9DDDA] px-2 py-0.5 rounded-[2px]">
-                          LIFECYCLE GATE
+                    {/* Node Dot / Status Anchor */}
+                    <div className="relative flex items-center justify-center w-10 h-10 mb-4">
+                      {/* Pulse halo for active station */}
+                      {isActive && (
+                        <span className="absolute inset-0 rounded-full bg-[#D4A64A]/20 animate-ping opacity-60" />
+                      )}
+                      
+                      <div
+                        className={`w-7 h-7 rounded-full flex items-center justify-center transition-all duration-200 border ${
+                          isActive
+                            ? "bg-[#0D1B2A] border-[#D4A64A] shadow-xs"
+                            : isPassed
+                            ? "bg-[#FFFFFF] border-[#D4A64A]"
+                            : "bg-[#FFFFFF] border-[#0D1B2A]/20 group-hover:border-[#0D1B2A]/50"
+                        }`}
+                      >
+                        <span
+                          className={`text-[10px] font-sans font-medium ${
+                            isActive
+                              ? "text-[#D4A64A]"
+                              : isPassed
+                              ? "text-[#D4A64A]"
+                              : "text-[#3B4A5A]"
+                          }`}
+                        >
+                          {stage.number}
                         </span>
                       </div>
-                      <span className="text-[11.5px] font-mono text-[#6F7479]">
-                        {stage.advancement}
-                      </span>
                     </div>
 
-                    {/* Stage Title */}
-                    <h3 className="text-xl sm:text-2xl font-sans font-medium sm:font-semibold text-[#0D1117] tracking-tight mt-3">
-                      {stage.title}
-                    </h3>
+                    {/* Stage Name */}
+                    <div
+                      className={`text-[13px] lg:text-[14px] font-sans font-medium transition-colors duration-200 leading-snug ${
+                        isActive ? "text-[#0D1B2A]" : "text-[#0D1B2A]/75 group-hover:text-[#0D1B2A]"
+                      }`}
+                    >
+                      {stage.name}
+                    </div>
 
-                    {/* Principle */}
-                    <p className="text-[13px] text-[#6F7479] font-mono mt-1">
-                      {stage.principle}
+                    {/* Minimal 1-line summary */}
+                    <p className="mt-1 text-[11px] lg:text-[11.5px] font-sans text-[#3B4A5A] leading-tight line-clamp-2 max-w-[120px]">
+                      {stage.summary}
                     </p>
-
-                    {/* What Happens & What is Produced */}
-                    <div className="mt-4 pt-3 border-t border-[#D9DDDA] grid grid-cols-1 md:grid-cols-2 gap-4 text-[13px]">
-                      <div>
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#6F7479] block">
-                          Execution:
-                        </span>
-                        <p className="text-[#555B61] mt-0.5 leading-relaxed">
-                          {stage.whatHappens}
-                        </p>
-                      </div>
-                      <div>
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#6F7479] block">
-                          Deliverable:
-                        </span>
-                        <p className="text-[#0D1117] font-medium mt-0.5 leading-relaxed">
-                          {stage.whatIsProduced}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
+                  </button>
                 );
               })}
             </div>
 
-            {/* End Continuous Loop Line cue */}
-            <div className="mt-6 pl-10 flex items-center gap-3 text-[12px] font-mono text-[#6F7479]">
-              <div className="h-px w-8 bg-[#D9DDDA]" />
-              <span>CONTINUOUS CYCLE: ITERATION & EXPANSION PHASE</span>
+            {/* Continuous Iteration Loop Indicator Bar */}
+            <div className="mt-8 pt-5 border-t border-[#0D1B2A]/[0.06] flex items-center justify-between text-[11px] font-sans font-medium text-[#3B4A5A]/80">
+              <div className="inline-flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#D4A64A]" />
+                <span>Continuous Iterative Optimization Loop</span>
+              </div>
+              <span className="text-[#3B4A5A]/60">
+                Stage 07 feeds ongoing Discovery for scalable enterprise leverage
+              </span>
             </div>
 
           </div>
 
+          {/* Mobile: Clean Vertical Pipeline */}
+          <div className="md:hidden relative bg-[#F5F7F6] border border-[#0D1B2A]/[0.08] rounded-[4px] p-5">
+            <div className="relative pl-6 space-y-5">
+              {/* Vertical connector spine */}
+              <div className="absolute left-[11px] top-3 bottom-3 w-px bg-[#0D1B2A]/[0.15]" />
+
+              {FRAMEWORK_STAGES.map((stage, idx) => {
+                const isActive = activeStage === idx;
+                return (
+                  <button
+                    key={`mob-${stage.number}`}
+                    type="button"
+                    onClick={() => setActiveStage(idx)}
+                    className="relative flex items-start gap-3.5 text-left w-full cursor-pointer focus:outline-none"
+                  >
+                    {/* Node Dot */}
+                    <div
+                      className={`absolute -left-6 top-1 w-5 h-5 rounded-full flex items-center justify-center border text-[9.5px] font-sans font-medium ${
+                        isActive
+                          ? "bg-[#0D1B2A] border-[#D4A64A] text-[#D4A64A]"
+                          : "bg-[#FFFFFF] border-[#0D1B2A]/20 text-[#3B4A5A]"
+                      }`}
+                    >
+                      {stage.number}
+                    </div>
+
+                    {/* Content */}
+                    <div>
+                      <div
+                        className={`text-[14px] font-sans font-medium ${
+                          isActive ? "text-[#0D1B2A]" : "text-[#0D1B2A]/80"
+                        }`}
+                      >
+                        {stage.name}
+                      </div>
+                      <p className="text-[12px] font-sans text-[#3B4A5A] mt-0.5">
+                        {stage.summary}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ================================================================= */}
+          {/* 03 — CTA: Explore Our Framework (Strictly NO ARROW)               */}
+          {/* ========================================================================= */}
+          <div className="mt-8 sm:mt-10 flex items-center justify-start">
+            <Link
+              href="/framework"
+              className="inline-flex items-center justify-center px-6 py-3.5 rounded-[3px] bg-[#0D1B2A] text-[#FFFFFF] text-[13.5px] sm:text-[14px] font-sans font-medium tracking-[0.02em] hover:bg-[#1A2E44] transition-colors shadow-xs"
+            >
+              Explore Our Framework
+            </Link>
+          </div>
+
         </div>
+
       </Container>
     </section>
   );

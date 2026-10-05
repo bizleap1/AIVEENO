@@ -22,7 +22,7 @@ export default function ApproachSection() {
   return (
     <section
       id="approach"
-      className="relative w-full bg-[#F5F7F6] text-[#0D1B2A] select-none pt-8 pb-12 sm:pt-10 sm:pb-14 lg:pt-11 lg:pb-16 xl:pt-12 xl:pb-18 overflow-hidden scroll-mt-[76px]"
+      className="relative w-full bg-[#F5F7F6] text-[#0D1B2A] select-none pt-8 pb-5 sm:pt-10 sm:pb-6 lg:pt-11 lg:pb-7 xl:pt-12 xl:pb-8 overflow-hidden scroll-mt-[76px]"
     >
       <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
         
