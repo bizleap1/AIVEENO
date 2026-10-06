@@ -27,7 +27,7 @@ export default function TheShiftSection() {
   return (
     <section
       id="the-shift"
-      className="relative w-full bg-[#E8EDEB] text-[#0D1B2A] select-none pt-8 pb-5 sm:pt-10 sm:pb-6 lg:pt-11 lg:pb-4 xl:pt-12 xl:pb-4 border-b border-[#0D1B2A]/[0.10] overflow-hidden scroll-mt-[76px]"
+      className="relative w-full bg-[#EEF1F0] text-[#0D1B2A] select-none pt-8 pb-5 sm:pt-10 sm:pb-6 lg:pt-11 lg:pb-4 xl:pt-12 xl:pb-4 border-b border-[#0D1B2A]/[0.10] overflow-hidden scroll-mt-[76px]"
     >
       <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
         
@@ -36,14 +36,14 @@ export default function TheShiftSection() {
         {/* ========================================================================= */}
         <div className="max-w-[840px]">
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 text-[11px] sm:text-[11.5px] font-sans font-medium uppercase tracking-[0.12em] text-[#3B4A5A]">
-            <span className="w-3.5 h-px bg-[#D4A64A]" />
+          <div className="inline-flex items-center gap-[9px] lg:gap-[11px] text-[12px] lg:text-[14px] font-sans font-semibold uppercase tracking-[0.10em] lg:tracking-[0.11em] leading-none text-[#2A2A28] mb-[18px] sm:mb-[20px] lg:mb-[24px]">
+            <span className="w-[11px] lg:w-[14px] h-[1.5px] bg-[#C9A35B] shrink-0" aria-hidden="true" />
             <span>The Shift</span>
           </div>
 
           {/* Main Headline */}
           <h2
-            className="mt-6 sm:mt-7 font-sans font-medium text-[#0D1B2A] tracking-[-0.035em] !text-[34px] sm:!text-[40px] lg:!text-[45px] xl:!text-[48px]"
+            className="font-sans font-medium text-[#0D1B2A] tracking-[-0.035em] !text-[34px] sm:!text-[40px] lg:!text-[45px] xl:!text-[48px]"
             style={{ fontSize: "clamp(34px, 3.2vw, 46px)", lineHeight: "1.04" }}
           >
             Adopting AI is not the same as transforming with AI.
@@ -97,7 +97,7 @@ export default function TheShiftSection() {
                   {/* ISLAND 2: Data (Top-Right: Balanced Concentric Schema Rings) */}
                   <circle cx="275" cy="60" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.13" strokeWidth="1" />
                   <circle cx="275" cy="60" r="14" fill="none" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1" />
-                  <circle cx="275" cy="60" r="5.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <circle cx="275" cy="60" r="5.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
                   <circle cx="275" cy="60" r="2" fill="#0D1B2A" fillOpacity="0.8" />
                   <text x="275" y="99" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
                     Data
@@ -108,7 +108,7 @@ export default function TheShiftSection() {
 
                   {/* ISLAND 3: Systems (Bottom-Left: Modular Architecture Block) */}
                   <circle cx="75" cy="165" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.13" strokeWidth="1" />
-                  <rect x="67" y="157" width="16" height="16" rx="2" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <rect x="67" y="157" width="16" height="16" rx="2" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
                   <line x1="67" y1="165" x2="83" y2="165" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1.2" />
                   <circle cx="75" cy="165" r="2" fill="#0D1B2A" fillOpacity="0.8" />
                   <text x="75" y="204" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
@@ -120,7 +120,7 @@ export default function TheShiftSection() {
 
                   {/* ISLAND 4: Decisions (Bottom-Right: Logic Gate Diamond) */}
                   <circle cx="275" cy="165" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.13" strokeWidth="1" />
-                  <polygon points="275,153 286,165 275,177 264,165" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <polygon points="275,153 286,165 275,177 264,165" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
                   <circle cx="275" cy="165" r="2" fill="#0D1B2A" fillOpacity="0.8" />
                   <line x1="258" y1="165" x2="262" y2="165" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1" />
                   <line x1="288" y1="165" x2="292" y2="165" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1" />
@@ -151,7 +151,7 @@ export default function TheShiftSection() {
                   {/* ISLAND 2: Data (Top-Right: 340, 48) */}
                   <circle cx="340" cy="48" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.13" strokeWidth="1" />
                   <circle cx="340" cy="48" r="14" fill="none" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1" />
-                  <circle cx="340" cy="48" r="5.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.42" strokeWidth="1.2" />
+                  <circle cx="340" cy="48" r="5.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.42" strokeWidth="1.2" />
                   <circle cx="340" cy="48" r="2" fill="#0D1B2A" fillOpacity="0.75" />
                   <text x="340" y="85" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Data
@@ -162,7 +162,7 @@ export default function TheShiftSection() {
 
                   {/* ISLAND 3: Systems (Bottom-Left: 100, 145) */}
                   <circle cx="100" cy="145" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.13" strokeWidth="1" />
-                  <rect x="93" y="138" width="14" height="14" rx="1.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.42" strokeWidth="1.2" />
+                  <rect x="93" y="138" width="14" height="14" rx="1.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.42" strokeWidth="1.2" />
                   <line x1="93" y1="145" x2="107" y2="145" stroke="#0D1B2A" strokeOpacity="0.22" strokeWidth="1.2" />
                   <circle cx="100" cy="145" r="2" fill="#0D1B2A" fillOpacity="0.75" />
                   <text x="100" y="182" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
@@ -174,7 +174,7 @@ export default function TheShiftSection() {
 
                   {/* ISLAND 4: Decisions (Bottom-Right: 340, 145) */}
                   <circle cx="340" cy="145" r="28" fill="none" stroke="#0D1B2A" strokeOpacity="0.13" strokeWidth="1" />
-                  <polygon points="340,134 349,145 340,156 331,145" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.42" strokeWidth="1.2" />
+                  <polygon points="340,134 349,145 340,156 331,145" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.42" strokeWidth="1.2" />
                   <circle cx="340" cy="145" r="2" fill="#0D1B2A" fillOpacity="0.75" />
                   <line x1="324" y1="145" x2="328" y2="145" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1" />
                   <line x1="352" y1="145" x2="356" y2="145" stroke="#0D1B2A" strokeOpacity="0.25" strokeWidth="1" />
@@ -243,7 +243,7 @@ export default function TheShiftSection() {
                   <line x1="75" y1="165" x2="275" y2="60" stroke="#0D1B2A" strokeOpacity="0.16" strokeWidth="1" />
 
                   {/* Central Operating Model Brass Integration Nexus */}
-                  <circle cx="175" cy="112.5" r="9" fill="#E8EDEB" stroke="#D4A64A" strokeWidth="1.2" />
+                  <circle cx="175" cy="112.5" r="9" fill="#EEF1F0" stroke="#D4A64A" strokeWidth="1.2" />
                   <circle cx="175" cy="112.5" r="2.8" fill="#D4A64A" />
                   <text
                     x="175"
@@ -261,28 +261,28 @@ export default function TheShiftSection() {
 
                   {/* 4 Coordinated Stations */}
                   {/* Workflows */}
-                  <circle cx="75" cy="60" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <circle cx="75" cy="60" r="8.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
                   <circle cx="75" cy="60" r="2.5" fill="#D4A64A" />
                   <text x="75" y="99" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
                     Workflows
                   </text>
 
                   {/* Data */}
-                  <circle cx="275" cy="60" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <circle cx="275" cy="60" r="8.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
                   <circle cx="275" cy="60" r="2.5" fill="#D4A64A" />
                   <text x="275" y="99" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
                     Data
                   </text>
 
                   {/* Systems */}
-                  <circle cx="75" cy="165" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <circle cx="75" cy="165" r="8.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
                   <circle cx="75" cy="165" r="2.5" fill="#D4A64A" />
                   <text x="75" y="204" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
                     Systems
                   </text>
 
                   {/* Decisions */}
-                  <circle cx="275" cy="165" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
+                  <circle cx="275" cy="165" r="8.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.45" strokeWidth="1.2" />
                   <circle cx="275" cy="165" r="2.5" fill="#D4A64A" />
                   <text x="275" y="204" textAnchor="middle" fill="#0D1B2A" fontSize="13" fontFamily="inherit" fontWeight="500">
                     Decisions
@@ -327,7 +327,7 @@ export default function TheShiftSection() {
                   <line x1="100" y1="145" x2="340" y2="48" stroke="#0D1B2A" strokeOpacity="0.16" strokeWidth="1" />
 
                   {/* Central Operating Model Brass Integration Nexus */}
-                  <circle cx="220" cy="96.5" r="9" fill="#E8EDEB" stroke="#D4A64A" strokeWidth="1.2" />
+                  <circle cx="220" cy="96.5" r="9" fill="#EEF1F0" stroke="#D4A64A" strokeWidth="1.2" />
                   <circle cx="220" cy="96.5" r="2.8" fill="#D4A64A" />
                   <text
                     x="220"
@@ -345,28 +345,28 @@ export default function TheShiftSection() {
 
                   {/* 4 Coordinated Stations */}
                   {/* Workflows */}
-                  <circle cx="100" cy="48" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
+                  <circle cx="100" cy="48" r="8.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
                   <circle cx="100" cy="48" r="2.5" fill="#D4A64A" />
                   <text x="100" y="85" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Workflows
                   </text>
 
                   {/* Data */}
-                  <circle cx="340" cy="48" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
+                  <circle cx="340" cy="48" r="8.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
                   <circle cx="340" cy="48" r="2.5" fill="#D4A64A" />
                   <text x="340" y="85" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Data
                   </text>
 
                   {/* Systems */}
-                  <circle cx="100" cy="145" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
+                  <circle cx="100" cy="145" r="8.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
                   <circle cx="100" cy="145" r="2.5" fill="#D4A64A" />
                   <text x="100" y="182" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Systems
                   </text>
 
                   {/* Decisions */}
-                  <circle cx="340" cy="145" r="8.5" fill="#E8EDEB" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
+                  <circle cx="340" cy="145" r="8.5" fill="#EEF1F0" stroke="#0D1B2A" strokeOpacity="0.40" strokeWidth="1.2" />
                   <circle cx="340" cy="145" r="2.5" fill="#D4A64A" />
                   <text x="340" y="182" textAnchor="middle" fill="#0D1B2A" fontSize="12" fontFamily="inherit" fontWeight="500">
                     Decisions

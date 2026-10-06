@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/Logo";
 import { navigationData } from "@/data/navigation";
-import { ChevronDown, ArrowRight, Menu, X, ArrowUpRight } from "lucide-react";
+import { ChevronDown, ArrowRight, Menu, X, ArrowUpRight, Plus, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface NavbarProps {
@@ -13,12 +14,27 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
+  const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<"ai" | "cloud" | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<"ai" | "cloud" | null>(null);
   const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +49,18 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
     setMobileMenuOpen(false);
     setMobileExpanded(null);
   }, [pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   const handleMouseEnter = (menu: "ai" | "cloud") => {
     if (menuTimeoutRef.current) {
@@ -70,24 +98,26 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
   const isContactActive = pathname === "/contact";
 
   return (
-    <header
+    <>
+      <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-out",
+        "fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1.5",
         scrolled
           ? "bg-[#F5F7F6]/92 backdrop-blur-[16px] border-b border-[#D9DDDA]/30 shadow-[0_1px_2px_rgba(13,17,23,0.015)]"
-          : "bg-transparent border-b border-transparent"
+          : "bg-[#F5F7F6]/95 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border-b border-[#0D1B2A]/[0.06] lg:border-transparent"
       )}
     >
       <div
         className={cn(
           "flex items-center transition-all duration-300 ease-out",
-          scrolled ? "h-[64px]" : "h-[64px] lg:h-[74px]"
+          scrolled ? "h-[58px]" : "h-[62px] lg:h-[66px]"
         )}
       >
-        <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
+        <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
           <div className="flex items-center justify-between">
             {/* LEFT SECTION: AI Transformation | Cloud & Technology (Aligned towards Logo) */}
-            <nav className="hidden lg:flex items-center justify-end gap-6 xl:gap-8 flex-1 pr-6 xl:pr-8">
+            <nav className="hidden lg:flex items-center justify-end gap-7 xl:gap-8 flex-1 pr-7 xl:pr-9">
               
               {/* 1. AI Transformation (Dropdown) */}
               <div
@@ -102,7 +132,7 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                     "group flex items-center gap-1.5 py-1 text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors cursor-pointer focus:outline-none",
                     isAiActive || activeMenu === "ai"
                       ? "text-[#0D1B2A] font-medium"
-                      : "text-[#6F7479] hover:text-[#0D1B2A] font-normal"
+                      : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal"
                   )}
                   aria-expanded={activeMenu === "ai"}
                 >
@@ -110,14 +140,14 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                     AI Transformation
                     {isAiActive && (
                       <span
-                        className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]"
+                        className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#C9A35B]/85"
                         aria-hidden="true"
                       />
                     )}
                   </span>
                   <ChevronDown
                     className={cn(
-                      "w-3 h-3 transition-transform duration-200 text-[#6F7479]/80 group-hover:text-[#0D1B2A] stroke-[1.75]",
+                      "w-2.5 h-2.5 transition-transform duration-200 text-[#3B4A5A]/60 group-hover:text-[#0D1B2A] stroke-[1.5]",
                       activeMenu === "ai" ? "rotate-180 text-[#0D1B2A]" : ""
                     )}
                   />
@@ -198,7 +228,7 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                     "group flex items-center gap-1.5 py-1 text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors cursor-pointer focus:outline-none",
                     isCloudActive || activeMenu === "cloud"
                       ? "text-[#0D1B2A] font-medium"
-                      : "text-[#6F7479] hover:text-[#0D1B2A] font-normal"
+                      : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal"
                   )}
                   aria-expanded={activeMenu === "cloud"}
                 >
@@ -206,14 +236,14 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                     Cloud & Technology
                     {isCloudActive && (
                       <span
-                        className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]"
+                        className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#C9A35B]/85"
                         aria-hidden="true"
                       />
                     )}
                   </span>
                   <ChevronDown
                     className={cn(
-                      "w-3 h-3 transition-transform duration-200 text-[#6F7479]/80 group-hover:text-[#0D1B2A] stroke-[1.75]",
+                      "w-2.5 h-2.5 transition-transform duration-200 text-[#3B4A5A]/60 group-hover:text-[#0D1B2A] stroke-[1.5]",
                       activeMenu === "cloud" ? "rotate-180 text-[#0D1B2A]" : ""
                     )}
                   />
@@ -274,8 +304,8 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
             </div>
 
             {/* RIGHT SECTION: About | Contact (Aligned towards Logo) + Book a Discovery Call (pinned right) */}
-            <div className="hidden lg:flex items-center justify-between flex-1 pl-6 xl:pl-8">
-              <nav className="flex items-center gap-6 xl:gap-8">
+            <div className="hidden lg:flex items-center justify-between flex-1 pl-7 xl:pl-9">
+              <nav className="flex items-center gap-7 xl:gap-8">
                 {/* About */}
                 <div className="relative flex flex-col items-center">
                   <Link
@@ -284,7 +314,7 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                       "relative text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors py-1",
                       isAboutActive
                         ? "text-[#0D1B2A] font-medium"
-                        : "text-[#6F7479] hover:text-[#0D1B2A] font-normal"
+                        : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal"
                     )}
                   >
                     <span>About</span>
@@ -305,7 +335,7 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                       "relative text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors py-1",
                       isContactActive
                         ? "text-[#0D1B2A] font-medium"
-                        : "text-[#6F7479] hover:text-[#0D1B2A] font-normal"
+                        : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal"
                     )}
                   >
                     <span>Contact</span>
@@ -323,160 +353,248 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
               <button
                 type="button"
                 onClick={() => handleDiscoveryClick("Navbar: Book a Discovery Call")}
-                className="inline-flex items-center justify-center h-[38px] px-[18px] rounded-[8px] bg-[#0D1117] text-[#F5F7F6] text-[13.5px] font-medium border border-transparent hover:border-[#D4A64A]/70 hover:bg-[#151B22] hover:-translate-y-px transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4A64A] shrink-0"
+                className="inline-flex items-center justify-center h-[44px] px-4 rounded-[8px] bg-[#0D1117] text-[#F5F7F6] text-[13.5px] font-medium border border-transparent hover:border-[#D4A64A]/70 hover:bg-[#151B22] hover:-translate-y-px transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4A64A] shrink-0"
               >
                 <span>Book a Discovery Call</span>
               </button>
             </div>
 
-            {/* Tablet / Mobile Controls: Compact Discovery Call + Hamburger */}
-            <div className="flex lg:hidden items-center gap-2 sm:gap-2.5 ml-auto">
+            {/* Tablet / Mobile Controls: Clean 24px Hamburger Icon on Far Right */}
+            <div className="flex lg:hidden items-center ml-auto">
               <button
                 type="button"
-                onClick={() => handleDiscoveryClick("Mobile Header")}
-                className="inline-flex items-center justify-center h-[34px] px-3 sm:px-3.5 rounded-[8px] bg-[#0D1117] text-[#F5F7F6] text-[12px] font-medium border border-transparent hover:border-[#D4A64A]/70 active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
+                onClick={() => setMobileMenuOpen(true)}
+                className="w-10 h-10 flex items-center justify-center text-[#0D1B2A] hover:bg-[#EAEFED] rounded-[6px] transition-colors focus:outline-none cursor-pointer"
+                aria-label="Open navigation menu"
               >
-                <span>Discovery Call</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-1.5 sm:p-2 rounded-[8px] text-[#0D1117] hover:bg-[#EAEFED] transition-colors focus:outline-none"
-                aria-label="Toggle navigation menu"
-              >
-                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                <Menu className="w-6 h-6 stroke-[1.75]" />
               </button>
             </div>
 
           </div>
         </div>
       </div>
+    </header>
 
-      {/* Mobile & Tablet Full Navigation Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[60px] bottom-0 bg-[#F5F7F6]/98 backdrop-blur-2xl border-t border-[#E8EDEB] px-6 py-6 flex flex-col justify-between z-50 animate-in fade-in duration-200 overflow-y-auto">
-          <div className="space-y-3">
+    {/* ========================================================================= */}
+    {/* MOBILE FULL-SCREEN NAVIGATION PANEL (Rendered at Body Level via Portal)   */}
+    {/* ========================================================================= */}
+    {mounted && mobileMenuOpen && createPortal(
+      <div
+        className="lg:hidden fixed inset-0 z-[99999] bg-[#F5F7F6] flex flex-col h-[100dvh] max-h-[100dvh] w-screen overflow-hidden animate-in fade-in duration-200"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile Navigation Menu"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: "100vw",
+          height: "100dvh",
+          zIndex: 99999,
+          backgroundColor: "#F5F7F6",
+        }}
+      >
+        {/* Top Bar: Aiveeno Logo Left + Close '✕' Right (Height: 64–68px, Padding: 20–24px) */}
+        <div className="flex items-center justify-between h-[64px] sm:h-[68px] px-5 sm:px-6 border-b border-[#0D1B2A]/[0.08] shrink-0 bg-[#F5F7F6]">
+          <Logo variant="dark" onClick={() => setMobileMenuOpen(false)} />
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-10 h-10 flex items-center justify-center text-[#0D1B2A] hover:bg-[#EAEFED] rounded-[6px] transition-colors cursor-pointer"
+            aria-label="Close navigation menu"
+          >
+            <X className="w-6 h-6 stroke-[1.75]" />
+          </button>
+        </div>
+
+        {/* Scrollable Menu Items Content */}
+        <div className="flex-1 overflow-y-auto overscroll-contain px-5 sm:px-6 py-5 flex flex-col justify-between">
+          <nav className="flex flex-col divide-y divide-[#0D1B2A]/[0.06]">
             
-            {/* AI Transformation Section (Accordion) */}
-            <div className="border-b border-[#E8EDEB] pb-3">
+            {/* 1. AI Transformation (Accordion) */}
+            <div className="py-1.5">
               <button
                 type="button"
-                onClick={() => setMobileExpanded(mobileExpanded === "ai" ? null : "ai")}
-                className="w-full flex items-center justify-between py-2 text-[16px] font-sans font-medium text-[#0D1117]"
+                onClick={() => setMobileExpanded((prev) => (prev === "ai" ? null : "ai"))}
+                className="w-full min-h-[52px] py-3.5 flex items-center justify-between text-[20px] sm:text-[22px] font-sans font-medium text-[#0D1B2A] tracking-[-0.015em] cursor-pointer"
+                aria-expanded={mobileExpanded === "ai"}
               >
-                <span className="relative">
-                  <span>AI Transformation</span>
-                  {isAiActive && <span className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]" aria-hidden="true" />}
+                <span className={cn(isAiActive ? "text-[#0D1B2A]" : "")}>
+                  AI Transformation
                 </span>
-                <ChevronDown
-                  className={cn(
-                    "w-4 h-4 text-[#6F7479] transition-transform duration-200",
-                    mobileExpanded === "ai" ? "rotate-180" : ""
-                  )}
-                />
+                {mobileExpanded === "ai" ? (
+                  <Minus className="w-5 h-5 text-[#D4A64A] transition-transform duration-200" />
+                ) : (
+                  <Plus className="w-5 h-5 text-[#3B4A5A] transition-transform duration-200" />
+                )}
               </button>
 
               {mobileExpanded === "ai" && (
-                <div className="pl-3 pr-1 pt-2 pb-1 space-y-2 animate-in fade-in duration-150">
-                  {navigationData.aiTransformation.items.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-between py-2 text-[14px] text-[#6F7479] hover:text-[#0D1B2A] transition-colors"
-                    >
-                      <span>{item.title}</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#D4A64A]" />
-                    </Link>
-                  ))}
+                <div className="pl-4 sm:pl-5 pr-1 pt-1 pb-3 flex flex-col space-y-0.5 animate-in fade-in duration-250">
+                  <Link
+                    href="/ai-business-transformation"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    Overview
+                  </Link>
+                  <Link
+                    href="/ai-business-transformation"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    AI Business Transformation
+                  </Link>
+                  <Link
+                    href="/framework"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    Our Framework
+                  </Link>
+                  <Link
+                    href="/ai-transformation-assessment"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    AI Transformation Assessment
+                  </Link>
+                  <Link
+                    href="/ai-solutions"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    AI Solutions
+                  </Link>
                 </div>
               )}
             </div>
 
-            {/* Cloud & Technology Section (Accordion) */}
-            <div className="border-b border-[#E8EDEB] pb-3">
+            {/* 2. Cloud & Technology (Accordion) */}
+            <div className="py-1.5">
               <button
                 type="button"
-                onClick={() => setMobileExpanded(mobileExpanded === "cloud" ? null : "cloud")}
-                className="w-full flex items-center justify-between py-2 text-[16px] font-sans font-medium text-[#0D1B2A]"
+                onClick={() => setMobileExpanded((prev) => (prev === "cloud" ? null : "cloud"))}
+                className="w-full min-h-[52px] py-3.5 flex items-center justify-between text-[20px] sm:text-[22px] font-sans font-medium text-[#0D1B2A] tracking-[-0.015em] cursor-pointer"
+                aria-expanded={mobileExpanded === "cloud"}
               >
-                <span className="relative">
-                  <span>Cloud & Technology</span>
-                  {isCloudActive && <span className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]" aria-hidden="true" />}
+                <span className={cn(isCloudActive ? "text-[#0D1B2A]" : "")}>
+                  Cloud & Technology
                 </span>
-                <ChevronDown
-                  className={cn(
-                    "w-4 h-4 text-[#6F7479] transition-transform duration-200",
-                    mobileExpanded === "cloud" ? "rotate-180" : ""
-                  )}
-                />
+                {mobileExpanded === "cloud" ? (
+                  <Minus className="w-5 h-5 text-[#D4A64A] transition-transform duration-200" />
+                ) : (
+                  <Plus className="w-5 h-5 text-[#3B4A5A] transition-transform duration-200" />
+                )}
               </button>
 
               {mobileExpanded === "cloud" && (
-                <div className="pl-3 pr-1 pt-2 pb-1 space-y-2 animate-in fade-in duration-150 max-h-[260px] overflow-y-auto">
-                  {navigationData.cloudTechnology.items.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-between py-2 text-[14px] text-[#6F7479] hover:text-[#0D1B2A] transition-colors"
-                    >
-                      <span>{item.title}</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#D4A64A]" />
-                    </Link>
-                  ))}
+                <div className="pl-4 sm:pl-5 pr-1 pt-1 pb-3 flex flex-col space-y-0.5 animate-in fade-in duration-250">
+                  <Link
+                    href="/cloud-technology"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    Overview
+                  </Link>
+                  <Link
+                    href="/cloud-consulting"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    Cloud Consulting
+                  </Link>
+                  <Link
+                    href="/cloud-migration-modernization"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    Migration & Modernization
+                  </Link>
+                  <Link
+                    href="/cloud-managed-services"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    Managed Services
+                  </Link>
+                  <Link
+                    href="/cloud-security-governance"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    Security & Governance
+                  </Link>
+                  <Link
+                    href="/devops-automation"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    DevOps & Automation
+                  </Link>
+                  <Link
+                    href="/data-engineering"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    Data Engineering
+                  </Link>
+                  <Link
+                    href="/software-development"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+                  >
+                    Software Development
+                  </Link>
                 </div>
               )}
             </div>
 
-            {/* About */}
-            <Link
-              href="/about"
-              onClick={() => setMobileMenuOpen(false)}
-              className={cn(
-                "flex items-center justify-between py-3 text-[16px] font-sans border-b border-[#E8EDEB] transition-colors",
-                isAboutActive ? "text-[#0D1B2A] font-medium" : "text-[#6F7479]"
-              )}
-            >
-              <span className="relative">
-                <span>About</span>
-                {isAboutActive && <span className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]" aria-hidden="true" />}
-              </span>
-            </Link>
+            {/* 3. About */}
+            <div className="py-1.5">
+              <Link
+                href="/about"
+                onClick={() => setMobileMenuOpen(false)}
+                className="min-h-[52px] flex items-center text-[20px] sm:text-[22px] font-sans font-medium text-[#0D1B2A] tracking-[-0.015em] transition-colors hover:text-[#D4A64A]"
+              >
+                About
+              </Link>
+            </div>
 
-            {/* Contact */}
-            <Link
-              href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className={cn(
-                "flex items-center justify-between py-3 text-[16px] font-sans border-b border-[#E8EDEB] transition-colors",
-                isContactActive ? "text-[#0D1B2A] font-medium" : "text-[#6F7479]"
-              )}
-            >
-              <span className="relative">
-                <span>Contact</span>
-                {isContactActive && <span className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]" aria-hidden="true" />}
-              </span>
-            </Link>
+            {/* 4. Contact */}
+            <div className="py-1.5">
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="min-h-[52px] flex items-center text-[20px] sm:text-[22px] font-sans font-medium text-[#0D1B2A] tracking-[-0.015em] transition-colors hover:text-[#D4A64A]"
+              >
+                Contact
+              </Link>
+            </div>
 
-          </div>
+          </nav>
 
-          {/* Bottom Action */}
-          <div className="pt-6 pb-2">
+          {/* Bottom CTA Section */}
+          <div className="pt-8 pb-6 mt-auto shrink-0">
+            <div className="h-px bg-[#0D1B2A]/[0.08] mb-6" />
             <button
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
-                handleDiscoveryClick("Mobile Nav");
+                handleDiscoveryClick("Mobile Menu: Book a Discovery Call");
               }}
-              className="w-full h-12 flex items-center justify-center bg-[#0D1117] text-[#F5F7F6] rounded-[10px] text-[15px] font-medium border border-transparent hover:border-[#D4A64A]/70 transition-all shadow-sm"
+              className="w-full min-h-[48px] h-12 sm:h-[50px] flex items-center justify-center rounded-[8px] bg-[#0D1117] text-[#F5F7F6] text-[15px] font-sans font-medium tracking-[0.01em] hover:bg-[#1C2C3E] active:scale-[0.99] transition-colors duration-200 cursor-pointer shadow-xs"
             >
               <span>Book a Discovery Call</span>
             </button>
           </div>
         </div>
-      )}
-    </header>
-  );
+      </div>,
+      document.body
+    )}
+  </>
+);
 }

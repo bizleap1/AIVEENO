@@ -7,16 +7,19 @@ interface LogoProps {
   variant?: "dark" | "light";
   className?: string;
   showSubtitle?: boolean;
+  onClick?: () => void;
 }
 
 export default function Logo({
   variant = "dark",
   className = "",
   showSubtitle = false,
+  onClick,
 }: LogoProps) {
   return (
     <Link
       href="/"
+      onClick={onClick}
       className={`inline-flex items-center gap-2.5 group transition-opacity hover:opacity-90 select-none ${className}`}
       aria-label="Aiveeno Home"
     >
@@ -28,7 +31,7 @@ export default function Logo({
           height={34}
           priority
           className={`h-[26px] sm:h-[28px] w-auto object-contain transition-all ${
-            variant === "dark" ? "brightness-0" : "brightness-100"
+            variant === "dark" ? "brightness-0" : "brightness-0 invert"
           }`}
         />
       </div>

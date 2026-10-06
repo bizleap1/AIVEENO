@@ -10,7 +10,6 @@ import FrameworkPreviewSection from "@/components/home/FrameworkPreviewSection";
 import AssessmentSection from "@/components/home/AssessmentSection";
 import TransformationScopeSection from "@/components/home/TransformationScopeSection";
 import CloudFoundationSection from "@/components/home/CloudFoundationSection";
-import ReinventionStoriesSection from "@/components/home/ReinventionStoriesSection";
 import FinalCtaSection from "@/components/home/FinalCtaSection";
 import Footer from "@/components/navigation/Footer";
 import DiscoveryModal from "@/components/DiscoveryModal";
@@ -62,13 +61,10 @@ export default function Home() {
         {/* 06 — AI Capabilities: Swiss Typographic Capability Index */}
         <TransformationScopeSection />
 
-        {/* 07 — Cloud & Technology: 5 Foundational Infrastructure Layers on Technical Grid */}
+        {/* 07 — Cloud & Technology: Technology Foundation (Dark Graphite Pause) */}
         <CloudFoundationSection />
 
-        {/* 08 — Proof: Verified Enterprise Reinvention Case Studies */}
-        <ReinventionStoriesSection />
-
-        {/* 09 — Final CTA: Executive Call to Action */}
+        {/* 08 — Final CTA: Executive Call to Action (Warm Off-White Contrast) */}
         <FinalCtaSection onOpenDiscoveryModal={handleOpenDiscovery} />
       </main>
 

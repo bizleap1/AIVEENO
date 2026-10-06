@@ -18,8 +18,9 @@
  * Navbar is NOT included — the site's own <Navbar /> should be fixed with a solid #F5F7F6 bg.
  */
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const CONTAINER = 1200; // must match the max width of the next section's grid
 
@@ -55,6 +56,11 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
   const mobileHeroRef = useRef<HTMLDivElement>(null);
   const mobileStatementsRef = useRef<HTMLDivElement>(null);
   const mobileLabelRefs = useRef<(HTMLParagraphElement | null)[]>([]);
+  const [heroMounted, setHeroMounted] = useState(false);
+
+  useEffect(() => {
+    setHeroMounted(true);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -101,11 +107,16 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = hero!.clientWidth;
-      H = hero!.clientHeight;
-      canvas!.width = W * dpr;
-      canvas!.height = H * dpr;
-      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      W = hero ? hero.clientWidth : 0;
+      H = hero ? hero.clientHeight : 0;
+      if (W <= 0 || H <= 0) return;
+      if (canvas) {
+        canvas.width = Math.max(1, Math.round(W * dpr));
+        canvas.height = Math.max(1, Math.round(H * dpr));
+      }
+      if (ctx) {
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
       mobile = W < 768;
       measure();
       labels.forEach((el) => {
@@ -131,7 +142,7 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
     const cam = { x: 0, z: 0 };
     let camFollow = 0;
     const focal = () => H * (mobile ? 0.65 : 0.95);
-    const horizon = () => H * (mobile ? 0.52 : 0.47);
+    const horizon = () => (mobile ? Math.max(H * 0.48, 432) : H * 0.47);
 
     type P = { x: number; y: number; s: number; dz: number };
     function proj(x: number, y: number, z: number): P | null {
@@ -199,10 +210,16 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
     function drawPath(headZ: number, alpha: number, zMin = -Infinity, zMax = Infinity, mode: "shadow" | "cable" = "cable") {
       if (mobile && mode === "shadow") return; // On mobile, no shadow for clean 1.8px graphite line
 
-      if (layer.width !== canvas!.width || layer.height !== canvas!.height) {
-        layer.width = canvas!.width;
-        layer.height = canvas!.height;
+      if (!canvas || canvas.width <= 0 || canvas.height <= 0 || W <= 0 || H <= 0) return;
+
+      const targetW = Math.max(1, canvas.width);
+      const targetH = Math.max(1, canvas.height);
+      if (layer.width !== targetW || layer.height !== targetH) {
+        layer.width = targetW;
+        layer.height = targetH;
       }
+      if (layer.width <= 0 || layer.height <= 0) return;
+
       lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       lctx.clearRect(0, 0, W, H);
       const c = lctx;
@@ -254,12 +271,18 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
           }
         }
       }
-      const m = ctx!;
-      m.save();
-      m.setTransform(1, 0, 0, 1, 0, 0);
-      m.globalAlpha = mobile ? alpha * 0.85 : alpha;
-      m.drawImage(layer, 0, 0);
-      m.restore();
+      if (layer.width > 0 && layer.height > 0 && ctx) {
+        const m = ctx;
+        m.save();
+        m.setTransform(1, 0, 0, 1, 0, 0);
+        m.globalAlpha = mobile ? alpha * 0.85 : alpha;
+        try {
+          m.drawImage(layer, 0, 0);
+        } catch {
+          // Guard against any zero-dimension edge case
+        }
+        m.restore();
+      }
     }
 
     // ---------- solids ----------
@@ -350,7 +373,7 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
 
     // g(i) = growth 0..1 of piece i; every piece rises out of the floor on its own
     function drawObject(o: Obj, g: (i: number) => number, alpha: number) {
-      const s = (o.scale ?? 1) * (mobile ? 0.52 : OBJ_SCALE);
+      const s = (o.scale ?? 1) * (mobile ? 0.46 : OBJ_SCALE);
       const ox = mobile ? 0 : o.x;
       const oz = mobile ? (o.kind === "bars" ? 7 : o.kind === "blocks" ? 14 : 21) : o.z;
       ctx!.globalAlpha = alpha;
@@ -548,7 +571,7 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
       const vh = window.innerHeight;
       const scrolled = Math.max(0, -wrap!.getBoundingClientRect().top);
       if (mobile) {
-        const mMax = vh * 0.70;
+        const mMax = vh * 1.05;
         journeyTarget = clamp01(scrolled / mMax);
         cableTarget = 0;
       } else {
@@ -561,8 +584,8 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
       // approach measures the fraction of the viewport that the Approach section has covered (0 = just entering at bottom, 1 = scrolled to top)
       approach = sEl ? clamp01((vh - sEl.getBoundingClientRect().top) / vh) : 0;
 
-      // Only fade out hero elements once the Approach section has actually covered more than 65% of the screen
-      const fadeOut = clamp01((approach - 0.65) / 0.3);
+      // On mobile: hero elements fade cleanly as Approach section slides up over them without visual clash
+      const fadeOut = mobile ? clamp01(approach / 0.35) : clamp01((approach - 0.65) / 0.3);
       hint!.style.opacity = String(1 - clamp01(scrolled / (vh * 0.08)));
 
       if (!mobile) {
@@ -605,6 +628,11 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
 
     function frame() {
       if (!alive) return;
+      if (W <= 0 || H <= 0 || !canvas || canvas.width <= 0 || canvas.height <= 0) {
+        resize();
+        raf = requestAnimationFrame(frame);
+        return;
+      }
       journey += (journeyTarget - journey) * (mobile ? 0.12 : 0.075);
       cableP += (cableTarget - cableP) * 0.09;
       if (Math.abs(journeyTarget - journey) < 0.0005) journey = journeyTarget;
@@ -710,34 +738,70 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
           {/* Mobile initial viewport container (< 768px) */}
           <div
             ref={mobileHeroRef}
-            className="pointer-events-none relative z-[2] flex h-full flex-col items-center px-4 pt-[80px] text-center md:hidden"
+            className="pointer-events-none relative z-[2] flex h-full flex-col items-center px-4 pt-[92px] text-center md:hidden"
           >
             <h1
-              className="mx-auto text-center font-sans"
+              className="mx-auto text-center font-sans tracking-[-0.035em] text-[#0D1117]"
               style={{
                 fontFamily: 'var(--font-instrument-sans), "Instrument Sans", sans-serif',
                 fontWeight: 500,
-                fontSize: "clamp(39px, 10.2vw, 42px)",
-                lineHeight: 0.96,
-                letterSpacing: "-0.035em",
-                maxWidth: "340px",
+                fontSize: "clamp(38px, 9.8vw, 42px)",
+                lineHeight: 1.02,
+                maxWidth: "100%",
                 margin: 0,
               }}
             >
-              <span className="block">Transform how your</span>
-              <span className="block">business operates</span>
-              <span className="block">with AI.</span>
+              <span className="block overflow-hidden py-0.5">
+                <span
+                  className={cn(
+                    "block whitespace-nowrap transition-all duration-600 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                  )}
+                >
+                  Transform how
+                </span>
+              </span>
+              <span className="block overflow-hidden py-0.5">
+                <span
+                  className={cn(
+                    "block whitespace-nowrap transition-all duration-600 delay-75 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                  )}
+                >
+                  your business operates
+                </span>
+              </span>
+              <span className="block overflow-hidden py-0.5">
+                <span
+                  className={cn(
+                    "block whitespace-nowrap transition-all duration-600 delay-150 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                  )}
+                >
+                  with AI.
+                </span>
+              </span>
             </h1>
 
             <button
               type="button"
               onClick={() => onOpenDiscoveryModal?.("Mobile Hero: Book a Discovery Call")}
-              className="pointer-events-auto mt-[26px] inline-flex h-11 cursor-pointer items-center justify-center rounded-[10px] bg-[#0D1117] px-5 text-[14px] font-medium leading-none text-[#F5F7F6] shadow-[0_0_0_5px_rgba(232,237,235,0.9)] active:scale-[0.98] transition-transform"
+              className={cn(
+                "pointer-events-auto mt-[20px] inline-flex h-[44px] cursor-pointer items-center justify-center rounded-[8px] bg-[#0D1117] px-5 text-[14px] font-sans font-medium leading-none text-[#F5F7F6] border border-transparent hover:border-[#D4A64A]/60 hover:bg-[#161D26] hover:-translate-y-px transition-all duration-200 whitespace-nowrap shadow-sm",
+                heroMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
+                "transition-all duration-400 delay-200 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              )}
             >
               <span>Book a Discovery Call</span>
             </button>
 
-            <p className="mt-4 max-w-[320px] text-center text-[15px] sm:text-[16px] leading-[1.45] text-[#6F7479]">
+            <p
+              className={cn(
+                "mt-[20px] max-w-[300px] mx-auto text-center font-sans text-[13.5px] min-[390px]:text-[14px] leading-[1.45] text-[#6F7479]",
+                heroMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
+                "transition-all duration-500 delay-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              )}
+            >
               Move from isolated AI experimentation to a structured transformation program.
             </p>
           </div>
@@ -770,16 +834,33 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
               /* inline on purpose: global h1 styles in globals.css were overriding the Tailwind size */
               style={{ fontSize: "clamp(34px, 4.2vw, 62px)", lineHeight: 1.08, letterSpacing: "-0.025em", fontWeight: 500, margin: 0 }}
             >
-              <span className="inline-block whitespace-nowrap">Transform how your business</span>
-              <br />
-              <span className="inline-block whitespace-nowrap">operates with AI.</span>
+              <span className="block overflow-hidden py-1">
+                <span
+                  className={cn(
+                    "inline-block whitespace-nowrap transition-all duration-750 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                  )}
+                >
+                  Transform how your business
+                </span>
+              </span>
+              <span className="block overflow-hidden py-1">
+                <span
+                  className={cn(
+                    "inline-block whitespace-nowrap transition-all duration-750 delay-100 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                  )}
+                >
+                  operates with AI.
+                </span>
+              </span>
             </h1>
 
             <button
               ref={ctaRef}
               onClick={() => onOpenDiscoveryModal?.("Hero: Book a Discovery Call")}
               style={{ visibility: "hidden" }}
-              className="pointer-events-auto mt-8 inline-flex h-12 cursor-pointer items-center justify-center rounded-[10px] bg-[#0D1117] px-[22px] text-[15px] font-medium leading-none text-[#F5F7F6] shadow-[0_0_0_6px_rgba(232,237,235,0.9)] hover:-translate-y-px transition-all focus-visible:outline-2 focus-visible:outline-offset-[6px] focus-visible:outline-[#D4A64A]"
+              className="pointer-events-auto mt-8 inline-flex h-12 cursor-pointer items-center justify-center rounded-[10px] bg-[#0D1117] px-[22px] text-[15px] font-medium leading-none text-[#F5F7F6] border border-transparent hover:border-[#D4A64A]/60 hover:bg-[#161D26] hover:-translate-y-px transition-all duration-200 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-[6px] focus-visible:outline-[#D4A64A]"
             >
               <span>Book a Discovery Call</span>
             </button>
@@ -811,8 +892,8 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
           </div>
         </section>
 
-        {/* scroll room: mobile 75svh (total wrapper ~175svh) vs desktop 600vh */}
-        <div aria-hidden="true" className="h-[75svh] md:h-[600vh]" />
+        {/* scroll room: mobile 140svh (total wrapper ~240svh) vs desktop 600vh */}
+        <div aria-hidden="true" className="h-[140svh] md:h-[600vh]" />
 
         {/* next section slides up smoothly over the pinned hero */}
         <div ref={servicesRef} className="relative z-10 bg-[#E8EDEB]">
