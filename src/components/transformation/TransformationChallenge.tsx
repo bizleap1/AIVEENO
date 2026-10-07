@@ -261,14 +261,14 @@ export default function TransformationChallenge() {
           {/* ========================================================================= */}
           <div className="mt-[26px] sm:mt-[28px] lg:mt-[30px] select-none">
             {/* Desktop Layout: Compact Horizontal Alignment (28–32px) */}
-            <div className="hidden sm:flex items-center justify-center gap-5 sm:gap-6 lg:gap-8 xl:gap-9 text-center">
+            <div className="hidden md:flex items-center justify-center gap-5 sm:gap-6 lg:gap-8 xl:gap-9 text-center">
               <div className="overflow-hidden pb-[0.06em]">
                 <motion.span
                   initial={{ y: "100%", opacity: 0 }}
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: thesisDuration, ease: transitionEase, delay: thesisPart1Delay }}
-                  className="block font-sans font-medium text-[25px] sm:text-[27px] lg:text-[29px] xl:text-[30px] uppercase tracking-[0.03em] text-[#0E1C2A]"
+                  className="block font-sans font-medium text-[24px] lg:text-[28px] xl:text-[30px] uppercase tracking-[0.03em] text-[#0E1C2A]"
                 >
                   Tool Adoption
                 </motion.span>
@@ -279,7 +279,7 @@ export default function TransformationChallenge() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: thesisDuration, ease: transitionEase, delay: thesisNotEqualDelay }}
-                className="font-sans font-light text-[32px] sm:text-[34px] lg:text-[36px] text-[#C9A35B] leading-none select-none"
+                className="font-sans font-light text-[30px] lg:text-[34px] xl:text-[36px] text-[#C9A35B] leading-none select-none"
                 aria-label="does not equal"
               >
                 ≠
@@ -291,15 +291,15 @@ export default function TransformationChallenge() {
                   whileInView={{ y: 0, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: thesisDuration, ease: transitionEase, delay: thesisPart2Delay }}
-                  className="block font-sans font-medium text-[25px] sm:text-[27px] lg:text-[29px] xl:text-[30px] uppercase tracking-[0.03em] text-[#0E1C2A]"
+                  className="block font-sans font-medium text-[24px] lg:text-[28px] xl:text-[30px] uppercase tracking-[0.03em] text-[#0E1C2A]"
                 >
                   Business Transformation
                 </motion.span>
               </div>
             </div>
 
-            {/* Mobile Layout: Stacked Vertically with Compact Padding */}
-            <div className="flex sm:hidden flex-col items-center justify-center space-y-1.5 text-center">
+            {/* Mobile / Small Tablet Layout: Stacked Vertically with Compact Padding */}
+            <div className="flex md:hidden flex-col items-center justify-center space-y-1.5 text-center">
               <div className="overflow-hidden pb-[0.06em]">
                 <motion.span
                   initial={{ y: "100%", opacity: 0 }}

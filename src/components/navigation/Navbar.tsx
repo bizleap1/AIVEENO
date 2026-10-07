@@ -406,7 +406,7 @@ export default function Navbar({
                 type="button"
                 onClick={() => handleDiscoveryClick("Navbar: Book a Discovery Call")}
                 className={cn(
-                  "inline-flex items-center justify-center h-[44px] px-4 rounded-[8px] text-[13.5px] font-medium transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 shrink-0 shadow-xs",
+                  "inline-flex items-center justify-center h-[44px] px-4 rounded-[8px] text-[13.5px] font-medium transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 shrink-0 shadow-xs whitespace-nowrap select-none",
                   isOverDarkHero
                     ? "bg-[#222824] text-white border border-white/[0.32] hover:border-[#C9A45C] hover:bg-[#2B332E] shadow-[0_2px_8px_rgba(0,0,0,0.4)] focus-visible:outline-[#C9A45C]"
                     : "bg-[#0D1117] text-[#F5F7F6] border border-transparent hover:border-[#D4A64A]/70 hover:bg-[#151B22] hover:-translate-y-px focus-visible:outline-[#D4A64A]"

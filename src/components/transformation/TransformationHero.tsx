@@ -91,14 +91,15 @@ export default function TransformationHero({
               transition={{ duration: 0.65, ease: transitionEase, delay: illustrationDelay }}
               className="lg:col-span-6 order-1 lg:order-1 flex items-center justify-center lg:justify-start -mt-1 sm:-mt-3 lg:-mt-5 xl:-mt-7"
             >
-              <div className="relative w-full max-w-[700px] xl:max-w-[760px] h-[225px] min-[390px]:h-[240px] sm:h-[260px] lg:h-auto aspect-[520/430] flex items-center justify-center select-none pointer-events-none">
+              <div className="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[720px] aspect-[520/430] flex items-center justify-center select-none pointer-events-none">
                 
-                {/* Custom Editorial Line-Art SVG Illustration (No generic + or floating dots) */}
+                {/* Custom Editorial Line-Art SVG Illustration (Responsive preserveAspectRatio) */}
                 <svg
                   viewBox="0 0 520 430"
+                  preserveAspectRatio="xMidYMid meet"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-full h-full"
+                  className="w-full h-full max-h-full max-w-full"
                   aria-label="Editorial illustration of enterprise business transformation through leadership, workflow redesign, and measurable business value destination"
                 >
                   {/* Architectural Grounding Baseline */}

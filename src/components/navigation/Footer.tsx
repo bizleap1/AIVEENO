@@ -98,8 +98,7 @@ export default function Footer() {
             <Logo variant="light" />
             
             <p className="text-[13px] sm:text-[13.5px] text-[#9FA5A1] font-sans font-medium mt-3.5 tracking-[0.01em] leading-snug">
-              Enterprise AI Transformation <br />
-              <span className="text-[#9FA5A1]/80">+ Cloud & Technology</span>
+              AI Transformation &amp; Automation Solutions
             </p>
 
             {/* Book a Discovery Call CTA directly below positioning line (~28-32px spacing) */}
@@ -244,7 +243,7 @@ export default function Footer() {
           <div className="space-y-2">
             <Logo variant="light" />
             <p className="text-[13px] text-[#9FA5A1] font-sans font-medium leading-snug">
-              Enterprise AI Transformation + Cloud & Technology
+              AI Transformation &amp; Automation Solutions
             </p>
           </div>
 
@@ -317,7 +316,7 @@ export default function Footer() {
           className="pt-6 sm:pt-6.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 sm:gap-4 text-[12px] text-[#9FA5A1] font-sans"
         >
           <div>
-            © {currentYear} Aiveeno. All rights reserved.
+            © {currentYear} Aiveeno | AI Transformation &amp; Automation Solutions. All rights reserved.
           </div>
 
           <div className="text-[#8E9490]">

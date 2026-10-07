@@ -26,13 +26,15 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://aiveeno.com"),
   title: {
-    default: "Aiveeno | Enterprise AI Transformation + Cloud & Technology",
+    default: "Aiveeno | AI Transformation & Automation Solutions",
     template: "%s | Aiveeno",
   },
   description:
-    "We help organizations transform how their business operates with AI. Enterprise AI transformation, cloud consulting, data engineering, DevOps, and modern software foundations.",
+    "We help organizations transform how their business operates with AI. Enterprise AI transformation, automation solutions, cloud consulting, data engineering, DevOps, and modern software foundations.",
   keywords: [
+    "AI Transformation & Automation Solutions",
     "Enterprise AI Transformation",
+    "Automation Solutions",
     "AI Consulting",
     "Cloud Consulting",
     "Cloud Migration",
@@ -55,7 +57,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://aiveeno.com",
     siteName: "Aiveeno",
-    title: "Aiveeno | Enterprise AI Transformation + Cloud & Technology",
+    title: "Aiveeno | AI Transformation & Automation Solutions",
     description:
       "We help organizations transform how their business operates with AI. Practical enterprise transformation grounded in business reality, workflows, and resilient cloud architecture.",
     images: [
@@ -63,13 +65,13 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Aiveeno — Enterprise AI Transformation + Cloud & Technology",
+        alt: "Aiveeno | AI Transformation & Automation Solutions",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aiveeno | Enterprise AI Transformation + Cloud & Technology",
+    title: "Aiveeno | AI Transformation & Automation Solutions",
     description:
       "We help organizations transform how their business operates with AI. Enterprise AI transformation, cloud consulting, and software architecture.",
   },
@@ -85,7 +87,15 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
   },
 };
 
