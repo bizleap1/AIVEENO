@@ -4,8 +4,8 @@ import { Container } from "@/components/ui/Container";
 import { motion } from "motion/react";
 
 /**
- * Aiveeno — Flagship Service Page: Section 07
- * FROM ASSESSMENT TO IMPLEMENTATION (#EEF1F0)
+ * Aiveeno — Flagship Service Page: Section 06
+ * FROM ASSESSMENT TO IMPLEMENTATION (#F5F7F6)
  * 
  * Progressive Rail Design with Accenture Timing:
  * - Replaces boxed cards with a continuous, progressive horizontal rail.
@@ -56,7 +56,7 @@ const stages = [
 
 export default function TransformationLifecycleRail() {
   return (
-    <section className="relative z-10 w-full bg-[#EEF1F0] text-[#0E1C2A] py-16 sm:py-20 lg:py-24 border-b border-[#DADFDB]">
+    <section id="assessment" className="relative z-10 w-full scroll-mt-[115px] bg-[#F5F7F6] text-[#0E1C2A] py-16 sm:py-20 lg:py-24 border-b border-[#DADFDB]">
       <Container className="px-5 sm:px-6 lg:px-12">
         
         {/* Section Header */}

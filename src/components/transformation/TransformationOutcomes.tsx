@@ -4,10 +4,11 @@ import { Container } from "@/components/ui/Container";
 import { motion } from "motion/react";
 
 /**
- * Aiveeno — Flagship Service Page: Section 08
- * POTENTIAL OUTCOMES (#F5F7F6)
+ * Aiveeno — Flagship Service Page: Section 07
+ * POTENTIAL OUTCOMES (#EEF1F0)
  * 
  * Editorial Design:
+ * - Alternate light surface (#EEF1F0) with clean hairline separators (#CFD6D1).
  * - 2-column editorial rows with thin separators (no boxed cards, no check icons).
  * - Framed ethically as potential outcomes (as mandated by the enterprise brief).
  * - 5 safe outcome categories: efficiency, scale, execution speed, information access, experiences.
@@ -52,7 +53,7 @@ const outcomes = [
 
 export default function TransformationOutcomes() {
   return (
-    <section className="relative z-10 w-full bg-[#F5F7F6] text-[#0E1C2A] py-16 sm:py-20 lg:py-24 border-b border-[#DADFDB]">
+    <section className="relative z-10 w-full bg-[#EEF1F0] text-[#0E1C2A] py-16 sm:py-20 lg:py-24 border-b border-[#CFD6D1]">
       <Container className="px-5 sm:px-6 lg:px-12">
         
         {/* Section Header */}
@@ -92,7 +93,7 @@ export default function TransformationOutcomes() {
         </div>
 
         {/* 2-Column Editorial Rows with Thin Separators (No Cards, No Icons) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-0 divide-y lg:divide-y-0 divide-[#DADFDB]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-0 divide-y lg:divide-y-0 divide-[#CFD6D1]">
           {outcomes.map((outcome, idx) => (
             <motion.div
               key={outcome.title}
@@ -100,7 +101,7 @@ export default function TransformationOutcomes() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: transitionEase, delay: 0.22 + idx * 0.07 }}
-              className={`py-8 lg:py-9 border-t border-[#DADFDB] ${
+              className={`py-8 lg:py-9 border-t border-[#CFD6D1] ${
                 idx === outcomes.length - 1 ? "lg:col-span-2 lg:max-w-[50%]" : ""
               }`}
             >

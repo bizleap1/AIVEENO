@@ -11,11 +11,18 @@ import { cn } from "@/lib/utils";
 
 interface NavbarProps {
   onOpenDiscoveryModal?: (context?: string) => void;
+  solidBackground?: boolean;
+  transparentOnHero?: boolean;
 }
 
-export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
+export default function Navbar({
+  onOpenDiscoveryModal,
+  solidBackground,
+  transparentOnHero,
+}: NavbarProps) {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const [activeMenu, setActiveMenu] = useState<"ai" | "cloud" | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<"ai" | "cloud" | null>(null);
@@ -38,8 +45,10 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
+      setScrollY(window.scrollY);
       setScrolled(window.scrollY > 20);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -96,6 +105,10 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
 
   const isAboutActive = pathname === "/about";
   const isContactActive = pathname === "/contact";
+  
+  const isDarkHeroPage = transparentOnHero || pathname === "/ai-business-transformation";
+  // The dark hero section is approx ~640px tall. While inside the hero, the navbar is transparent over dark.
+  const isOverDarkHero = isDarkHeroPage && scrollY < 520;
 
   return (
     <>
@@ -103,8 +116,10 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
       className={cn(
         "fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
         mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1.5",
-        scrolled
-          ? "bg-[#F5F7F6]/92 backdrop-blur-[16px] border-b border-[#D9DDDA]/30 shadow-[0_1px_2px_rgba(13,17,23,0.015)]"
+        isOverDarkHero
+          ? "bg-transparent border-b border-transparent shadow-none"
+          : solidBackground || scrolled
+          ? "bg-[#F5F7F6]/95 backdrop-blur-[16px] border-b border-[#D9DDDA]/50 shadow-[0_1px_2px_rgba(13,17,23,0.015)]"
           : "bg-[#F5F7F6]/95 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border-b border-[#0D1B2A]/[0.06] lg:border-transparent"
       )}
     >
@@ -130,9 +145,13 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                   onClick={() => setActiveMenu(activeMenu === "ai" ? null : "ai")}
                   className={cn(
                     "group flex items-center gap-1.5 py-1 text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors cursor-pointer focus:outline-none",
-                    isAiActive || activeMenu === "ai"
-                      ? "text-[#0D1B2A] font-medium"
-                      : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal"
+                    isOverDarkHero
+                      ? (isAiActive || activeMenu === "ai"
+                          ? "text-white font-semibold"
+                          : "text-[#F0F3F1] hover:text-white font-medium")
+                      : (isAiActive || activeMenu === "ai"
+                          ? "text-[#0D1B2A] font-medium"
+                          : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal")
                   )}
                   aria-expanded={activeMenu === "ai"}
                 >
@@ -140,15 +159,21 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                     AI Transformation
                     {isAiActive && (
                       <span
-                        className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#C9A35B]/85"
+                        className={cn(
+                          "absolute -bottom-0.5 left-0 right-0 h-[1.5px]",
+                          isOverDarkHero ? "bg-[#C9A45C]" : "bg-[#C9A35B]/85"
+                        )}
                         aria-hidden="true"
                       />
                     )}
                   </span>
                   <ChevronDown
                     className={cn(
-                      "w-2.5 h-2.5 transition-transform duration-200 text-[#3B4A5A]/60 group-hover:text-[#0D1B2A] stroke-[1.5]",
-                      activeMenu === "ai" ? "rotate-180 text-[#0D1B2A]" : ""
+                      "w-2.5 h-2.5 transition-transform duration-200 stroke-[1.75]",
+                      isOverDarkHero
+                        ? "text-[#F0F3F1] group-hover:text-white"
+                        : "text-[#3B4A5A]/60 group-hover:text-[#0D1B2A]",
+                      activeMenu === "ai" ? "rotate-180" : ""
                     )}
                   />
                 </button>
@@ -226,9 +251,13 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                   onClick={() => setActiveMenu(activeMenu === "cloud" ? null : "cloud")}
                   className={cn(
                     "group flex items-center gap-1.5 py-1 text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors cursor-pointer focus:outline-none",
-                    isCloudActive || activeMenu === "cloud"
-                      ? "text-[#0D1B2A] font-medium"
-                      : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal"
+                    isOverDarkHero
+                      ? (isCloudActive || activeMenu === "cloud"
+                          ? "text-white font-semibold"
+                          : "text-[#F0F3F1] hover:text-white font-medium")
+                      : (isCloudActive || activeMenu === "cloud"
+                          ? "text-[#0D1B2A] font-medium"
+                          : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal")
                   )}
                   aria-expanded={activeMenu === "cloud"}
                 >
@@ -236,15 +265,21 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                     Cloud & Technology
                     {isCloudActive && (
                       <span
-                        className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#C9A35B]/85"
+                        className={cn(
+                          "absolute -bottom-0.5 left-0 right-0 h-[1.5px]",
+                          isOverDarkHero ? "bg-[#C9A45C]" : "bg-[#C9A35B]/85"
+                        )}
                         aria-hidden="true"
                       />
                     )}
                   </span>
                   <ChevronDown
                     className={cn(
-                      "w-2.5 h-2.5 transition-transform duration-200 text-[#3B4A5A]/60 group-hover:text-[#0D1B2A] stroke-[1.5]",
-                      activeMenu === "cloud" ? "rotate-180 text-[#0D1B2A]" : ""
+                      "w-2.5 h-2.5 transition-transform duration-200 stroke-[1.75]",
+                      isOverDarkHero
+                        ? "text-[#F0F3F1] group-hover:text-white"
+                        : "text-[#3B4A5A]/60 group-hover:text-[#0D1B2A]",
+                      activeMenu === "cloud" ? "rotate-180" : ""
                     )}
                   />
                 </button>
@@ -300,7 +335,10 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
 
             {/* LOGO: Left on mobile, Center on desktop */}
             <div className="flex items-center justify-start lg:justify-center shrink-0">
-              <Logo variant="dark" />
+              <Logo
+                variant={isOverDarkHero ? "light" : "dark"}
+                className={isOverDarkHero ? "drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)]" : ""}
+              />
             </div>
 
             {/* RIGHT SECTION: About | Contact (Aligned towards Logo) + Book a Discovery Call (pinned right) */}
@@ -312,15 +350,22 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                     href="/about"
                     className={cn(
                       "relative text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors py-1",
-                      isAboutActive
-                        ? "text-[#0D1B2A] font-medium"
-                        : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal"
+                      isOverDarkHero
+                        ? (isAboutActive
+                            ? "text-white font-semibold"
+                            : "text-[#F0F3F1] hover:text-white font-medium")
+                        : (isAboutActive
+                            ? "text-[#0D1B2A] font-medium"
+                            : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal")
                     )}
                   >
                     <span>About</span>
                     {isAboutActive && (
                       <span
-                        className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]"
+                        className={cn(
+                          "absolute -bottom-0.5 left-0 right-0 h-[1.5px]",
+                          isOverDarkHero ? "bg-[#C9A45C]" : "bg-[#D4A64A]"
+                        )}
                         aria-hidden="true"
                       />
                     )}
@@ -333,15 +378,22 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
                     href="/contact"
                     className={cn(
                       "relative text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors py-1",
-                      isContactActive
-                        ? "text-[#0D1B2A] font-medium"
-                        : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal"
+                      isOverDarkHero
+                        ? (isContactActive
+                            ? "text-white font-semibold"
+                            : "text-[#F0F3F1] hover:text-white font-medium")
+                        : (isContactActive
+                            ? "text-[#0D1B2A] font-medium"
+                            : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal")
                     )}
                   >
                     <span>Contact</span>
                     {isContactActive && (
                       <span
-                        className="absolute -bottom-0.5 left-0 right-0 h-[1px] bg-[#D4A64A]"
+                        className={cn(
+                          "absolute -bottom-0.5 left-0 right-0 h-[1.5px]",
+                          isOverDarkHero ? "bg-[#C9A45C]" : "bg-[#D4A64A]"
+                        )}
                         aria-hidden="true"
                       />
                     )}
@@ -353,7 +405,12 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
               <button
                 type="button"
                 onClick={() => handleDiscoveryClick("Navbar: Book a Discovery Call")}
-                className="inline-flex items-center justify-center h-[44px] px-4 rounded-[8px] bg-[#0D1117] text-[#F5F7F6] text-[13.5px] font-medium border border-transparent hover:border-[#D4A64A]/70 hover:bg-[#151B22] hover:-translate-y-px transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4A64A] shrink-0"
+                className={cn(
+                  "inline-flex items-center justify-center h-[44px] px-4 rounded-[8px] text-[13.5px] font-medium transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 shrink-0 shadow-xs",
+                  isOverDarkHero
+                    ? "bg-[#222824] text-white border border-white/[0.32] hover:border-[#C9A45C] hover:bg-[#2B332E] shadow-[0_2px_8px_rgba(0,0,0,0.4)] focus-visible:outline-[#C9A45C]"
+                    : "bg-[#0D1117] text-[#F5F7F6] border border-transparent hover:border-[#D4A64A]/70 hover:bg-[#151B22] hover:-translate-y-px focus-visible:outline-[#D4A64A]"
+                )}
               >
                 <span>Book a Discovery Call</span>
               </button>
@@ -364,7 +421,12 @@ export default function Navbar({ onOpenDiscoveryModal }: NavbarProps) {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(true)}
-                className="w-10 h-10 flex items-center justify-center text-[#0D1B2A] hover:bg-[#EAEFED] rounded-[6px] transition-colors focus:outline-none cursor-pointer"
+                className={cn(
+                  "w-10 h-10 flex items-center justify-center rounded-[6px] transition-colors focus:outline-none cursor-pointer",
+                  isOverDarkHero
+                    ? "text-white hover:bg-white/[0.12]"
+                    : "text-[#0D1B2A] hover:bg-[#EAEFED]"
+                )}
                 aria-label="Open navigation menu"
               >
                 <Menu className="w-6 h-6 stroke-[1.75]" />

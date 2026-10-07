@@ -143,11 +143,12 @@ export default function TransformationSystemsDark() {
 
   return (
     <motion.section
+      id="framework"
       initial={{ opacity: 0.96, y: 48 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8% 0px -8% 0px" }}
       transition={{ duration: 0.8, ease: transitionEase }}
-      className="relative z-20 w-full bg-[#111312] text-[#F5F5F1] py-16 sm:py-20 lg:py-24 border-t border-b border-white/[0.12] shadow-[0_-32px_75px_rgba(0,0,0,0.5)] overflow-hidden"
+      className="relative z-20 w-full scroll-mt-[115px] bg-[#111312] text-[#F5F5F1] py-16 sm:py-20 lg:py-24 border-t border-b border-white/[0.12] shadow-[0_-32px_75px_rgba(0,0,0,0.5)] overflow-hidden"
     >
       <Container className="px-5 sm:px-6 lg:px-12">
         

@@ -17,15 +17,18 @@ import DiscoveryModal from "@/components/DiscoveryModal";
  * Aiveeno — Flagship Service Page: AI Business Transformation (/ai-business-transformation)
  * 
  * Locked 8-Section Visual Architecture (Accenture-Inspired Editorial Experience):
- * 01. Hero → #F5F7F6 (Clean core light surface)
- * 02. Business Challenge + Our Perspective → #EEF1F0 (Merged richer editorial narrative zone)
- * 03. Where AI Creates Value → #F5F7F6 (Interactive expandable editorial service explorer)
+ * 01. Hero → #F5F7F6 (Primary light surface)
+ * 02. Business Challenge + Our Perspective → #EBEFED (Solid deeper alternate light surface)
+ * 03. Where AI Creates Value → #F5F7F6 (Primary light surface)
  * 04. What Transformation Can Include → #111312 (DARK GRAPHITE capability anchor)
- * 05. Our Approach / Framework → #F5F7F6 (Disciplined consulting lifecycle)
- * 06. From Assessment to Implementation → #EEF1F0 (Progressive horizontal/vertical rail)
- * 07. Potential Outcomes → #F5F7F6 (High-impact 2-column editorial outcome statements)
- * 08. Final Flagship CTA → #F5F7F6 (Asymmetric editorial split & discovery call)
+ * 05. Our Approach / Framework → #EEF1F0 (Alternate light surface slide-up)
+ * 06. From Assessment to Implementation → #F5F7F6 (Primary light surface rail)
+ * 07. Potential Outcomes → #EEF1F0 (Alternate light surface)
+ * 08. Final Flagship CTA → #F5F7F6 (Primary light surface)
  * + Global Footer → #111312 (Dark graphite)
+ * 
+ * Color Flow Rhythm:
+ * Light (#F5F7F6) → Grey (#EBEFED) → Light (#F5F7F6) → DARK (#111312) → Grey (#EEF1F0) → Light (#F5F7F6) → Grey (#EEF1F0) → Light (#F5F7F6) → DARK footer (#111312)
  */
 
 export default function AIBusinessTransformationPage() {
@@ -52,10 +55,10 @@ export default function AIBusinessTransformationPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F5F7F6] text-[#0E1C2A]">
       {/* Top Sticky Enterprise Navigation with MegaMenu */}
-      <Navbar onOpenDiscoveryModal={handleOpenDiscovery} />
+      <Navbar transparentOnHero onOpenDiscoveryModal={handleOpenDiscovery} />
 
       <main className="flex-1">
-        {/* 01 — Flagship Hero: AI Business Transformation (#F5F7F6) */}
+        {/* 01 — Flagship Hero: AI Business Transformation (#111312 Dark Editorial) */}
         <TransformationHero onOpenDiscoveryModal={handleOpenDiscovery} />
 
         {/* 02 — Business Challenge + Our Perspective: Unified Editorial Narrative Zone (#EEF1F0) */}
@@ -67,13 +70,13 @@ export default function AIBusinessTransformationPage() {
         {/* 04 — What Transformation Can Include: Main Dark Graphite Capability Section (#111312) */}
         <TransformationSystemsDark />
 
-        {/* 05 — Our Approach / Framework: Disciplined Transformation Lifecycle (#F5F7F6) */}
+        {/* 05 — Our Approach / Framework: Disciplined Transformation Lifecycle (#EEF1F0) */}
         <TransformationFramework />
 
-        {/* 06 — From Assessment to Implementation: Progressive Commercial Rail (#EEF1F0) */}
+        {/* 06 — From Assessment to Implementation: Progressive Commercial Rail (#F5F7F6) */}
         <TransformationLifecycleRail />
 
-        {/* 07 — Potential Outcomes: 2-Column High-Impact Statements (#F5F7F6) */}
+        {/* 07 — Potential Outcomes: 2-Column High-Impact Statements (#EEF1F0) */}
         <TransformationOutcomes />
 
         {/* 08 — Final Flagship CTA: Asymmetric Editorial Split (#F5F7F6) */}

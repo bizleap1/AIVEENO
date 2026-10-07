@@ -4,11 +4,11 @@ import { Container } from "@/components/ui/Container";
 import { motion } from "motion/react";
 
 /**
- * Aiveeno — Flagship Service Page: Section 06
- * OUR APPROACH / FRAMEWORK (#F5F7F6)
+ * Aiveeno — Flagship Service Page: Section 05
+ * OUR APPROACH / FRAMEWORK (#EEF1F0)
  * 
  * Accenture-Inspired Light Panel Transition:
- * - Light surface (#F5F7F6) slides up over the previous dark section (750ms, ease: [0.22, 1, 0.36, 1]).
+ * - Alternate light surface (#EEF1F0) slides up over the previous dark section (750ms, ease: [0.22, 1, 0.36, 1]).
  * - Elevation shadow: shadow-[0_-25px_60px_rgba(0,0,0,0.18)] with relative z-30.
  * - Draws the lifecycle line (origin-left scaleX).
  * - Reveals phase labels, principles, and deliverables sequentially.
@@ -46,11 +46,12 @@ const frameworkPhases = [
 export default function TransformationFramework() {
   return (
     <motion.section
+      id="approach"
       initial={{ opacity: 0.96, y: 44 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8% 0px -8% 0px" }}
       transition={{ duration: 0.75, ease: transitionEase }}
-      className="relative z-30 w-full bg-[#F5F7F6] text-[#0E1C2A] py-16 sm:py-20 lg:py-24 border-t border-b border-[#DADFDB] shadow-[0_-25px_60px_rgba(0,0,0,0.18)]"
+      className="relative z-30 w-full scroll-mt-[115px] bg-[#EEF1F0] text-[#0E1C2A] py-16 sm:py-20 lg:py-24 border-t border-b border-[#CFD6D1] shadow-[0_-25px_60px_rgba(0,0,0,0.18)]"
     >
       <Container className="px-5 sm:px-6 lg:px-12">
         
@@ -134,7 +135,7 @@ export default function TransformationFramework() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, ease: transitionEase, delay: 0.48 + idx * 0.1 }}
-                className="pt-4 border-t border-[#DADFDB]"
+                className="pt-4 border-t border-[#CFD6D1]"
               >
                 <div className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#0E1C2A] mb-1">
                   Primary Deliverable
