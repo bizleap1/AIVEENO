@@ -139,7 +139,7 @@ export default function TransformationValueDomains({
   };
 
   return (
-    <section className="relative z-10 w-full bg-[#EEF1F0] text-[#0E1C2A] py-16 sm:py-20 lg:py-24 border-b border-[#DADFDB]">
+    <section className="relative z-10 w-full bg-[#F5F7F6] text-[#0E1C2A] py-16 sm:py-20 lg:py-24 border-b border-[#DADFDB]">
       <Container className="px-5 sm:px-6 lg:px-12">
         
         {/* ========================================================================= */}

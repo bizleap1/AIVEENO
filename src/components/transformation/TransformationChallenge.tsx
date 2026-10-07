@@ -8,26 +8,18 @@ import { motion } from "motion/react";
  * Aiveeno — Flagship Service Page: Section 02
  * THE BUSINESS CHALLENGE (#EEF1F0)
  * 
- * Accenture-Inspired Editorial Narrative & Thesis Band:
+ * Accenture-Inspired Compact Editorial Composition:
  * - Background: #EEF1F0 (matching homepage The Shift alternate light surface).
- * - Reduced excessive vertical whitespace (desktop: 88–96px top, 72–88px bottom).
- * - Tightened two-column layout with clear copy hierarchy (lead paragraph 20–22px, body 16–17px).
- * - Full-width editorial thesis band: TOOL ADOPTION ≠ BUSINESS TRANSFORMATION.
- *   - Thin drawn hairline divider.
- *   - Tool Adoption: 26–32px, Instrument Sans 500, dark ink.
- *   - Business Transformation: 26–32px, Instrument Sans 500, dark ink.
- *   - ≠ symbol: Muted gold (#C9A35B), 34–40px.
- * - Sequential entrance animation:
- *   1. Grey surface rises
- *   2. Eyebrow reveals
- *   3. H2 masked reveal
- *   4. First paragraph fade
- *   5. Second paragraph fade
- *   6. Divider draws full width
- *   7. Tool Adoption reveals
- *   8. Gold ≠ appears
- *   9. Business Transformation reveals
- * - Zero hover states, zero cards, zero icons, zero AI graphics.
+ * - Total section height: Compact ~420–490px (eliminates 50/50 consulting slide dead space).
+ * - Desktop vertical padding: 72–88px (pt-[76px] lg:pt-[84px] pb-[76px] lg:pb-[84px]).
+ * - Asymmetric full-width editorial flow:
+ *   1. Eyebrow: THE BUSINESS CHALLENGE
+ *   2. Headline: Why tool-first AI adoption produces limited return. (56–60px, Instrument Sans 500, max-w-[800px])
+ *   3. Supporting copy: 18–20px, max-w-[620px] (Organizations often invest in isolated tools...)
+ *   4. Thin drawn hairline divider
+ *   5. Closing editorial statement: Tool adoption ≠ business transformation (28–34px with muted gold ≠)
+ * - Zero cards, zero diagrams, zero images, zero hover simulation.
+ * - Easing: strictly cubic-bezier(0.22, 1, 0.36, 1).
  */
 
 const transitionEase = [0.22, 1, 0.36, 1] as const;
@@ -44,24 +36,22 @@ export default function TransformationChallenge() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Timings: Desktop (700ms surface) vs Mobile (320ms surface)
+  // Surface Transition: Desktop 700ms (y: 40) | Mobile 320ms (y: 20)
   const surfaceDuration = isMobile ? 0.32 : 0.7;
-  const surfaceY = isMobile ? 22 : 44;
+  const surfaceY = isMobile ? 20 : 40;
 
-  // Staggered Delays
-  const eyebrowDelay = isMobile ? 0.18 : 0.40;
-  const h2Line1Delay = isMobile ? 0.24 : 0.48;
-  const h2Line2Delay = isMobile ? 0.30 : 0.56;
-  const h2Line3Delay = isMobile ? 0.36 : 0.64;
+  // Staggered Sequential Delays (Desktop vs Mobile)
+  const eyebrowDelay = isMobile ? 0.16 : 0.36;
+  const h2Line1Delay = isMobile ? 0.22 : 0.44;
+  const h2Line2Delay = isMobile ? 0.28 : 0.52;
+  const h2Line3Delay = isMobile ? 0.34 : 0.60;
   const h2Duration = isMobile ? 0.42 : 0.65;
-  const p1Delay = isMobile ? 0.42 : 0.70;
-  const p2Delay = isMobile ? 0.48 : 0.78;
-  const pDuration = isMobile ? 0.32 : 0.4;
-  const dividerDelay = isMobile ? 0.54 : 0.86;
-  const dividerDuration = isMobile ? 0.45 : 0.65;
-  const thesisPart1Delay = isMobile ? 0.60 : 0.96;
-  const thesisNotEqualDelay = isMobile ? 0.66 : 1.04;
-  const thesisPart2Delay = isMobile ? 0.72 : 1.12;
+  const copyDelay = isMobile ? 0.38 : 0.60;
+  const copyDuration = isMobile ? 0.32 : 0.40;
+  const dividerDelay = isMobile ? 0.46 : 0.68;
+  const dividerDuration = isMobile ? 0.40 : 0.60;
+  const thesisDelay = isMobile ? 0.52 : 0.76;
+  const thesisDuration = isMobile ? 0.35 : 0.50;
 
   return (
     <motion.section
@@ -69,191 +59,152 @@ export default function TransformationChallenge() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: surfaceDuration, ease: transitionEase }}
-      className="relative z-10 w-full bg-[#EEF1F0] text-[#0E1C2A] pt-14 sm:pt-16 lg:pt-[92px] xl:pt-[96px] pb-14 sm:pb-16 lg:pb-[78px] xl:pb-[84px] border-b border-[#DADFDB] shadow-[0_-18px_45px_rgba(14,28,42,0.04)]"
+      className="relative z-10 w-full bg-[#EEF1F0] text-[#0E1C2A] pt-14 sm:pt-16 lg:pt-[78px] xl:pt-[84px] pb-14 sm:pb-16 lg:pb-[78px] xl:pb-[84px] border-b border-[#DADFDB] shadow-[0_-18px_45px_rgba(14,28,42,0.04)]"
     >
       <Container className="px-5 sm:px-6 lg:px-12">
-        
-        {/* ========================================================================= */}
-        {/* TWO-COLUMN EDITORIAL PROBLEM REFRAME                                      */}
-        {/* ========================================================================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-16 items-start">
+        <div className="max-w-[1140px] flex flex-col space-y-6 sm:space-y-7 lg:space-y-8">
           
-          {/* LEFT COLUMN: EYEBROW & 3-LINE DISPLAY H2 (5-COLS) */}
-          <div className="lg:col-span-5 space-y-3 sm:space-y-4">
-            
-            {/* 1. Eyebrow Reveal with Golden Dash */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, ease: transitionEase, delay: eyebrowDelay }}
-              className="inline-flex items-center gap-2.5 text-[11.5px] sm:text-[12px] font-sans font-semibold uppercase tracking-[0.14em] text-[#56616B]"
-            >
-              <span className="w-3.5 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
-              <span>The Business Challenge</span>
-            </motion.div>
+          {/* ========================================================================= */}
+          {/* 1. EYEBROW REVEAL WITH MUTED GOLD DASH                                    */}
+          {/* ========================================================================= */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, ease: transitionEase, delay: eyebrowDelay }}
+            className="inline-flex items-center gap-2.5 text-[11px] sm:text-[11.5px] font-sans font-semibold uppercase tracking-[0.14em] text-[#56616B]"
+          >
+            <span className="w-3.5 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
+            <span>The Business Challenge</span>
+          </motion.div>
 
-            {/* 2. Headline Line-by-Line Masked Reveal (3 Clean Lines, 54-58px desktop, 38-42px mobile) */}
-            <h2 className="space-y-0.5 sm:space-y-1">
-              <div className="overflow-hidden pb-[0.12em]">
-                <motion.span
-                  initial={{ y: "100%", opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: h2Duration, ease: transitionEase, delay: h2Line1Delay }}
-                  className="block font-sans font-medium text-[38px] min-[390px]:text-[41px] sm:text-[46px] lg:text-[52px] xl:text-[56px] text-[#0E1C2A] tracking-[-0.035em] leading-[1.04]"
-                >
-                  Why tool-first AI
-                </motion.span>
+          {/* ========================================================================= */}
+          {/* 2. HEADLINE & SUPPORTING COPY (EDITORIAL ASYMMETRIC FLOW)                 */}
+          {/* ========================================================================= */}
+          <div className="space-y-4 sm:space-y-5 lg:space-y-6">
+            
+            {/* Display H2: 56–60px Desktop (Instrument Sans 500, max-w-[820px]) */}
+            <h2 className="max-w-[820px] tracking-[-0.035em]">
+              {/* Mobile Line-by-Line (38–42px) */}
+              <div className="sm:hidden space-y-0.5" aria-hidden="true">
+                <div className="overflow-hidden pb-[0.12em]">
+                  <motion.span
+                    initial={{ y: "100%", opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: h2Duration, ease: transitionEase, delay: h2Line1Delay }}
+                    className="block font-sans font-medium text-[38px] min-[390px]:text-[41px] text-[#0E1C2A] leading-[1.04]"
+                  >
+                    Why tool-first AI
+                  </motion.span>
+                </div>
+                <div className="overflow-hidden pb-[0.12em]">
+                  <motion.span
+                    initial={{ y: "100%", opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: h2Duration, ease: transitionEase, delay: h2Line2Delay }}
+                    className="block font-sans font-medium text-[38px] min-[390px]:text-[41px] text-[#0E1C2A] leading-[1.04]"
+                  >
+                    adoption produces
+                  </motion.span>
+                </div>
+                <div className="overflow-hidden pb-[0.12em]">
+                  <motion.span
+                    initial={{ y: "100%", opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: h2Duration, ease: transitionEase, delay: h2Line3Delay }}
+                    className="block font-sans font-medium text-[38px] min-[390px]:text-[41px] text-[#0E1C2A] leading-[1.04]"
+                  >
+                    limited return.
+                  </motion.span>
+                </div>
               </div>
-              <div className="overflow-hidden pb-[0.12em]">
-                <motion.span
-                  initial={{ y: "100%", opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: h2Duration, ease: transitionEase, delay: h2Line2Delay }}
-                  className="block font-sans font-medium text-[38px] min-[390px]:text-[41px] sm:text-[46px] lg:text-[52px] xl:text-[56px] text-[#0E1C2A] tracking-[-0.035em] leading-[1.04]"
-                >
-                  adoption produces
-                </motion.span>
+
+              {/* Desktop / Tablet Line Structure (56–60px, 2 Clean Editorial Lines) */}
+              <div className="hidden sm:block space-y-0.5 sm:space-y-1" aria-hidden="true">
+                <div className="overflow-hidden pb-[0.14em]">
+                  <motion.span
+                    initial={{ y: "100%", opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: h2Duration, ease: transitionEase, delay: h2Line1Delay }}
+                    className="block font-sans font-medium text-[46px] lg:text-[54px] xl:text-[58px] text-[#0E1C2A] leading-[1.04]"
+                  >
+                    Why tool-first AI adoption
+                  </motion.span>
+                </div>
+                <div className="overflow-hidden pb-[0.14em]">
+                  <motion.span
+                    initial={{ y: "100%", opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: h2Duration, ease: transitionEase, delay: h2Line2Delay }}
+                    className="block font-sans font-medium text-[46px] lg:text-[54px] xl:text-[58px] text-[#0E1C2A] leading-[1.04]"
+                  >
+                    produces limited return.
+                  </motion.span>
+                </div>
               </div>
-              <div className="overflow-hidden pb-[0.12em]">
-                <motion.span
-                  initial={{ y: "100%", opacity: 0 }}
-                  whileInView={{ y: 0, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: h2Duration, ease: transitionEase, delay: h2Line3Delay }}
-                  className="block font-sans font-medium text-[38px] min-[390px]:text-[41px] sm:text-[46px] lg:text-[52px] xl:text-[56px] text-[#0E1C2A] tracking-[-0.035em] leading-[1.04]"
-                >
-                  limited return.
-                </motion.span>
-              </div>
+
+              <span className="sr-only">
+                Why tool-first AI adoption produces limited return.
+              </span>
             </h2>
 
-          </div>
-
-          {/* RIGHT COLUMN: REFINED EDITORIAL HIERARCHY (7-COLS, MAX-WIDTH ~720PX) */}
-          <div className="lg:col-span-7 flex flex-col justify-start space-y-4 sm:space-y-5 max-w-[720px] lg:pt-1">
-            
-            {/* 3. Paragraph 1: Executive Lead-in (Slightly larger size for hierarchy) */}
+            {/* Supporting Copy: 18–20px Desktop, max-w-[620px] */}
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: pDuration, ease: transitionEase, delay: p1Delay }}
-              className="text-[17.5px] sm:text-[18.5px] lg:text-[21px] text-[#0E1C2A] leading-[1.45] font-normal tracking-[-0.01em]"
+              transition={{ duration: copyDuration, ease: transitionEase, delay: copyDelay }}
+              className="max-w-[620px] text-[15.5px] sm:text-[17.5px] lg:text-[19px] text-[#56616B] leading-[1.58] font-normal"
             >
-              Organizations frequently invest in disconnected point tools, only to discover that core workflows, operating processes and decision-making remain fundamentally unchanged.
-            </motion.p>
-
-            {/* 4. Paragraph 2: Structural Analysis (Supporting regular size) */}
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: pDuration, ease: transitionEase, delay: p2Delay }}
-              className="text-[15px] sm:text-[15.5px] lg:text-[16.5px] text-[#56616B] leading-[1.6] font-normal"
-            >
-              Deploying isolated tools without redesigning underlying systems leaves daily operational friction in place. Without transforming how workflows and systems connect, experimentation spend rarely translates into measurable business value.
+              Organizations often invest in isolated tools without redesigning the workflows and systems around them. The result is experimentation without meaningful operational change.
             </motion.p>
 
           </div>
 
-        </div>
-
-        {/* ========================================================================= */}
-        {/* FULL-WIDTH EDITORIAL THESIS BAND (NO BOX, NO CARD, PURE TYPOGRAPHY)       */}
-        {/* ========================================================================= */}
-        <div className="mt-12 sm:mt-14 lg:mt-16 pt-2">
-          
-          {/* Thin Drawn Horizontal Divider */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: dividerDuration, ease: transitionEase, delay: dividerDelay }}
-            className="origin-left h-px bg-[#DADFDB] w-full mb-8 sm:mb-9 lg:mb-10"
-            aria-hidden="true"
-          />
-
-          {/* Desktop Layout: Balanced Horizontal Editorial Statement */}
-          <div className="hidden sm:flex items-center justify-between lg:justify-center lg:gap-10 xl:gap-14 text-center select-none">
-            <div className="overflow-hidden pb-[0.1em]">
-              <motion.span
-                initial={{ y: "100%", opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: transitionEase, delay: thesisPart1Delay }}
-                className="block font-sans font-medium text-[24px] sm:text-[26px] lg:text-[30px] xl:text-[32px] uppercase tracking-[0.05em] text-[#0E1C2A]"
-              >
-                Tool Adoption
-              </motion.span>
-            </div>
-
-            <motion.span
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+          {/* ========================================================================= */}
+          {/* 3. THIN HORIZONTAL DRAWN DIVIDER                                          */}
+          {/* ========================================================================= */}
+          <div className="pt-2 sm:pt-3">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.45, ease: transitionEase, delay: thesisNotEqualDelay }}
-              className="font-sans font-light text-[32px] sm:text-[36px] lg:text-[40px] xl:text-[42px] text-[#C9A35B] leading-none px-3 lg:px-4"
-              aria-label="does not equal"
-            >
-              ≠
-            </motion.span>
-
-            <div className="overflow-hidden pb-[0.1em]">
-              <motion.span
-                initial={{ y: "100%", opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: transitionEase, delay: thesisPart2Delay }}
-                className="block font-sans font-medium text-[24px] sm:text-[26px] lg:text-[30px] xl:text-[32px] uppercase tracking-[0.05em] text-[#0E1C2A]"
-              >
-                Business Transformation
-              </motion.span>
-            </div>
+              transition={{ duration: dividerDuration, ease: transitionEase, delay: dividerDelay }}
+              className="origin-left h-px bg-[#DADFDB] w-full"
+              aria-hidden="true"
+            />
           </div>
 
-          {/* Mobile Layout: Stacked Vertical Editorial Statement */}
-          <div className="flex sm:hidden flex-col items-center justify-center space-y-2.5 text-center select-none">
-            <div className="overflow-hidden pb-[0.08em]">
-              <motion.span
+          {/* ========================================================================= */}
+          {/* 4. CLOSING EDITORIAL STATEMENT: Tool adoption ≠ business transformation   */}
+          {/* ========================================================================= */}
+          <div className="pt-1 select-none">
+            <div className="overflow-hidden pb-[0.12em]">
+              <motion.div
                 initial={{ y: "100%", opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, ease: transitionEase, delay: thesisPart1Delay }}
-                className="block font-sans font-medium text-[21px] min-[390px]:text-[23px] uppercase tracking-[0.06em] text-[#0E1C2A]"
+                transition={{ duration: thesisDuration, ease: transitionEase, delay: thesisDelay }}
+                className="font-sans font-medium text-[22px] min-[390px]:text-[24px] sm:text-[27px] lg:text-[31px] xl:text-[33px] text-[#0E1C2A] tracking-[-0.025em] flex flex-wrap items-baseline gap-x-2 sm:gap-x-2.5"
               >
-                Tool Adoption
-              </motion.span>
-            </div>
-
-            <motion.span
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, ease: transitionEase, delay: thesisNotEqualDelay }}
-              className="font-sans font-light text-[32px] text-[#C9A35B] leading-none py-0.5"
-              aria-label="does not equal"
-            >
-              ≠
-            </motion.span>
-
-            <div className="overflow-hidden pb-[0.08em]">
-              <motion.span
-                initial={{ y: "100%", opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, ease: transitionEase, delay: thesisPart2Delay }}
-                className="block font-sans font-medium text-[21px] min-[390px]:text-[23px] uppercase tracking-[0.06em] text-[#0E1C2A]"
-              >
-                Business Transformation
-              </motion.span>
+                <span>Tool adoption</span>
+                <span
+                  className="text-[#C9A35B] font-light text-[26px] min-[390px]:text-[28px] sm:text-[32px] lg:text-[38px] leading-none"
+                  aria-label="does not equal"
+                >
+                  ≠
+                </span>
+                <span>business transformation</span>
+              </motion.div>
             </div>
           </div>
 
         </div>
-
       </Container>
     </motion.section>
   );
