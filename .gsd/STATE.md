@@ -45,3 +45,4 @@ None.
 ## Session Context
 
 Codebase architecture and technology inventory have been thoroughly mapped and validated. All routes, data stores, components, and brand guidelines are documented in `.gsd/ARCHITECTURE.md` and `.gsd/STACK.md`.
+

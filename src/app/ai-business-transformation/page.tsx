@@ -17,18 +17,18 @@ import DiscoveryModal from "@/components/DiscoveryModal";
  * Aiveeno — Flagship Service Page: AI Business Transformation (/ai-business-transformation)
  * 
  * Locked 8-Section Visual Architecture (Accenture-Inspired Editorial Experience):
- * 01. Hero → #F5F7F6 (Primary light surface)
+ * 01. Hero → #111312 (Dark Editorial Hero) / Surface #F5F7F6
  * 02. Business Challenge + Our Perspective → #EBEFED (Solid deeper alternate light surface)
  * 03. Where AI Creates Value → #F5F7F6 (Primary light surface)
  * 04. What Transformation Can Include → #111312 (DARK GRAPHITE capability anchor)
- * 05. Our Approach / Framework → #EEF1F0 (Alternate light surface slide-up)
- * 06. From Assessment to Implementation → #F5F7F6 (Primary light surface rail)
- * 07. Potential Outcomes → #EEF1F0 (Alternate light surface)
+ * 05. Our Approach / Framework → #EBEFED (Alternate light surface, matching Section 02)
+ * 06. From Assessment to Implementation → #F5F7F6 (Primary light surface rail, matching Section 03)
+ * 07. Potential Outcomes → #EBEFED (Alternate light surface)
  * 08. Final Flagship CTA → #F5F7F6 (Primary light surface)
  * + Global Footer → #111312 (Dark graphite)
  * 
  * Color Flow Rhythm:
- * Light (#F5F7F6) → Grey (#EBEFED) → Light (#F5F7F6) → DARK (#111312) → Grey (#EEF1F0) → Light (#F5F7F6) → Grey (#EEF1F0) → Light (#F5F7F6) → DARK footer (#111312)
+ * Dark Hero (#111312) → Grey (#EBEFED) → Light (#F5F7F6) → DARK (#111312) → Grey (#EBEFED) → Light (#F5F7F6) → Grey (#EBEFED) → Light (#F5F7F6) → DARK footer (#111312)
  */
 
 export default function AIBusinessTransformationPage() {
@@ -70,13 +70,13 @@ export default function AIBusinessTransformationPage() {
         {/* 04 — What Transformation Can Include: Main Dark Graphite Capability Section (#111312) */}
         <TransformationSystemsDark />
 
-        {/* 05 — Our Approach / Framework: Disciplined Transformation Lifecycle (#EEF1F0) */}
+        {/* 05 — Our Approach / Framework: Disciplined Transformation Lifecycle (#EBEFED) */}
         <TransformationFramework />
 
         {/* 06 — From Assessment to Implementation: Progressive Commercial Rail (#F5F7F6) */}
         <TransformationLifecycleRail />
 
-        {/* 07 — Potential Outcomes: 2-Column High-Impact Statements (#EEF1F0) */}
+        {/* 07 — Potential Outcomes: 2-Column High-Impact Statements (#EBEFED) */}
         <TransformationOutcomes />
 
         {/* 08 — Final Flagship CTA: Asymmetric Editorial Split (#F5F7F6) */}

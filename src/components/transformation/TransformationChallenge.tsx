@@ -88,7 +88,7 @@ export default function TransformationChallenge() {
       whileInView={{ y: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: surfaceDuration, ease: transitionEase }}
-      className="relative z-10 w-full scroll-mt-[115px] bg-[#EBEFED] text-[#0E1C2A] pt-[48px] sm:pt-[54px] lg:pt-[58px] xl:pt-[62px] pb-[46px] sm:pb-[50px] lg:pb-[50px] xl:pb-[54px] border-b border-[#C5CCC7] shadow-[0_-14px_35px_rgba(14,28,42,0.04)]"
+      className="relative z-10 w-full scroll-mt-[115px] bg-[#EBEFED] text-[#0E1C2A] pt-[48px] sm:pt-[54px] lg:pt-[58px] xl:pt-[62px] pb-7 sm:pb-8 lg:pb-9 shadow-[0_-14px_35px_rgba(14,28,42,0.04)]"
     >
       <Container className="px-5 sm:px-6 lg:px-12">
         <div className="max-w-[1160px] flex flex-col">

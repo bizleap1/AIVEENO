@@ -1,23 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { motion, AnimatePresence } from "motion/react";
 
 /**
- * Aiveeno — Flagship Service Page: Section 05
- * WHAT TRANSFORMATION CAN INCLUDE — DARK GRAPHITE (#111312)
+ * Aiveeno — Flagship Service Page: Section 04
+ * WHAT TRANSFORMATION CAN INCLUDE (#111312 — Dark Graphite)
  * 
- * Signature Accenture-Style Editorial Capability Experience:
- * - Strongest transition on the page: dark graphite panel (#111312) rises
- *   from the bottom and visually covers the previous light section.
- * - Replaces static card grid with large expandable capability rows.
- * - One capability open at a time. Left: Title, explanation, workloads | Right: Real consulting photo.
- * - Desktop hover: title strengthens to pure white, muted gold micro-line appears.
- * - Interactive click: row expands smoothly (350–450ms), image clip/crossfade (550–700ms).
- * - Exact easing: cubic-bezier(0.22, 1, 0.36, 1).
- * - Zero glow, zero particles, zero AI effects. Pure enterprise systems architecture.
+ * Executive Editorial Capability Showcase (Concise & Scannable):
+ * - Text volume reduced by >50%: no secondary sub-paragraphs or walls of text.
+ * - Left column (~35%): 7 compact capability rows.
+ * - Right column (~65%):
+ *   1. Category label
+ *   2. Large, 3-second impactful headline
+ *   3. 1-sentence plain English explanation
+ *   4. Clean, punchy 2-column comparison: The Challenge vs Transformation Direction (one phrase each)
+ * - Fits cleanly within viewport below navbar.
  */
 
 const transitionEase = [0.22, 1, 0.36, 1] as const;
@@ -26,320 +25,350 @@ interface CapabilityItem {
   id: string;
   number: string;
   title: string;
-  category: string;
+  label: string;
   headline: string;
   description: string;
-  workloads: string[];
-  image: string;
-  imageAlt: string;
+  challenge: string;
+  transformation: string;
 }
 
-const capabilities: CapabilityItem[] = [
+const CAPABILITIES: CapabilityItem[] = [
   {
-    id: "workflows",
+    id: "workflow-automation",
     number: "01",
-    title: "Workflow Automation & Orchestration",
-    category: "Process Orchestration",
-    headline: "Orchestrating multi-step business procedures across legacy backends.",
+    title: "Workflow Automation",
+    label: "01 — Workflow Automation",
+    headline: "Connect fragmented work. Fewer handoffs across teams.",
     description:
-      "Orchestrating complex, multi-step business operations across legacy ERPs, internal databases, and core software without requiring manual data re-entry. We eliminate departmental silos and human handoff delays.",
-    workloads: [
-      "Cross-system record synchronization & automated state machines",
-      "Automated operational exception routing with human-in-the-loop triage",
-      "Multi-department document validation and straight-through processing",
-    ],
-    image: "/images/value-operations.jpg",
-    imageAlt: "Enterprise operations leadership and consultants analyzing business process architecture",
+      "Coordinate multi-step business processes so everyday work moves forward without manual chasing.",
+    challenge: "Manual, fragmented handoffs between teams",
+    transformation: "Coordinated execution with continuous sync",
   },
   {
-    id: "agents",
+    id: "ai-systems-agents",
     number: "02",
-    title: "Autonomous AI Systems & Agents",
-    category: "Agentic Systems",
-    headline: "Specialized, policy-bounded agentic architectures inside corporate guardrails.",
+    title: "Intelligent Systems & Automation",
+    label: "02 — Intelligent Systems & Automation",
+    headline: "AI handles repetitive work. People stay in control.",
     description:
-      "Specialized, policy-bounded agentic architectures designed to reason through complex operational tasks while operating strictly within deterministic corporate boundaries, cryptographic citations, and auditable action gates.",
-    workloads: [
-      "Multi-step operational analysis and triage engines",
-      "Deterministic policy-bounded action engines with approval gates",
-      "Auditable execution logs with complete step lineage",
-    ],
-    image: "/images/ai-transformation-hero.jpg",
-    imageAlt: "Senior consultants in strategic dialogue reviewing system policies and agent workflows",
+      "Deploy intelligent systems for high-volume tasks, with human review where judgment matters.",
+    challenge: "Manual, repetitive operational tasks",
+    transformation: "AI-assisted execution with oversight",
   },
   {
-    id: "knowledge",
+    id: "intelligent-knowledge",
     number: "03",
-    title: "Governed Enterprise Knowledge",
-    category: "Knowledge Retrieval",
-    headline: "RAG architectures turning corporate archives into queryable intelligence.",
+    title: "Institutional Knowledge",
+    label: "03 — Institutional Knowledge",
+    headline: "Make institutional memory instantly accessible.",
     description:
-      "Secure retrieval-augmented architectures that turn scattered corporate documentation, wikis, and repositories into queryable, source-attributed enterprise intelligence with zero-trust data boundaries.",
-    workloads: [
-      "Regulatory & internal policy intelligence engines with verified citations",
-      "Institutional memory discovery and synthesis across corporate archives",
-      "Cryptographic citation and verified document attribution",
-    ],
-    image: "/images/assessment-strategy-session.jpg",
-    imageAlt: "Executive consulting strategy dialogue reviewing stakeholder journeys and institutional intelligence",
+      "Unify company documentation and operating history into verified, searchable intelligence.",
+    challenge: "Critical know-how trapped in files and silos",
+    transformation: "Direct, verified answers in seconds",
   },
   {
     id: "integrations",
     number: "04",
-    title: "Enterprise System Integrations",
-    category: "Systems Integration",
-    headline: "Production-grade API gateways connecting AI workloads into legacy software.",
+    title: "Core Integrations",
+    label: "04 — Core Integrations",
+    headline: "Unify the core tools your business already relies on.",
     description:
-      "Production-grade API gateways, webhook listeners, and event buses connecting modern AI workloads directly into SAP, Salesforce, Oracle, and proprietary software without rewriting legacy cores.",
-    workloads: [
-      "ERP and CRM bi-directional synchronization and event listeners",
-      "Event-driven messaging and transaction fabrics",
-      "Secure legacy system wrappers and connectors",
-    ],
-    image: "/images/value-commercial.jpg",
-    imageAlt: "Senior executive commercial board meeting reviewing strategic enterprise systems and integration roadmaps",
+      "Connect customer platforms and back-office tools so data synchronizes without copy-paste.",
+    challenge: "Isolated software islands and double entry",
+    transformation: "Continuous, synchronized business systems",
   },
   {
-    id: "data-foundations",
+    id: "data-pipelines",
     number: "05",
-    title: "Modern Data Foundations & Pipelines",
-    category: "Data Architecture",
-    headline: "Unified data fabrics, semantic layers, and automated data contracts.",
+    title: "Data Pipelines",
+    label: "05 — Data Pipelines",
+    headline: "Clean, dependable data flowing to decisions that matter.",
     description:
-      "Unified data fabrics, automated data contracts, and semantic layers ensuring intelligent systems consume verified, clean, and regulatory-compliant enterprise data with continuous schema drift alerting.",
-    workloads: [
-      "Automated data quality monitoring & schema drift alerting",
-      "Semantic business layers for natural language querying",
-      "Zero-trust data masking and role-based access enforcement",
-    ],
-    image: "/images/systems-architecture.jpg",
-    imageAlt: "Enterprise cloud architects and systems engineers collaborating around a distributed data architecture blueprint",
+      "Automate data ingestion and validation so executive reports reflect trusted, current numbers.",
+    challenge: "Conflicting figures and spreadsheet maintenance",
+    transformation: "Automated, verified data delivery",
   },
   {
-    id: "custom-platforms",
+    id: "decision-support",
     number: "06",
-    title: "Custom Software & Cloud Platforms",
-    category: "Platform Engineering",
-    headline: "Purpose-built enterprise platforms engineered for resilience and scale.",
+    title: "Decision Support",
+    label: "06 — Decision Support",
+    headline: "Surface relevant evidence before you make critical calls.",
     description:
-      "Purpose-built enterprise web platforms, microservices, and multi-zone cloud architectures engineered to support scalable, fault-tolerant transformation initiatives with deterministic latency and cost telemetry.",
-    workloads: [
-      "High-concurrency microservices and workflow engines",
-      "Inference cost governance and token telemetry",
-      "Enterprise security baselines and compliance controls",
-    ],
-    image: "/images/cloud-infrastructure.jpg",
-    imageAlt: "Modern enterprise infrastructure and data governance architecture session",
+      "Equip leaders with structured facts, scenario comparisons, and risk visibility before deciding.",
+    challenge: "Decisions made with partial context",
+    transformation: "Contextual synthesis and scenario visibility",
+  },
+  {
+    id: "custom-software",
+    number: "07",
+    title: "Purpose-Built Software",
+    label: "07 — Purpose-Built Software",
+    headline: "Applications engineered around how your business runs.",
+    description:
+      "Build tailored internal tools and workflows when off-the-shelf software forces compromises.",
+    challenge: "Rigid off-the-shelf software constraints",
+    transformation: "Tailored tools aligned with your operations",
   },
 ];
 
 export default function TransformationSystemsDark() {
-  // Start with first capability open
-  const [activeId, setActiveId] = useState<string>("workflows");
+  // 01 Workflow Automation is active by default
+  const [activeId, setActiveId] = useState<string>("workflow-automation");
 
-  const toggleCapability = (id: string) => {
+  const activeCapability =
+    CAPABILITIES.find((cap) => cap.id === activeId) || CAPABILITIES[0];
+
+  const handleMobileToggle = (id: string) => {
     setActiveId((prev) => (prev === id ? "" : id));
   };
 
   return (
     <motion.section
-      id="framework"
-      initial={{ opacity: 0.96, y: 48 }}
+      id="what-transformation-can-include"
+      initial={{ opacity: 0.98, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8% 0px -8% 0px" }}
-      transition={{ duration: 0.8, ease: transitionEase }}
-      className="relative z-20 w-full scroll-mt-[115px] bg-[#111312] text-[#F5F5F1] py-16 sm:py-20 lg:py-24 border-t border-b border-white/[0.12] shadow-[0_-32px_75px_rgba(0,0,0,0.5)] overflow-hidden"
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.6, ease: transitionEase }}
+      className="relative z-20 w-full scroll-mt-[80px] bg-[#111312] text-[#F5F7F6] pt-8 sm:pt-10 lg:pt-11 pb-9 sm:pb-11 lg:pb-12 border-t border-b border-white/[0.10] overflow-hidden"
     >
-      <Container className="px-5 sm:px-6 lg:px-12">
+      <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
         
         {/* ========================================================================= */}
-        {/* SECTION HEADER: DARK GRAPHITE ACCENTURE STYLE                             */}
+        {/* COMPACT SECTION HEADER (FITS CLEANLY BELOW NAVBAR)                        */}
         {/* ========================================================================= */}
-        <div className="max-w-3xl space-y-3 sm:space-y-4 mb-12 sm:mb-16">
+        <div className="max-w-3xl space-y-2 mb-6 sm:mb-7 lg:mb-8">
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.45, ease: transitionEase, delay: 0.15 }}
-            className="inline-flex items-center gap-2.5 text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-[#AEB3AF]"
+            transition={{ duration: 0.4, ease: transitionEase, delay: 0.1 }}
+            className="inline-flex items-center gap-2 text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-[#9EA7A1]"
           >
-            <span className="w-3.5 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
-            <span>Systems Architecture</span>
+            <span className="w-3 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
+            <span>What Transformation Can Include</span>
           </motion.div>
 
-          <div className="overflow-hidden pb-[0.12em]">
-            <motion.h2
-              initial={{ y: "100%", opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: transitionEase, delay: 0.22 }}
-              className="font-sans font-medium text-[32px] min-[390px]:text-[36px] sm:text-[40px] lg:text-[44px] text-[#F5F5F1] tracking-[-0.03em] leading-[1.08]"
-            >
-              What enterprise transformation includes.
-            </motion.h2>
-          </div>
-
-          <motion.p
+          <motion.h2
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: transitionEase, delay: 0.32 }}
-            className="text-[15.5px] sm:text-[16.5px] text-[#AEB3AF] leading-[1.6] font-normal"
+            transition={{ duration: 0.5, ease: transitionEase, delay: 0.18 }}
+            className="font-sans font-medium text-[30px] min-[390px]:text-[34px] sm:text-[38px] lg:text-[44px] xl:text-[46px] text-[#F5F7F6] tracking-[-0.03em] leading-[1.12]"
           >
-            We engineer complete, production-ready systems tailored to your operating environment—avoiding fragile consumer tool wrappers in favor of resilient enterprise software.
+            From Strategy to Execution.
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, ease: transitionEase, delay: 0.25 }}
+            className="text-[15px] sm:text-[15.5px] lg:text-[16px] text-[#AEB3AF] leading-[1.6] font-normal"
+          >
+            AI transformation connects workflows, data and technology to practical business needs.
           </motion.p>
         </div>
 
         {/* ========================================================================= */}
-        {/* ACCENTURE-STYLE EXPANDABLE CAPABILITY ROWS (DARK SURFACE)                 */}
+        {/* DESKTOP LAYOUT: CONCISE EDITORIAL SHOWCASE                                */}
         {/* ========================================================================= */}
-        <div className="border-t border-white/[0.12] divide-y divide-white/[0.10]">
-          {capabilities.map((cap, idx) => {
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8 xl:gap-14 items-start">
+          
+          {/* LEFT COLUMN: 7 Capability Navigation Items */}
+          <div className="lg:col-span-5 xl:col-span-4 border-t border-white/[0.10]">
+            {CAPABILITIES.map((cap) => {
+              const isActive = activeId === cap.id;
+
+              return (
+                <button
+                  key={cap.id}
+                  type="button"
+                  onClick={() => setActiveId(cap.id)}
+                  className={`group w-full text-left py-2.5 xl:py-3 border-b border-white/[0.08] transition-colors duration-150 flex items-center justify-between cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-[#C9A35B] ${
+                    isActive ? "text-[#F5F7F6]" : "text-[#7B847F] hover:text-[#D1D7D3]"
+                  }`}
+                  aria-selected={isActive}
+                >
+                  <div className="flex items-baseline gap-3.5 xl:gap-4 min-w-0 pr-3">
+                    <span
+                      className={`font-sans text-[12.5px] xl:text-[13px] font-medium transition-colors duration-150 ${
+                        isActive ? "text-[#C9A35B]" : "text-[#556059] group-hover:text-[#8C9590]"
+                      }`}
+                    >
+                      {cap.number}
+                    </span>
+                    <span className="font-sans font-medium text-[16.5px] xl:text-[18px] tracking-[-0.015em] leading-snug truncate">
+                      {cap.title}
+                    </span>
+                  </div>
+
+                  {/* Clean Restrained Active Indicator */}
+                  <span
+                    className={`w-2.5 h-0.5 rounded-full shrink-0 transition-all duration-200 ${
+                      isActive
+                        ? "bg-[#C9A35B] opacity-100 scale-100"
+                        : "bg-transparent opacity-0 scale-50"
+                    }`}
+                    aria-hidden="true"
+                  />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* RIGHT COLUMN: Concise Editorial Detail & 1-Line Comparison */}
+          <div className="lg:col-span-7 xl:col-span-8 min-h-[300px] xl:min-h-[320px] flex flex-col justify-start">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCapability.id}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.35, ease: transitionEase }}
+                className="flex flex-col justify-start h-full"
+              >
+                {/* 1. Subtle Capability Label */}
+                <span className="font-sans text-[11.5px] xl:text-[12px] font-medium uppercase tracking-[0.14em] text-[#C9A35B] block mb-2.5">
+                  {activeCapability.label}
+                </span>
+
+                {/* 2. Impactful Business Headline (Enlarged to match left column balance) */}
+                <h3 className="font-sans font-medium text-[27px] sm:text-[31px] xl:text-[35px] text-[#F5F7F6] tracking-[-0.03em] leading-[1.18] max-w-2xl">
+                  {activeCapability.headline}
+                </h3>
+
+                {/* 3. Concise 1-Sentence Plain English Explanation */}
+                <p className="font-sans text-[15.5px] sm:text-[16px] xl:text-[17px] text-[#C5CBC7] leading-[1.6] font-normal pt-3 pb-6 xl:pb-7 max-w-2xl">
+                  {activeCapability.description}
+                </p>
+
+                {/* 4. Punchy Two-Column Comparison (Enlarged and aligned with left list) */}
+                <div className="border-t border-white/[0.12] pt-5 xl:pt-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 xl:gap-8">
+                    
+                    {/* Column A: THE CHALLENGE */}
+                    <div className="flex flex-col space-y-1.5">
+                      <span className="font-sans text-[11px] xl:text-[11.5px] font-medium uppercase tracking-[0.14em] text-[#8C9590] block">
+                        The Challenge
+                      </span>
+                      <p className="font-sans font-medium text-[17px] xl:text-[19px] text-[#F5F7F6] tracking-[-0.02em] leading-snug">
+                        {activeCapability.challenge}
+                      </p>
+                    </div>
+
+                    {/* Column B: TRANSFORMATION DIRECTION */}
+                    <div className="flex flex-col space-y-1.5">
+                      <span className="font-sans text-[11px] xl:text-[11.5px] font-medium uppercase tracking-[0.14em] text-[#C9A35B] block">
+                        Transformation Direction
+                      </span>
+                      <p className="font-sans font-medium text-[17px] xl:text-[19px] text-[#F5F7F6] tracking-[-0.02em] leading-snug">
+                        {activeCapability.transformation}
+                      </p>
+                    </div>
+
+                  </div>
+                </div>
+
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+        </div>
+
+        {/* ========================================================================= */}
+        {/* MOBILE LAYOUT (< 1024px): COMPACT EDITORIAL ACCORDION STACK               */}
+        {/* ========================================================================= */}
+        <div className="block lg:hidden border-t border-white/[0.10] divide-y divide-white/[0.08]">
+          {CAPABILITIES.map((cap) => {
             const isOpen = activeId === cap.id;
 
             return (
-              <motion.div
-                key={cap.id}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: transitionEase, delay: 0.2 + idx * 0.05 }}
-                className="group"
-              >
-                {/* ----------------------------------------------------------------- */}
-                {/* CAPABILITY ROW TRIGGER HEADER                                     */}
-                {/* ----------------------------------------------------------------- */}
+              <div key={cap.id} className="transition-colors duration-150">
+                {/* Mobile Tap Trigger */}
                 <button
                   type="button"
-                  onClick={() => toggleCapability(cap.id)}
+                  onClick={() => handleMobileToggle(cap.id)}
                   aria-expanded={isOpen}
-                  className="w-full text-left py-6 sm:py-7 lg:py-8 flex items-center justify-between gap-4 cursor-pointer focus:outline-none transition-colors duration-200"
+                  className="w-full text-left py-3.5 px-1.5 flex items-center justify-between gap-3 cursor-pointer select-none focus:outline-none"
                 >
-                  <div className="flex items-center gap-4 sm:gap-6 lg:gap-8 min-w-0">
-                    {/* Index Number */}
-                    <span className="font-mono text-[12px] sm:text-[13px] font-semibold tracking-wider text-[#C9A35B] shrink-0">
+                  <div className="flex items-baseline gap-3 min-w-0">
+                    <span
+                      className={`font-sans text-[11.5px] font-medium transition-colors duration-150 ${
+                        isOpen ? "text-[#C9A35B]" : "text-[#556059]"
+                      }`}
+                    >
                       {cap.number}
                     </span>
-
-                    {/* Capability Title with Hover Indicator */}
-                    <div className="relative">
-                      <h3
-                        className={`font-sans font-medium text-[20px] sm:text-[23px] lg:text-[26px] tracking-[-0.025em] leading-snug transition-colors duration-200 ${
-                          isOpen
-                            ? "text-white"
-                            : "text-[#F5F5F1]/85 group-hover:text-white"
-                        }`}
-                      >
-                        {cap.title}
-                      </h3>
-                      {/* Muted Gold Micro-line on Hover */}
-                      <span
-                        className={`absolute left-0 -bottom-1 h-px bg-[#C9A35B] transition-all duration-300 ${
-                          isOpen ? "w-full" : "w-0 group-hover:w-full"
-                        }`}
-                        aria-hidden="true"
-                      />
-                    </div>
-
-                    {/* Category Tag */}
-                    <span className="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-[2px] bg-white/[0.06] text-[10.5px] font-sans font-medium uppercase tracking-[0.12em] text-[#AEB3AF] shrink-0">
-                      {cap.category}
-                    </span>
-                  </div>
-
-                  {/* Restrained Dark Toggle Indicator (+ / −) */}
-                  <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full border border-white/[0.14] group-hover:border-white/40 transition-colors duration-200 text-[#F5F5F1]">
-                    <span
-                      className={`font-mono text-[16px] leading-none transition-transform duration-300 ${
-                        isOpen ? "rotate-45 text-[#C9A35B]" : "rotate-0"
+                    <h3
+                      className={`font-sans font-medium text-[17px] tracking-[-0.015em] leading-tight ${
+                        isOpen ? "text-[#F5F7F6]" : "text-[#8C9590]"
                       }`}
-                      aria-hidden="true"
                     >
-                      +
-                    </span>
-                    <span className="sr-only">
-                      {isOpen ? "Collapse capability details" : "Expand capability details"}
-                    </span>
+                      {cap.title}
+                    </h3>
                   </div>
+
+                  {/* Clean Indicator */}
+                  <span
+                    className={`font-sans text-[15px] leading-none transition-transform duration-200 shrink-0 ${
+                      isOpen ? "rotate-45 text-[#C9A35B]" : "rotate-0 text-[#76807B]"
+                    }`}
+                    aria-hidden="true"
+                  >
+                    +
+                  </span>
                 </button>
 
-                {/* ----------------------------------------------------------------- */}
-                {/* EXPANDED CAPABILITY DETAIL PANEL (Left Story | Right Image)       */}
-                {/* ----------------------------------------------------------------- */}
+                {/* Mobile Expand Content */}
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
-                      id={`cap-content-${cap.id}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.42, ease: transitionEase }}
+                      transition={{ duration: 0.3, ease: transitionEase }}
                       className="overflow-hidden"
                     >
-                      <div className="pt-2 pb-8 sm:pb-10 lg:pb-12 border-t border-white/[0.08]">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-14 items-start">
-                          
-                          {/* Left Column: Headline, Explanation & Workloads (~58%) */}
-                          <div className="lg:col-span-7 flex flex-col justify-start space-y-5">
-                            
-                            {/* Focused Sub-headline */}
-                            <h4 className="font-sans font-medium text-[19px] sm:text-[21px] text-[#F5F5F1] tracking-[-0.02em] leading-snug">
-                              {cap.headline}
-                            </h4>
+                      <div className="px-1.5 pt-1.5 pb-4 space-y-3">
+                        {/* Headline */}
+                        <h4 className="font-sans font-medium text-[18px] sm:text-[20px] text-[#F5F7F6] tracking-[-0.02em] leading-snug">
+                          {cap.headline}
+                        </h4>
 
-                            {/* Description */}
-                            <p className="text-[14.5px] sm:text-[15px] text-[#AEB3AF] leading-[1.65] font-normal">
-                              {cap.description}
+                        {/* 3. Description */}
+                        <p className="font-sans text-[13.5px] text-[#C5CBC7] leading-[1.5]">
+                          {cap.description}
+                        </p>
+
+                        {/* 4. Stacked Comparison */}
+                        <div className="border-t border-white/[0.08] pt-2.5 space-y-2.5">
+                          {/* The Challenge */}
+                          <div>
+                            <span className="font-sans text-[10px] font-medium uppercase tracking-[0.12em] text-[#8C9590] block">
+                              The Challenge
+                            </span>
+                            <p className="font-sans font-medium text-[14px] text-[#F5F7F6] leading-snug">
+                              {cap.challenge}
                             </p>
-
-                            {/* Key Workloads List */}
-                            <div className="pt-3 border-t border-white/[0.08] space-y-3">
-                              <div className="text-[10.5px] font-sans font-semibold uppercase tracking-[0.14em] text-[#F5F5F1]/80">
-                                Typical Enterprise Workloads
-                              </div>
-                              <ul className="space-y-2.5">
-                                {cap.workloads.map((workload, i) => (
-                                  <li
-                                    key={i}
-                                    className="text-[13px] sm:text-[13.5px] text-[#AEB3AF] flex items-start gap-2.5 leading-snug"
-                                  >
-                                    <span
-                                      className="w-1.5 h-1.5 rounded-full bg-[#C9A35B] shrink-0 mt-1.5"
-                                      aria-hidden="true"
-                                    />
-                                    <span>{workload}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-
                           </div>
 
-                          {/* Right Column: Real Consulting Systems Image (~42%) */}
-                          <div className="lg:col-span-5 flex flex-col justify-start">
-                            <motion.div
-                              initial={{ opacity: 0, clipPath: "inset(5% 0% 0% 0%)" }}
-                              animate={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
-                              transition={{ duration: 0.6, ease: transitionEase, delay: 0.1 }}
-                              className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-[4px] overflow-hidden border border-white/[0.12] shadow-[0_8px_30px_-8px_rgba(0,0,0,0.6)] bg-[#1A1C1B]"
-                            >
-                              <Image
-                                src={cap.image}
-                                alt={cap.imageAlt}
-                                fill
-                                sizes="(max-width: 1024px) 100vw, 42vw"
-                                className="object-cover object-center"
-                              />
-                            </motion.div>
+                          {/* Transformation Direction */}
+                          <div>
+                            <span className="font-sans text-[10px] font-medium uppercase tracking-[0.12em] text-[#C9A35B] block">
+                              Transformation Direction
+                            </span>
+                            <p className="font-sans font-medium text-[14px] text-[#F5F7F6] leading-snug">
+                              {cap.transformation}
+                            </p>
                           </div>
-
                         </div>
+
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-
-              </motion.div>
+              </div>
             );
           })}
         </div>

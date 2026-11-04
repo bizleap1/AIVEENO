@@ -1,118 +1,288 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { motion, AnimatePresence } from "motion/react";
 
 /**
- * Aiveeno — Flagship Service Page: Section 04
- * WHERE AI CREATES VALUE (#EEF1F0)
+ * Aiveeno — Flagship Service Page: Section 03
+ * WHERE AI CREATES VALUE (#F5F7F6)
  * 
- * Accenture-Inspired Expandable Editorial Service Explorer:
- * - Replaces static 3x3 or 2x2 grid with an interactive editorial accordion list.
- * - One enterprise business domain open at a time.
- * - Desktop: Full-width expandable rows with a 2-column split (Left: Headline, explanation, workloads | Right: Real editorial consulting photography).
- * - Mobile: Clean full-width accordions where editorial photo stacks smoothly below copy.
- * - Restrained enterprise styling: Zero generic AI graphics, zero glows, zero card lift.
- * - Interactive hover: Title strengthens, muted gold micro-indicator appears.
- * - Exact easing: cubic-bezier(0.22, 1, 0.36, 1).
+ * Modifia-Inspired Editorial Expertise Matrix (Refined):
+ * - 3-Column Cohesive Editorial Grid with Integrated Intro (Cells 1 & 2).
+ * - All 9 Business Areas visible at once (Cells 3 to 11).
+ * - High-prominence Custom Abstract Geometric SVG Marks (~80px on desktop, ~60px on mobile).
+ * - Compact standardized tile height (~255–265px) eliminating excess blank space.
+ * - Simple, executive-friendly, business-first opportunity themes (no invented jargon/metrics).
+ * - Synchronized Modifia circular reveal without empty black state (themes unveiled in real-time).
+ * - Cell 12: Editorial closing tile: "Across functions. Connected by strategy."
+ * - Mobile (< 768px): Vertical stack with tap-to-reveal (single item active at a time).
  */
 
 const transitionEase = [0.22, 1, 0.36, 1] as const;
 
-interface DomainItem {
+interface AreaItem {
   id: string;
   number: string;
   title: string;
-  category: string;
-  headline: string;
-  explanation: string;
-  workloads: string[];
-  image: string;
-  imageAlt: string;
+  themes: [string, string, string];
+  symbol: React.ReactNode;
 }
 
-const domains: DomainItem[] = [
+// ---------------------------------------------------------------------------
+// High-Prominence Custom Abstract Geometric Symbols (~80px on desktop)
+// Thin clean strokes (1.2–1.5px), restrained gold details (#C9A35B)
+// ---------------------------------------------------------------------------
+
+function OperationsSymbol() {
+  return (
+    <svg viewBox="0 0 72 72" fill="none" className="w-[74px] h-[74px] lg:w-[82px] lg:h-[82px] shrink-0" aria-hidden="true">
+      {/* Parallel workflow tracks */}
+      <line x1="10" y1="22" x2="48" y2="22" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.8" />
+      <line x1="24" y1="50" x2="62" y2="50" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.8" />
+      {/* Conduit transfer line */}
+      <path d="M 48 22 L 48 36 L 24 36 L 24 50" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.5" strokeDasharray="3 2" />
+      {/* Strategic decision diamond in muted gold */}
+      <polygon points="36,29 43,36 36,43 29,36" stroke="#C9A35B" strokeWidth="1.5" fill="none" />
+      <circle cx="36" cy="36" r="2" fill="#C9A35B" />
+      {/* Workflow nodes */}
+      <circle cx="10" cy="22" r="3" stroke="#0D1117" strokeWidth="1.3" fill="#F5F7F6" />
+      <circle cx="62" cy="50" r="3.5" stroke="#C9A35B" strokeWidth="1.5" fill="#C9A35B" />
+    </svg>
+  );
+}
+
+function CustomerExperienceSymbol() {
+  return (
+    <svg viewBox="0 0 72 72" fill="none" className="w-[74px] h-[74px] lg:w-[82px] lg:h-[82px] shrink-0" aria-hidden="true">
+      {/* Concentric radiating dialogue curves */}
+      <path d="M 14 58 A 30 30 0 0 1 58 14" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.75" />
+      <path d="M 23 58 A 21 21 0 0 1 58 23" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.5" strokeDasharray="3 3" />
+      <path d="M 32 58 A 12 12 0 0 1 58 32" stroke="#C9A35B" strokeWidth="1.4" />
+      {/* Baseline axis */}
+      <line x1="14" y1="58" x2="58" y2="58" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.4" />
+      {/* Focal resolution node */}
+      <circle cx="58" cy="58" r="4.5" stroke="#C9A35B" strokeWidth="1.5" fill="#F5F7F6" />
+      <circle cx="58" cy="58" r="1.8" fill="#C9A35B" />
+      <circle cx="14" cy="58" r="2.5" fill="#0D1117" />
+    </svg>
+  );
+}
+
+function SalesSymbol() {
+  return (
+    <svg viewBox="0 0 72 72" fill="none" className="w-[74px] h-[74px] lg:w-[82px] lg:h-[82px] shrink-0" aria-hidden="true">
+      {/* Commercial baseline */}
+      <line x1="10" y1="60" x2="62" y2="60" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.4" />
+      {/* Stepped milestone columns */}
+      <line x1="20" y1="60" x2="20" y2="46" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.7" />
+      <line x1="35" y1="60" x2="35" y2="34" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.7" />
+      <line x1="50" y1="60" x2="50" y2="22" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.7" />
+      {/* Ascending pipeline velocity vector */}
+      <path d="M 12 52 L 32 38 L 56 14" stroke="#C9A35B" strokeWidth="1.8" />
+      <circle cx="56" cy="14" r="3.5" fill="#C9A35B" />
+      <circle cx="12" cy="52" r="2.5" stroke="#0D1117" strokeWidth="1.2" fill="#F5F7F6" />
+    </svg>
+  );
+}
+
+function FinanceSymbol() {
+  return (
+    <svg viewBox="0 0 72 72" fill="none" className="w-[74px] h-[74px] lg:w-[82px] lg:h-[82px] shrink-0" aria-hidden="true">
+      {/* Precision ledger matrix crosshairs */}
+      <line x1="10" y1="36" x2="62" y2="36" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.4" />
+      <line x1="36" y1="10" x2="36" y2="62" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.4" />
+      {/* Balanced entity frames */}
+      <rect x="18" y="18" width="15" height="15" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.8" fill="none" />
+      <rect x="39" y="39" width="15" height="15" stroke="#C9A35B" strokeWidth="1.5" fill="none" />
+      {/* Central continuous audit point */}
+      <circle cx="36" cy="36" r="4" stroke="#C9A35B" strokeWidth="1.5" fill="#F5F7F6" />
+      <circle cx="36" cy="36" r="1.8" fill="#C9A35B" />
+    </svg>
+  );
+}
+
+function HRSymbol() {
+  return (
+    <svg viewBox="0 0 72 72" fill="none" className="w-[74px] h-[74px] lg:w-[82px] lg:h-[82px] shrink-0" aria-hidden="true">
+      {/* Capability hierarchy framework */}
+      <line x1="36" y1="16" x2="16" y2="54" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.6" />
+      <line x1="36" y1="16" x2="56" y2="54" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.6" />
+      <line x1="16" y1="54" x2="56" y2="54" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.4" />
+      {/* Lateral capability connection */}
+      <line x1="26" y1="35" x2="46" y2="35" stroke="#C9A35B" strokeWidth="1.3" strokeDasharray="3 2" />
+      {/* Strategic leadership apex */}
+      <circle cx="36" cy="16" r="4.5" stroke="#C9A35B" strokeWidth="1.5" fill="#C9A35B" />
+      {/* Foundation nodes */}
+      <circle cx="16" cy="54" r="3" stroke="#0D1117" strokeWidth="1.3" fill="#F5F7F6" />
+      <circle cx="56" cy="54" r="3" stroke="#0D1117" strokeWidth="1.3" fill="#F5F7F6" />
+    </svg>
+  );
+}
+
+function MarketingSymbol() {
+  return (
+    <svg viewBox="0 0 72 72" fill="none" className="w-[74px] h-[74px] lg:w-[82px] lg:h-[82px] shrink-0" aria-hidden="true">
+      {/* Radiating intent aperture arcs */}
+      <path d="M 12 36 A 24 24 0 0 1 60 36" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.7" />
+      <path d="M 21 36 A 15 15 0 0 1 51 36" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.5" strokeDasharray="3 3" />
+      {/* Directional transmitter vector */}
+      <line x1="36" y1="60" x2="36" y2="18" stroke="#C9A35B" strokeWidth="1.6" />
+      <polygon points="36,12 31,20 41,20" fill="#C9A35B" />
+      <circle cx="36" cy="60" r="3" stroke="#0D1117" strokeWidth="1.3" fill="#F5F7F6" />
+    </svg>
+  );
+}
+
+function ITSymbol() {
+  return (
+    <svg viewBox="0 0 72 72" fill="none" className="w-[74px] h-[74px] lg:w-[82px] lg:h-[82px] shrink-0" aria-hidden="true">
+      {/* Isometric platform mesh */}
+      <polygon points="36,12 58,25 58,47 36,60 14,47 14,25" stroke="#0D1117" strokeWidth="1.3" strokeOpacity="0.75" fill="none" />
+      <line x1="36" y1="36" x2="36" y2="60" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.5" />
+      <line x1="36" y1="36" x2="58" y2="25" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.5" />
+      <line x1="36" y1="36" x2="14" y2="25" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.5" />
+      {/* Central operational core */}
+      <circle cx="36" cy="36" r="3.8" stroke="#C9A35B" strokeWidth="1.5" fill="#C9A35B" />
+    </svg>
+  );
+}
+
+function KnowledgeSymbol() {
+  return (
+    <svg viewBox="0 0 72 72" fill="none" className="w-[74px] h-[74px] lg:w-[82px] lg:h-[82px] shrink-0" aria-hidden="true">
+      {/* Perspective folio planes */}
+      <polygon points="18,20 40,14 54,22 32,28" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.6" fill="none" />
+      <polygon points="18,32 40,26 54,34 32,40" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.75" fill="none" />
+      <polygon points="18,44 40,38 54,46 32,52" stroke="#C9A35B" strokeWidth="1.5" fill="none" />
+      {/* Vertical indexing axis */}
+      <line x1="18" y1="20" x2="18" y2="44" stroke="#0D1117" strokeWidth="1.4" />
+      <circle cx="40" cy="38" r="2.2" fill="#C9A35B" />
+    </svg>
+  );
+}
+
+function DataSymbol() {
+  return (
+    <svg viewBox="0 0 72 72" fill="none" className="w-[74px] h-[74px] lg:w-[82px] lg:h-[82px] shrink-0" aria-hidden="true">
+      {/* Parallel stream vectors */}
+      <line x1="10" y1="24" x2="62" y2="24" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.7" />
+      <line x1="10" y1="36" x2="62" y2="36" stroke="#C9A35B" strokeWidth="1.6" />
+      <line x1="10" y1="48" x2="62" y2="48" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.7" />
+      {/* Dual validation gates */}
+      <line x1="26" y1="16" x2="26" y2="56" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.5" strokeDasharray="3 3" />
+      <line x1="46" y1="16" x2="46" y2="56" stroke="#0D1117" strokeWidth="1.2" strokeOpacity="0.5" strokeDasharray="3 3" />
+      {/* Verified core node */}
+      <circle cx="46" cy="36" r="4" stroke="#C9A35B" strokeWidth="1.5" fill="#C9A35B" />
+      <circle cx="26" cy="36" r="2.5" fill="#0D1117" />
+    </svg>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Business Areas Data Definition
+// Simple, business-first, executive-friendly opportunity themes
+// ---------------------------------------------------------------------------
+
+const AREAS: AreaItem[] = [
   {
     id: "operations",
     number: "01",
-    title: "Operations & Supply Workflows",
-    category: "Process Orchestration",
-    headline: "Automating cross-system workflow coordination and operational triage.",
-    explanation:
-      "We eliminate high-friction manual data movement between ERPs, logistics platforms, and internal backends. Intelligent exception routing and autonomous triage ensure operational bottlenecks are resolved before causing downstream delays.",
-    workloads: [
-      "Cross-system workflow coordination across ERP, WMS, and legacy backends",
-      "Automated operational exception routing and intelligent triage protocols",
-      "Predictive demand forecasting and automated inventory rebalancing",
+    title: "Operations",
+    themes: [
+      "Process coordination",
+      "Routine task automation",
+      "Operational exceptions",
     ],
-    image: "/images/value-operations.jpg",
-    imageAlt: "Enterprise operations leadership and consultants analyzing business process architecture on glass whiteboard in modern headquarters",
+    symbol: <OperationsSymbol />,
   },
   {
     id: "customer-experience",
     number: "02",
-    title: "Customer & Frontline Experience",
-    category: "Customer Experience",
-    headline: "Multimodal resolution engines embedded inside transactional software.",
-    explanation:
-      "Deploy context-aware resolution systems that solve complex Tier-1 and Tier-2 inquiries directly inside backend transaction databases and CRM records—avoiding generic chatbot frustration in favor of verifiable customer outcomes.",
-    workloads: [
-      "Autonomous Tier-1 and Tier-2 case resolution with verified transaction access",
-      "Real-time customer journey sentiment analysis and proactive escalation",
-      "Automated inquiry summarization and bidirectional CRM synchronization",
+    title: "Customer Experience",
+    themes: [
+      "Inquiry resolution",
+      "Customer support",
+      "Service consistency",
     ],
-    image: "/images/assessment-strategy-session.jpg",
-    imageAlt: "Executive consulting strategy dialogue reviewing stakeholder journeys and customer service architecture",
+    symbol: <CustomerExperienceSymbol />,
   },
   {
-    id: "commercial-sales",
+    id: "sales",
     number: "03",
-    title: "Commercial & Sales Engineering",
-    category: "Commercial Strategy",
-    headline: "Account synthesis, automated technical proposals, and deal intelligence.",
-    explanation:
-      "Empower enterprise sales teams with real-time account buying committee synthesis, automated technical RFP response generation, and dynamic contract terms intelligence that protects margins and accelerates sales cycles.",
-    workloads: [
-      "Automated RFP, technical response, and security questionnaire generation",
-      "Multi-signal account intent synthesis and buying committee mapping",
-      "Contract clause intelligence and dynamic margin recommendation engines",
+    title: "Sales",
+    themes: [
+      "Pipeline prioritization",
+      "Proposal preparation",
+      "Account insights",
     ],
-    image: "/images/value-commercial.jpg",
-    imageAlt: "Senior executive commercial board meeting reviewing strategic enterprise proposals and revenue roadmaps",
+    symbol: <SalesSymbol />,
   },
   {
-    id: "finance-controls",
+    id: "finance",
     number: "04",
-    title: "Finance & Corporate Controls",
-    category: "Finance & Risk",
-    headline: "Continuous multi-ledger reconciliation and immutable transaction auditability.",
-    explanation:
-      "Modernize corporate finance with continuous multi-entity ledger matching, structured invoice intelligence, and compliance screening that satisfies the strictest regulatory standards and eliminates manual spreadsheet reconciliation.",
-    workloads: [
-      "Multi-entity ledger, invoice, and payment matching automation",
-      "Structured financial document extraction and compliance screening",
-      "Continuous transaction auditability and immutable regulatory lineage",
+    title: "Finance",
+    themes: [
+      "Reporting cycles",
+      "Invoice processing",
+      "Budget visibility",
     ],
-    image: "/images/assessment-workshop.jpg",
-    imageAlt: "Finance executives and strategic advisors reviewing corporate controls, audit lineage, and ledger automation",
+    symbol: <FinanceSymbol />,
   },
   {
-    id: "knowledge-governance",
+    id: "hr",
     number: "05",
-    title: "Enterprise Knowledge & Governance",
-    category: "Knowledge & Policy",
-    headline: "Governed institutional intelligence with verified source attribution.",
-    explanation:
-      "Transform scattered corporate archives, policy manuals, and technical repositories into queryable, source-attributed intelligence. Strict role-based access control and zero-trust data masking ensure sensitive intellectual property remains completely protected.",
-    workloads: [
-      "Regulatory & internal policy intelligence with verified document citations",
-      "Institutional memory discovery and synthesis across corporate archives",
-      "Zero-trust role-based access control and automatic document masking",
+    title: "HR",
+    themes: [
+      "Onboarding guidance",
+      "Policy navigation",
+      "Internal inquiries",
     ],
-    image: "/images/cloud-infrastructure.jpg",
-    imageAlt: "Modern enterprise infrastructure and data governance architecture session",
+    symbol: <HRSymbol />,
+  },
+  {
+    id: "marketing",
+    number: "06",
+    title: "Marketing",
+    themes: [
+      "Campaign analysis",
+      "Audience segmentation",
+      "Content drafting",
+    ],
+    symbol: <MarketingSymbol />,
+  },
+  {
+    id: "it",
+    number: "07",
+    title: "IT",
+    themes: [
+      "Ticket triage",
+      "System monitoring",
+      "Routine administration",
+    ],
+    symbol: <ITSymbol />,
+  },
+  {
+    id: "knowledge",
+    number: "08",
+    title: "Knowledge",
+    themes: [
+      "Internal documentation",
+      "Search & retrieval",
+      "Knowledge sharing",
+    ],
+    symbol: <KnowledgeSymbol />,
+  },
+  {
+    id: "data",
+    number: "09",
+    title: "Data",
+    themes: [
+      "Data quality checks",
+      "Reporting pipelines",
+      "Metric definitions",
+    ],
+    symbol: <DataSymbol />,
   },
 ];
 
@@ -121,230 +291,324 @@ interface TransformationValueDomainsProps {
 }
 
 export default function TransformationValueDomains({
-  onOpenDiscoveryModal,
-}: TransformationValueDomainsProps) {
-  // Start with the first domain expanded (Operations)
-  const [activeId, setActiveId] = useState<string>("operations");
+  onOpenDiscoveryModal: _onOpenDiscoveryModal,
+}: TransformationValueDomainsProps = {}) {
+  // Mobile tap-to-reveal state (one item active at a time)
+  const [activeMobileId, setActiveMobileId] = useState<string | null>("operations");
 
-  const toggleDomain = (id: string) => {
-    setActiveId((prev) => (prev === id ? "" : id));
+  const toggleMobileTile = (id: string) => {
+    setActiveMobileId((prev) => (prev === id ? null : id));
   };
 
-  const handleCtaClick = (title: string) => {
-    if (onOpenDiscoveryModal) {
-      onOpenDiscoveryModal(`AI Business Transformation Domain Explorer: ${title}`);
-    } else {
-      window.location.href = "/contact";
-    }
+  const handleTileMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.round(((e.clientX - rect.left) / rect.width) * 100);
+    const y = Math.round(((e.clientY - rect.top) / rect.height) * 100);
+    e.currentTarget.style.setProperty("--circle-x", `${x}%`);
+    e.currentTarget.style.setProperty("--circle-y", `${y}%`);
   };
 
   return (
-    <section id="what-we-do" className="relative z-10 w-full scroll-mt-[115px] bg-[#F5F7F6] text-[#0E1C2A] py-16 sm:py-20 lg:py-24 border-b border-[#DADFDB]">
-      <Container className="px-5 sm:px-6 lg:px-12">
+    <section
+      id="where-ai-creates-value"
+      className="relative z-10 w-full scroll-mt-[90px] bg-[#F5F7F6] text-[#0D1117] pt-10 sm:pt-12 lg:pt-14 pb-14 sm:pb-16 lg:pb-20 border-b border-[#E2E7E4]"
+    >
+      {/* Anchor for backward compatibility with existing links */}
+      <div id="what-we-do" className="sr-only" aria-hidden="true" />
+
+      <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
         
         {/* ========================================================================= */}
-        {/* SECTION HEADER: ACCENTURE EDITORIAL RESTRAINT                             */}
+        {/* DESKTOP & TABLET: COHESIVE 3-COLUMN EDITORIAL GRID WITH INTEGRATED INTRO   */}
+        {/* Standardized ~255–265px Tile Height to Eliminate Empty Space              */}
+        {/* 4 Rows × 3 Columns = 12 Balanced Cells with Aligned Dividers              */}
         {/* ========================================================================= */}
-        <div className="max-w-3xl space-y-3 sm:space-y-4 mb-12 sm:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, ease: transitionEase, delay: 0.1 }}
-            className="inline-flex items-center gap-2.5 text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-[#56616B]"
-          >
-            <span className="w-3.5 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
-            <span>Where AI Creates Value</span>
-          </motion.div>
-
-          <div className="overflow-hidden pb-[0.12em]">
-            <motion.h2
-              initial={{ y: "100%", opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: transitionEase, delay: 0.16 }}
-              className="font-sans font-medium text-[32px] min-[390px]:text-[36px] sm:text-[40px] lg:text-[44px] text-[#0E1C2A] tracking-[-0.03em] leading-[1.08]"
+        <motion.div
+          initial={{ opacity: 0.9 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.18 }}
+          transition={{ duration: 0.6, ease: transitionEase }}
+          className="hidden md:grid md:grid-cols-3 border-t border-l border-[#D9DFDC]"
+        >
+          
+          {/* ----------------------------------------------------------------------- */}
+          {/* CELL 1: SECTION EYEBROW & MAIN HEADLINE (INTEGRATED INTO GRID)          */}
+          {/* ----------------------------------------------------------------------- */}
+          <div className="flex flex-col justify-end border-r border-b border-[#D9DFDC] p-6 lg:p-7 min-h-[240px] md:h-[260px] lg:h-[265px] bg-[#F5F7F6]">
+            {/* Vertically Grouped Header Container (~18px spacing) */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{ duration: 0.65, ease: transitionEase }}
+              className="flex flex-col gap-4 lg:gap-[18px]"
             >
-              High-leverage enterprise domains.
-            </motion.h2>
+              {/* Eyebrow with muted gold dash */}
+              <div className="inline-flex items-center gap-2 text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-[#556059]">
+                <span className="w-3 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
+                <span>Where AI Creates Value</span>
+              </div>
+
+              {/* Headline */}
+              <h2
+                style={{ fontSize: "clamp(23px, 2.1vw, 29px)", lineHeight: 1.16 }}
+                className="font-sans font-medium text-[#0D1117] tracking-[-0.03em]"
+              >
+                AI creates value when it changes how work gets done.
+              </h2>
+            </motion.div>
           </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: transitionEase, delay: 0.26 }}
-            className="text-[15.5px] sm:text-[16.5px] text-[#56616B] leading-[1.6] font-normal"
-          >
-            Explore functional business areas where workflow redesign, modern data architecture, and intelligent systems produce measurable operational return.
-          </motion.p>
-        </div>
+          {/* ----------------------------------------------------------------------- */}
+          {/* CELL 2: CONCISE SUPPORTING COPY (INTEGRATED INTO GRID)                  */}
+          {/* ----------------------------------------------------------------------- */}
+          <div className="flex flex-col justify-between border-r border-b border-[#D9DFDC] p-6 lg:p-7 min-h-[240px] md:h-[260px] lg:h-[265px] bg-[#F5F7F6]">
+            {/* Editorial Header Marker */}
+            <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#7B847F]">
+              Scope // 09 Business Domains
+            </div>
 
-        {/* ========================================================================= */}
-        {/* ACCENTURE-STYLE EDITORIAL ACCORDION LIST                                  */}
-        {/* ========================================================================= */}
-        <div className="border-t border-[#DADFDB] divide-y divide-[#DADFDB]">
-          {domains.map((domain, idx) => {
-            const isOpen = activeId === domain.id;
+            {/* Supporting Copy */}
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.18 }}
+              transition={{ duration: 0.55, delay: 0.12, ease: transitionEase }}
+              className="font-sans text-[15px] lg:text-[15.5px] text-[#505854] leading-[1.6] font-normal pt-3"
+            >
+              The opportunity is not limited to one function. It spans the workflows, decisions and systems that run the business.
+            </motion.p>
+          </div>
 
-            return (
+          {/* ----------------------------------------------------------------------- */}
+          {/* CELLS 3–11: 9 BUSINESS AREA TILES (MODIFIA-STYLE EXPANDING HOVER REVEAL) */}
+          {/* ----------------------------------------------------------------------- */}
+          {AREAS.map((area, index) => (
+            <div
+              key={area.id}
+              tabIndex={0}
+              role="region"
+              aria-label={area.title}
+              onMouseEnter={handleTileMouseEnter}
+              className="group modifia-tile relative flex flex-col justify-between border-r border-b border-[#D9DFDC] p-6 lg:p-7 min-h-[240px] md:h-[260px] lg:h-[265px] bg-[#F5F7F6] select-none cursor-default focus:outline-none focus-visible:ring-1 focus-visible:ring-[#C9A35B]"
+            >
+              {/* DEFAULT TILE CONTENT: Prominent Geometric Symbol + Number & Lower Title (Staggered Entrance) */}
               <motion.div
-                key={domain.id}
-                initial={{ opacity: 0, y: 14 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: transitionEase, delay: 0.15 + idx * 0.05 }}
-                className="group"
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{ duration: 0.45, delay: 0.18 + index * 0.07, ease: transitionEase }}
+                className="flex flex-col justify-between h-full w-full"
               >
-                {/* ----------------------------------------------------------------- */}
-                {/* ACCORDION ROW TRIGGER HEADER                                      */}
-                {/* ----------------------------------------------------------------- */}
-                <button
-                  type="button"
-                  onClick={() => toggleDomain(domain.id)}
-                  aria-expanded={isOpen}
-                  className="w-full text-left py-6 sm:py-7 lg:py-8 flex items-center justify-between gap-4 cursor-pointer focus:outline-none transition-colors duration-200"
-                >
-                  <div className="flex items-center gap-4 sm:gap-6 lg:gap-8 min-w-0">
-                    {/* Index Number */}
-                    <span className="font-mono text-[12px] sm:text-[13px] font-semibold tracking-wider text-[#C9A35B] shrink-0">
-                      {domain.number}
-                    </span>
+                <div className="flex items-start justify-between w-full transition-opacity duration-[300ms] ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:opacity-0 group-focus-visible:opacity-0">
+                  {/* Custom Abstract Geometric Symbol (~80px on desktop) */}
+                  <div className="text-[#0D1117]">
+                    {area.symbol}
+                  </div>
 
-                    {/* Business Function Name with Hover Indicator */}
-                    <div className="relative">
-                      <h3
-                        className={`font-sans font-medium text-[20px] sm:text-[24px] lg:text-[28px] tracking-[-0.025em] leading-snug transition-colors duration-200 ${
-                          isOpen
-                            ? "text-[#0E1C2A]"
-                            : "text-[#0E1C2A]/80 group-hover:text-[#0E1C2A]"
-                        }`}
-                      >
-                        {domain.title}
-                      </h3>
-                      {/* Muted Gold Micro-line on Hover */}
-                      <span
-                        className={`absolute left-0 -bottom-1 h-px bg-[#C9A35B] transition-all duration-300 ${
-                          isOpen ? "w-full" : "w-0 group-hover:w-full"
-                        }`}
-                        aria-hidden="true"
-                      />
-                    </div>
+                  {/* Subtle Muted Gold Index */}
+                  <span className="font-mono text-[12px] font-semibold tracking-wider text-[#C9A35B]">
+                    {area.number}
+                  </span>
+                </div>
 
-                    {/* Functional Category Tag (Hidden on small mobile) */}
-                    <span className="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-[2px] bg-[#0E1C2A]/[0.05] text-[10.5px] font-sans font-medium uppercase tracking-[0.12em] text-[#56616B] shrink-0">
-                      {domain.category}
+                {/* Lower Area Title */}
+                <div className="pt-2 transition-opacity duration-[300ms] ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:opacity-0 group-focus-visible:opacity-0">
+                  <h3 className="font-sans font-medium text-[20px] lg:text-[22px] tracking-[-0.025em] leading-snug text-[#0D1117]">
+                    {area.title}
+                  </h3>
+                </div>
+              </motion.div>
+
+              {/* ------------------------------------------------------------------- */}
+              {/* MODIFIA-STYLE HOVER REVEAL LAYER: Circular Dark Graphite Expansion  */}
+              {/* Fluid 800ms expansion / 700ms exit with cubic-bezier(0.76, 0, 0.24, 1) */}
+              {/* ------------------------------------------------------------------- */}
+              <div
+                aria-hidden="true"
+                className="modifia-tile-reveal flex flex-col justify-between p-6 lg:p-7 bg-[#111312]"
+              >
+                {/* Upper Area: Title & Index */}
+                <div>
+                  <div className="modifia-tile-content-header flex items-start justify-between pb-3 border-b border-white/[0.12]">
+                    <h3 className="font-sans font-medium text-[19px] lg:text-[21px] tracking-[-0.02em] text-[#F5F7F6] leading-tight">
+                      {area.title}
+                    </h3>
+                    <span className="font-mono text-[11px] font-semibold text-[#C9A35B] tracking-wider pt-0.5">
+                      {area.number}
                     </span>
                   </div>
 
-                  {/* Restrained Editorial Toggle Indicator (+ / −) */}
-                  <div className="shrink-0 flex items-center justify-center w-8 h-8 rounded-full border border-[#DADFDB] group-hover:border-[#0E1C2A]/40 transition-colors duration-200 text-[#0E1C2A]">
+                  {/* 3 Simple, Executive-friendly Opportunity Themes (Staggered by 50ms) */}
+                  <ul className="mt-3.5 space-y-3">
+                    {area.themes.map((theme, tIdx) => (
+                      <li
+                        key={tIdx}
+                        className={`modifia-tile-item-${tIdx} flex items-start gap-2.5 text-[13.5px] lg:text-[14px] text-[#C5CBC7] leading-snug font-sans`}
+                      >
+                        <span className="w-[17px] h-px bg-[#C9A35B] shrink-0 mt-[9px]" aria-hidden="true" />
+                        <span>{theme}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Subtle Bottom Accent Marker */}
+                <div className="modifia-tile-footer pt-2 flex items-center justify-end">
+                  <span className="text-[10px] font-mono text-[#8C9590] uppercase tracking-wider">Aiveeno Advisory</span>
+                </div>
+              </div>
+
+            </div>
+          ))}
+
+          {/* ----------------------------------------------------------------------- */}
+          {/* CELL 12: EDITORIAL CLOSING TILE (COMPLETES 4x3 GRID)                    */}
+          {/* Elegant static statement: "Across functions. Connected by strategy."    */}
+          {/* ----------------------------------------------------------------------- */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.18 }}
+            transition={{ duration: 0.45, delay: 0.18 + 9 * 0.07, ease: transitionEase }}
+            className="flex flex-col justify-between border-r border-b border-[#D9DFDC] p-6 lg:p-7 min-h-[240px] md:h-[260px] lg:h-[265px] bg-[#EEF1F0]/40 select-none"
+          >
+            {/* Top Coordinate Header */}
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-[#7B847F]">
+                Aiveeno Perspective
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C9A35B]" aria-hidden="true" />
+            </div>
+
+            {/* Static Editorial Closing Statement */}
+            <div className="my-auto pt-2">
+              <p className="font-sans font-medium text-[22px] lg:text-[24px] text-[#0D1117] tracking-[-0.03em] leading-[1.25]">
+                Across functions.
+                <br />
+                <span className="text-[#647069]">Connected by strategy.</span>
+              </p>
+            </div>
+
+            {/* Bottom Brand Caption */}
+            <div className="flex items-center justify-end text-[11px] font-mono text-[#7B847F] uppercase tracking-[0.12em]">
+              <span>Advisory</span>
+            </div>
+          </motion.div>
+
+        </motion.div>
+
+        {/* ========================================================================= */}
+        {/* MOBILE LAYOUT (< 768px): CLEAN VERTICAL EDITORIAL STACK WITH TAP TO REVEAL */}
+        {/* ========================================================================= */}
+        <div className="block md:hidden">
+          
+          {/* Mobile Header Intro */}
+          <div className="mb-7">
+            <div className="flex flex-col gap-3.5">
+              <div className="inline-flex items-center gap-2 text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-[#556059]">
+                <span className="w-3 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
+                <span>Where AI Creates Value</span>
+              </div>
+              <h2 className="font-sans font-medium text-[26px] sm:text-[30px] text-[#0D1117] tracking-[-0.03em] leading-[1.14]">
+                AI creates value when it changes how work gets done.
+              </h2>
+            </div>
+            <p className="font-sans text-[14.5px] text-[#505854] leading-[1.55] pt-3">
+              The opportunity is not limited to one function. It spans the workflows, decisions and systems that run the business.
+            </p>
+          </div>
+
+          {/* Mobile Vertical Accordion Stack */}
+          <div className="border-t border-[#D9DFDC] divide-y divide-[#D9DFDC]">
+            {AREAS.map((area) => {
+              const isOpen = activeMobileId === area.id;
+
+              return (
+                <div
+                  key={area.id}
+                  className={`transition-colors duration-300 ${
+                    isOpen ? "bg-[#111312] text-[#F5F7F6]" : "bg-transparent text-[#0D1117]"
+                  }`}
+                >
+                  {/* Tap Trigger */}
+                  <button
+                    type="button"
+                    onClick={() => toggleMobileTile(area.id)}
+                    aria-expanded={isOpen}
+                    className="w-full text-left py-4 px-3.5 flex items-center justify-between gap-3 cursor-pointer select-none focus:outline-none"
+                  >
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      {/* Geometric Symbol (~58px on mobile) only in closed (white) state */}
+                      {!isOpen && (
+                        <div className="w-[58px] h-[58px] shrink-0 flex items-center justify-center">
+                          {area.symbol}
+                        </div>
+                      )}
+
+                      <div className="min-w-0">
+                        <span className="font-mono text-[11px] font-semibold text-[#C9A35B] block">
+                          {area.number}
+                        </span>
+                        <h3
+                          className={`font-sans font-medium text-[18px] tracking-[-0.02em] leading-tight ${
+                            isOpen ? "text-[#F5F7F6]" : "text-[#0D1117]"
+                          }`}
+                        >
+                          {area.title}
+                        </h3>
+                      </div>
+                    </div>
+
+                    {/* Micro Indicator */}
                     <span
-                      className={`font-mono text-[16px] leading-none transition-transform duration-300 ${
-                        isOpen ? "rotate-45 text-[#C9A35B]" : "rotate-0"
+                      className={`font-mono text-[16px] leading-none transition-transform duration-300 shrink-0 ${
+                        isOpen ? "rotate-45 text-[#C9A35B]" : "rotate-0 text-[#76807B]"
                       }`}
                       aria-hidden="true"
                     >
                       +
                     </span>
-                    <span className="sr-only">
-                      {isOpen ? "Collapse domain details" : "Expand domain details"}
-                    </span>
-                  </div>
-                </button>
+                  </button>
 
-                {/* ----------------------------------------------------------------- */}
-                {/* EXPANDED EDITORIAL DETAIL PANEL (Left Story | Right Image)         */}
-                {/* ----------------------------------------------------------------- */}
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={`domain-content-${domain.id}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.42, ease: transitionEase }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-2 pb-8 sm:pb-10 lg:pb-12 border-t border-[#DADFDB]/60">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-14 items-start">
-                          
-                          {/* Left Column: Headline, Explanation & Capabilities (~56%) */}
-                          <div className="lg:col-span-7 flex flex-col justify-start space-y-5">
-                            
-                            {/* Domain Focused Headline */}
-                            <h4 className="font-sans font-medium text-[19px] sm:text-[21px] lg:text-[22px] text-[#0E1C2A] tracking-[-0.02em] leading-snug">
-                              {domain.headline}
-                            </h4>
-
-                            {/* Short Concise Explanation */}
-                            <p className="text-[14.5px] sm:text-[15.5px] text-[#56616B] leading-[1.65] font-normal">
-                              {domain.explanation}
-                            </p>
-
-                            {/* Key System Capabilities List */}
-                            <div className="pt-3 border-t border-[#DADFDB] space-y-3">
-                              <div className="text-[11px] font-sans font-semibold uppercase tracking-[0.12em] text-[#0E1C2A]">
-                                Key System Capabilities
-                              </div>
-                              <ul className="space-y-2.5">
-                                {domain.workloads.map((workload, i) => (
-                                  <li
-                                    key={i}
-                                    className="text-[13.5px] sm:text-[14px] text-[#56616B] flex items-start gap-2.5 leading-snug"
-                                  >
-                                    <span
-                                      className="w-1.5 h-1.5 rounded-full bg-[#C9A35B] shrink-0 mt-1.5"
-                                      aria-hidden="true"
-                                    />
-                                    <span>{workload}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-
-                            {/* Contextual Action Link (Restrained, no arrows, no lift) */}
-                            <div className="pt-3">
-                              <button
-                                type="button"
-                                onClick={() => handleCtaClick(domain.title)}
-                                className="inline-flex items-center text-[13px] font-sans font-medium text-[#0E1C2A] hover:text-[#C9A35B] transition-colors duration-200 cursor-pointer focus:outline-none"
+                  {/* Tap Content: 3 Simple Opportunity Themes */}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-4 pb-4.5 pt-1 border-t border-white/[0.08]">
+                          <ul className="space-y-3 mt-2.5">
+                            {area.themes.map((theme, tIdx) => (
+                              <li
+                                key={tIdx}
+                                className="flex items-start gap-2.5 text-[13px] text-[#C5CBC7] leading-snug font-sans"
                               >
-                                <span className="underline underline-offset-4 decoration-[#C9A35B]">
-                                  Discuss {domain.title} with an advisor
-                                </span>
-                              </button>
-                            </div>
-
-                          </div>
-
-                          {/* Right Column: Real Editorial Consulting Photograph (~44%) */}
-                          <div className="lg:col-span-5 flex flex-col justify-start">
-                            <motion.div
-                              initial={{ opacity: 0, clipPath: "inset(5% 0% 0% 0%)" }}
-                              animate={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
-                              transition={{ duration: 0.6, ease: transitionEase, delay: 0.1 }}
-                              className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-[4px] overflow-hidden border border-[#DADFDB] shadow-[0_6px_24px_-8px_rgba(14,28,42,0.08)] bg-[#E8ECEB]"
-                            >
-                              <Image
-                                src={domain.image}
-                                alt={domain.imageAlt}
-                                fill
-                                sizes="(max-width: 1024px) 100vw, 42vw"
-                                className="object-cover object-center"
-                              />
-                            </motion.div>
-                          </div>
-
+                                <span className="w-[16px] h-px bg-[#C9A35B] shrink-0 mt-[8.5px]" aria-hidden="true" />
+                                <span>{theme}</span>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
 
-              </motion.div>
-            );
-          })}
+            {/* Mobile Closing Editorial Tile */}
+            <div className="p-4 bg-[#EEF1F0]/40">
+              <p className="font-sans font-medium text-[17px] text-[#0D1117] tracking-[-0.02em] leading-snug">
+                Across functions. <span className="text-[#647069]">Connected by strategy.</span>
+              </p>
+            </div>
+          </div>
+
         </div>
 
       </Container>

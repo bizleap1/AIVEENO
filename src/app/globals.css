@@ -468,5 +468,124 @@ nextjs-portal {
   pointer-events: none !important;
 }
 
+/* ========================================================================= */
+/* Modifia-Style Expertise Matrix Tile Expanding Reveal                     */
+/* Hardware-accelerated circular clip-path reveal with smooth easing         */
+/* ========================================================================= */
+.modifia-tile {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.modifia-tile-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  background-color: #111312;
+  color: #F5F7F6;
+  clip-path: circle(0% at var(--circle-x, 50%) var(--circle-y, 110%));
+  -webkit-clip-path: circle(0% at var(--circle-x, 50%) var(--circle-y, 110%));
+  /* Exit Transition: 700ms smooth reverse from current progress */
+  transition: clip-path 700ms cubic-bezier(0.76, 0, 0.24, 1), -webkit-clip-path 700ms cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: clip-path;
+}
+
+.group:hover .modifia-tile-reveal,
+.modifia-tile:hover .modifia-tile-reveal,
+.modifia-tile:focus-visible .modifia-tile-reveal {
+  clip-path: circle(185% at var(--circle-x, 50%) var(--circle-y, 50%));
+  -webkit-clip-path: circle(185% at var(--circle-x, 50%) var(--circle-y, 50%));
+  /* Enter Transition: 800ms fluid expansion */
+  transition: clip-path 800ms cubic-bezier(0.76, 0, 0.24, 1), -webkit-clip-path 800ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* Progressive reveal for tile content during the 800ms circle expansion */
+.modifia-tile-content-header {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 250ms cubic-bezier(0.76, 0, 0.24, 1), transform 250ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.group:hover .modifia-tile-content-header,
+.modifia-tile:hover .modifia-tile-content-header,
+.modifia-tile:focus-visible .modifia-tile-content-header {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 350ms cubic-bezier(0.76, 0, 0.24, 1) 120ms, transform 350ms cubic-bezier(0.76, 0, 0.24, 1) 120ms;
+}
+
+.modifia-tile-item-0,
+.modifia-tile-item-1,
+.modifia-tile-item-2 {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 250ms cubic-bezier(0.76, 0, 0.24, 1), transform 250ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.group:hover .modifia-tile-item-0,
+.modifia-tile:hover .modifia-tile-item-0,
+.modifia-tile:focus-visible .modifia-tile-item-0 {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 350ms cubic-bezier(0.76, 0, 0.24, 1) 160ms, transform 350ms cubic-bezier(0.76, 0, 0.24, 1) 160ms;
+}
+
+.group:hover .modifia-tile-item-1,
+.modifia-tile:hover .modifia-tile-item-1,
+.modifia-tile:focus-visible .modifia-tile-item-1 {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 350ms cubic-bezier(0.76, 0, 0.24, 1) 210ms, transform 350ms cubic-bezier(0.76, 0, 0.24, 1) 210ms;
+}
+
+.group:hover .modifia-tile-item-2,
+.modifia-tile:hover .modifia-tile-item-2,
+.modifia-tile:focus-visible .modifia-tile-item-2 {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 350ms cubic-bezier(0.76, 0, 0.24, 1) 260ms, transform 350ms cubic-bezier(0.76, 0, 0.24, 1) 260ms;
+}
+
+.modifia-tile-footer {
+  opacity: 0;
+  transition: opacity 250ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.group:hover .modifia-tile-footer,
+.modifia-tile:hover .modifia-tile-footer,
+.modifia-tile:focus-visible .modifia-tile-footer {
+  opacity: 1;
+  transition: opacity 350ms cubic-bezier(0.76, 0, 0.24, 1) 300ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modifia-tile-reveal {
+    transition: opacity 250ms ease !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+    opacity: 0;
+  }
+  .group:hover .modifia-tile-reveal,
+  .modifia-tile:hover .modifia-tile-reveal,
+  .modifia-tile:focus-visible .modifia-tile-reveal {
+    opacity: 1;
+    transition: opacity 250ms ease !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+  }
+  .modifia-tile-content-header,
+  .modifia-tile-item-0,
+  .modifia-tile-item-1,
+  .modifia-tile-item-2,
+  .modifia-tile-footer {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+
 
 

@@ -7,194 +7,236 @@ import { motion } from "motion/react";
  * Aiveeno — Flagship Service Page: Section 06
  * FROM ASSESSMENT TO IMPLEMENTATION (#F5F7F6)
  * 
- * Progressive Rail Design with Accenture Timing:
- * - Replaces boxed cards with a continuous, progressive horizontal rail.
- * - Draws the continuous baseline on view.
- * - Staggers the 7 progressive stages sequentially.
- * - Exact easing: [0.22, 1, 0.36, 1].
+ * Accenture-Style Editorial Transformation Triptych:
+ * - Desktop: 3 architectural panels flush against each other (gap-0, rounded-none, shadow-none).
+ * - Mobile: 3 stacked flush editorial panels (gap-0) with 24px inner padding & 20px outer padding.
+ * - Mobile Typography: H2 30–34px, Stage titles 21–23px, Descriptions 15–16px.
+ * - Restrained 450ms fade + 10px upward reveal on scroll entry.
+ * - Panel 1 (01—02): Light neutral surface (#F7F9F8).
+ * - Panel 2 (03—04): Deeper neutral surface (#EAEFED).
+ * - Panel 3 (05—07): Dark graphite (#111312) aligned within same triptych container.
+ * - Zero accordions, carousels, horizontal scroll, icons, or fake framework labels.
  */
 
 const transitionEase = [0.22, 1, 0.36, 1] as const;
 
-const stages = [
-  {
-    step: "01",
-    name: "Discovery",
-    desc: "Initial dialogue to align on operational friction and strategic priorities.",
-  },
-  {
-    step: "02",
-    name: "Assessment",
-    desc: "One-week structured diagnostic of workflows, systems, and data readiness.",
-  },
-  {
-    step: "03",
-    name: "Prioritization",
-    desc: "Screening initiatives by commercial leverage and technical feasibility.",
-  },
-  {
-    step: "04",
-    name: "Solution Design",
-    desc: "Architecting systems blueprints, data contracts, and security guardrails.",
-  },
-  {
-    step: "05",
-    name: "Build & Deploy",
-    desc: "Engineering production-grade models, agents, and cloud integrations.",
-  },
-  {
-    step: "06",
-    name: "Adoption",
-    desc: "Embedding systems into daily operating rhythms with change enablement.",
-  },
-  {
-    step: "07",
-    name: "Optimization",
-    desc: "Continuous monitoring of throughput, accuracy, and inference costs.",
-  },
-];
-
 export default function TransformationLifecycleRail() {
   return (
-    <section id="assessment" className="relative z-10 w-full scroll-mt-[115px] bg-[#F5F7F6] text-[#0E1C2A] py-16 sm:py-20 lg:py-24 border-b border-[#DADFDB]">
-      <Container className="px-5 sm:px-6 lg:px-12">
+    <motion.section
+      id="from-assessment-to-implementation"
+      initial={{ opacity: 0.98, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{ duration: 0.5, ease: transitionEase }}
+      className="relative z-10 w-full scroll-mt-[80px] bg-[#F5F7F6] text-[#111312] pt-8 sm:pt-10 lg:pt-11 pb-10 sm:pb-12 lg:pb-13"
+    >
+      {/* Backward-compatible anchor for legacy links */}
+      <div id="assessment" className="sr-only" aria-hidden="true" />
+
+      <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
         
-        {/* Section Header */}
-        <div className="max-w-3xl space-y-3 sm:space-y-4 mb-12 sm:mb-16">
+        {/* ========================================================================= */}
+        {/* SECTION HEADER: CLEAN EDITORIAL INTRODUCTION                              */}
+        {/* ========================================================================= */}
+        <div className="max-w-3xl space-y-2 mb-7 sm:mb-8 lg:mb-9">
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 4 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, ease: transitionEase, delay: 0.06 }}
+            className="inline-flex items-center gap-2 text-[10px] sm:text-[10.5px] font-sans font-medium uppercase tracking-[0.14em] text-[#56616B]"
+          >
+            <span className="w-3 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
+            <span>From Assessment to Implementation</span>
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.45, ease: transitionEase, delay: 0.1 }}
-            className="inline-flex items-center gap-2.5 text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-[#56616B]"
+            className="font-sans font-medium text-[30px] min-[390px]:text-[32px] sm:text-[34px] lg:text-[36px] xl:text-[38px] text-[#111312] tracking-[-0.025em] leading-[1.12]"
           >
-            <span className="w-3.5 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
-            <span>Commercial Pathway</span>
-          </motion.div>
-
-          <div className="overflow-hidden pb-[0.12em]">
-            <motion.h2
-              initial={{ y: "100%", opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: transitionEase, delay: 0.16 }}
-              className="font-sans font-medium text-[32px] min-[390px]:text-[36px] sm:text-[40px] lg:text-[44px] text-[#0E1C2A] tracking-[-0.03em] leading-[1.08]"
-            >
-              From assessment to scalable implementation.
-            </motion.h2>
-          </div>
+            How transformation takes shape.
+          </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: 5 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: transitionEase, delay: 0.26 }}
-            className="text-[15.5px] sm:text-[16.5px] text-[#56616B] leading-[1.6] font-normal"
+            transition={{ duration: 0.4, ease: transitionEase, delay: 0.16 }}
+            className="text-[14.5px] sm:text-[15px] lg:text-[15.5px] text-[#56616B] leading-[1.5] font-normal max-w-2xl"
           >
-            A clear, progressive engagement model designed to maintain financial discipline and executive control at every stage.
+            Seven connected stages, from understanding the business to implementing and improving solutions.
           </motion.p>
         </div>
 
         {/* ========================================================================= */}
-        {/* DESKTOP: CONNECTED PROGRESSIVE HORIZONTAL RAIL (HIDDEN ON MOBILE)         */}
+        {/* EDITORIAL TRANSFORMATION TRIPTYCH: 3 FLUSH ARCHITECTURAL PANELS           */}
+        {/* No gaps, no rounded corners, no box shadows, no timeline dots             */}
         {/* ========================================================================= */}
-        <div className="hidden lg:block relative pt-8 pb-4">
+        <div className="border border-[#D6DDD8] grid grid-cols-1 lg:grid-cols-3 gap-0">
           
-          {/* Continuous Connected Baseline Hairline (Drawn on scroll) */}
+          {/* ----------------------------------------------------------------------- */}
+          {/* PANEL 1: LIGHT NEUTRAL (01—02)                                          */}
+          {/* ----------------------------------------------------------------------- */}
           <motion.div
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.75, ease: transitionEase, delay: 0.2 }}
-            className="origin-left absolute top-[37px] left-3 right-3 h-px bg-[#DADFDB]"
-            aria-hidden="true"
-          />
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.45, ease: transitionEase, delay: 0.08 }}
+            className="bg-[#F7F9F8] p-6 lg:p-7 xl:p-8 border-b lg:border-b-0 lg:border-r border-[#D6DDD8] flex flex-col justify-between"
+          >
+            <div>
+              {/* Oversized Subtle Editorial Typography */}
+              <span className="font-sans font-light text-[36px] sm:text-[40px] lg:text-[45px] xl:text-[50px] text-[#A6B2AB]/50 tracking-[-0.04em] leading-none select-none block mb-5 sm:mb-6 lg:mb-7">
+                01—02
+              </span>
 
-          {/* 7 Horizontal Progressive Stages */}
-          <div className="grid grid-cols-7 gap-4 relative z-10">
-            {stages.map((stage, idx) => (
-              <motion.div
-                key={stage.step}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: transitionEase, delay: 0.28 + idx * 0.07 }}
-                className="group flex flex-col pt-0 pr-3 transition-colors duration-200"
-              >
-                {/* Node on the rail */}
-                <div className="flex items-center mb-5">
-                  <div className="w-4 h-4 rounded-full bg-[#EEF1F0] border-2 border-[#0E1C2A] group-hover:border-[#C9A35B] transition-colors duration-200 flex items-center justify-center shrink-0">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#0E1C2A] group-hover:bg-[#C9A35B] transition-colors duration-200" />
-                  </div>
-                </div>
-
-                {/* Stage Number & Name */}
-                <div className="space-y-1 mb-2">
-                  <span className="font-mono text-[11px] font-semibold text-[#C9A35B]">
-                    {stage.step}
-                  </span>
-                  <h3 className="font-sans font-medium text-[15px] xl:text-[16px] text-[#0E1C2A] group-hover:text-[#0E1C2A] tracking-[-0.01em] leading-snug">
-                    {stage.name}
-                  </h3>
-                </div>
-
-                {/* Concise Description */}
-                <p className="text-[12px] xl:text-[12.5px] text-[#56616B] leading-[1.5]">
-                  {stage.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-        </div>
-
-        {/* ========================================================================= */}
-        {/* MOBILE & TABLET: VERTICAL PROGRESSIVE LIFECYCLE RAIL (< LG)               */}
-        {/* ========================================================================= */}
-        <div className="lg:hidden relative pl-6 space-y-8">
-          
-          {/* Continuous Vertical Rail Line */}
-          <motion.div
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: transitionEase, delay: 0.15 }}
-            className="origin-top absolute top-2 bottom-2 left-2 w-px bg-[#DADFDB]"
-            aria-hidden="true"
-          />
-
-          {stages.map((stage, idx) => (
-            <motion.div
-              key={stage.step}
-              initial={{ opacity: 0, x: -8 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, ease: transitionEase, delay: 0.2 + idx * 0.05 }}
-              className="relative flex flex-col space-y-1.5"
-            >
-              {/* Vertical Node Indicator */}
-              <div className="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-[#EEF1F0] border-2 border-[#0E1C2A] flex items-center justify-center">
-                <span className="w-1 h-1 rounded-full bg-[#0E1C2A]" />
-              </div>
-
-              <div className="flex items-baseline gap-2.5">
-                <span className="font-mono text-[11px] font-semibold text-[#C9A35B]">
-                  {stage.step}
+              {/* Stage 01 */}
+              <div className="space-y-1">
+                <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#C9A35B] tracking-wider block">
+                  01
                 </span>
-                <h3 className="font-sans font-medium text-[16px] text-[#0E1C2A]">
-                  {stage.name}
+                <h3 className="font-sans font-medium text-[21px] sm:text-[22px] lg:text-[19px] xl:text-[20px] text-[#111312] tracking-[-0.02em] leading-snug">
+                  Discovery
                 </h3>
+                <p className="font-sans text-[15px] sm:text-[15.5px] lg:text-[13.5px] xl:text-[14px] text-[#56616B] leading-[1.55]">
+                  Understand business goals and context.
+                </p>
               </div>
 
-              <p className="text-[13px] text-[#56616B] leading-[1.55]">
-                {stage.desc}
-              </p>
-            </motion.div>
-          ))}
+              {/* Restrained Separator */}
+              <div className="h-px bg-[#DDE3DF] my-5 sm:my-5.5 lg:my-5.5" aria-hidden="true" />
+
+              {/* Stage 02 */}
+              <div className="space-y-1">
+                <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#C9A35B] tracking-wider block">
+                  02
+                </span>
+                <h3 className="font-sans font-medium text-[21px] sm:text-[22px] lg:text-[19px] xl:text-[20px] text-[#111312] tracking-[-0.02em] leading-snug">
+                  Assessment
+                </h3>
+                <p className="font-sans text-[15px] sm:text-[15.5px] lg:text-[13.5px] xl:text-[14px] text-[#56616B] leading-[1.55]">
+                  Review workflows, systems and data.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ----------------------------------------------------------------------- */}
+          {/* PANEL 2: DEEPER NEUTRAL (03—04)                                         */}
+          {/* ----------------------------------------------------------------------- */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.45, ease: transitionEase, delay: 0.16 }}
+            className="bg-[#EAEFED] p-6 lg:p-7 xl:p-8 border-b lg:border-b-0 lg:border-r border-[#D6DDD8] flex flex-col justify-between"
+          >
+            <div>
+              {/* Oversized Subtle Editorial Typography */}
+              <span className="font-sans font-light text-[36px] sm:text-[40px] lg:text-[45px] xl:text-[50px] text-[#9AA79F]/50 tracking-[-0.04em] leading-none select-none block mb-5 sm:mb-6 lg:mb-7">
+                03—04
+              </span>
+
+              {/* Stage 03 */}
+              <div className="space-y-1">
+                <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#C9A35B] tracking-wider block">
+                  03
+                </span>
+                <h3 className="font-sans font-medium text-[21px] sm:text-[22px] lg:text-[19px] xl:text-[20px] text-[#111312] tracking-[-0.02em] leading-snug">
+                  Prioritization
+                </h3>
+                <p className="font-sans text-[15px] sm:text-[15.5px] lg:text-[13.5px] xl:text-[14px] text-[#56616B] leading-[1.55]">
+                  Identify meaningful transformation opportunities.
+                </p>
+              </div>
+
+              {/* Restrained Separator */}
+              <div className="h-px bg-[#D2DAD4] my-5 sm:my-5.5 lg:my-5.5" aria-hidden="true" />
+
+              {/* Stage 04 */}
+              <div className="space-y-1">
+                <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#C9A35B] tracking-wider block">
+                  04
+                </span>
+                <h3 className="font-sans font-medium text-[21px] sm:text-[22px] lg:text-[19px] xl:text-[20px] text-[#111312] tracking-[-0.02em] leading-snug">
+                  Solution Design
+                </h3>
+                <p className="font-sans text-[15px] sm:text-[15.5px] lg:text-[13.5px] xl:text-[14px] text-[#56616B] leading-[1.55]">
+                  Define the solution and implementation plan.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* ----------------------------------------------------------------------- */}
+          {/* PANEL 3: DARK GRAPHITE (05—07)                                          */}
+          {/* ----------------------------------------------------------------------- */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.45, ease: transitionEase, delay: 0.24 }}
+            className="bg-[#111312] p-6 lg:p-7 xl:p-8 text-[#F5F7F6] flex flex-col justify-between"
+          >
+            <div>
+              {/* Oversized Muted Gold Editorial Typography */}
+              <span className="font-sans font-light text-[36px] sm:text-[40px] lg:text-[45px] xl:text-[50px] text-[#C9A35B]/45 tracking-[-0.04em] leading-none select-none block mb-4 sm:mb-5 lg:mb-6">
+                05—07
+              </span>
+
+              {/* Stage 05 */}
+              <div className="space-y-0.5">
+                <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#C9A35B] tracking-wider block">
+                  05
+                </span>
+                <h3 className="font-sans font-medium text-[21px] sm:text-[22px] lg:text-[19px] xl:text-[20px] text-[#F5F7F6] tracking-[-0.02em] leading-snug">
+                  Build
+                </h3>
+                <p className="font-sans text-[15px] sm:text-[15.5px] lg:text-[13px] xl:text-[13.5px] text-[#A6B0A9] leading-[1.5]">
+                  Develop and integrate the solution.
+                </p>
+              </div>
+
+              {/* Restrained Separator */}
+              <div className="h-px bg-white/[0.10] my-3.5 sm:my-4 lg:my-4" aria-hidden="true" />
+
+              {/* Stage 06 */}
+              <div className="space-y-0.5">
+                <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#C9A35B] tracking-wider block">
+                  06
+                </span>
+                <h3 className="font-sans font-medium text-[21px] sm:text-[22px] lg:text-[19px] xl:text-[20px] text-[#F5F7F6] tracking-[-0.02em] leading-snug">
+                  Adoption
+                </h3>
+                <p className="font-sans text-[15px] sm:text-[15.5px] lg:text-[13px] xl:text-[13.5px] text-[#A6B0A9] leading-[1.5]">
+                  Support teams in using the new solution.
+                </p>
+              </div>
+
+              {/* Restrained Separator */}
+              <div className="h-px bg-white/[0.10] my-3.5 sm:my-4 lg:my-4" aria-hidden="true" />
+
+              {/* Stage 07 */}
+              <div className="space-y-0.5">
+                <span className="font-sans text-[11.5px] sm:text-[12px] font-semibold text-[#C9A35B] tracking-wider block">
+                  07
+                </span>
+                <h3 className="font-sans font-medium text-[21px] sm:text-[22px] lg:text-[19px] xl:text-[20px] text-[#F5F7F6] tracking-[-0.02em] leading-snug">
+                  Optimization
+                </h3>
+                <p className="font-sans text-[15px] sm:text-[15.5px] lg:text-[13px] xl:text-[13.5px] text-[#A6B0A9] leading-[1.5]">
+                  Refine the solution after implementation.
+                </p>
+              </div>
+            </div>
+          </motion.div>
 
         </div>
 
       </Container>
-    </section>
+    </motion.section>
   );
 }
