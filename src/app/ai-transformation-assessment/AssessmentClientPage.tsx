@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import AssessmentHero from "@/components/assessment/AssessmentHero";
+import AssessmentClarity from "@/components/assessment/AssessmentClarity";
 import DiscoveryModal from "@/components/DiscoveryModal";
 
 /**
@@ -51,9 +52,13 @@ export default function AssessmentClientPage() {
         {/* ========================================================================= */}
         <AssessmentHero onOpenDiscoveryModal={handleOpenDiscovery} />
 
+        {/* ========================================================================= */}
+        {/* 02 — CLARITY BEFORE IMPLEMENTATION (Light Contrast Surface #EBEFED)       */}
+        {/* ========================================================================= */}
+        <AssessmentClarity />
+
         {/* 
           Future Sections to be implemented and reviewed sequentially:
-          02. What the Assessment Is / Why It Matters
           03. What We Examine
           04. How the Assessment Works
           05. What You Receive
