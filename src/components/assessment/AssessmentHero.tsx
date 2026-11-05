@@ -8,16 +8,21 @@ import { motion } from "motion/react";
  * Aiveeno — AI Transformation Assessment Page: Section 01
  * HERO SECTION (#111312 Dark Graphite Editorial)
  * 
- * Custom Editorial Scene: "BUSINESS PROFESSIONAL REVIEWING AND PRIORITIZING OPPORTUNITIES"
- * - Cohesive architectural scene: One professional seated at a clean desk viewed in three-quarter profile.
- * - Natural human anatomy: Visible shoulders, left arm resting on the desk holding a document,
- *   and right hand with evaluation stylus pointing directly at the selected opportunity.
- * - Three assessment documents grounded directly ON THE DESK surface:
- *   1. One sheet being actively reviewed under the left hand.
- *   2. One midground sheet with structured assessment lines.
- *   3. One clearly selected priority sheet highlighted in muted gold (#C9A35B).
- * - Zero floating papers, zero disconnected body parts, zero technical flowcharts or labels.
- * - Right Column: Eyebrow, H1, description, and compact CTA button preserved 100% as approved.
+ * Bespoke Architectural Line-Art Illustration:
+ * Specific Concept: "AI Transformation Assessment — Evaluating Workflows, Systems & Data to Prioritize High-Value Opportunities."
+ * 
+ * Artistic Direction:
+ * - Exact same architectural line-art visual language as approved AI Business Transformation hero.
+ * - Refined architectural off-white lines (#F5F7F6), dark graphite negative space (#111312), and muted gold selection accents (#C9A35B).
+ * - Complete, recognizable human analyst posture at an executive consultation desk.
+ * - Scene 1: Analyst at desk with stylus examining assessment materials.
+ * - Scene 2: 3 tangible diagnostic documents resting flat on desk:
+ *   1. Workflows Diagnostic Sheet (under analyst hand)
+ *   2. Systems & Data Architecture Audit Matrix (midground)
+ *   3. Selected High-Value Priority Opportunity (foreground, muted gold perimeter & beacon)
+ * - Scene 3: Architectural Value vs. Feasibility evaluation matrix in background with optimal high-value plotted node and trajectory arc connecting to the prioritized sheet.
+ * - Zero copied transformation staircases, zero fake HUDs, zero AI brain/tech clichés.
+ * - 50/50 editorial split matching AI Business Transformation hero layout.
  */
 
 const transitionEase = [0.22, 1, 0.36, 1] as const;
@@ -46,401 +51,531 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
     }
   };
 
-  // Coordinated Sequence: Desk -> Professional -> Documents -> Selected Gold Highlight -> H1 -> CTA
-  const deskDelay = isMobile ? 0.05 : 0.08;
-  const personDelay = isMobile ? 0.12 : 0.16;
-  const docsDelay = isMobile ? 0.20 : 0.26;
-  const goldSheetDelay = isMobile ? 0.28 : 0.36;
-
-  const eyebrowDelay = isMobile ? 0.34 : 0.44;
-  const h1Line1Delay = isMobile ? 0.40 : 0.50;
-  const h1Line2Delay = isMobile ? 0.46 : 0.58;
-  const h1Line3Delay = isMobile ? 0.52 : 0.66;
+  // Coordinated Restrained Timings (Sequence: illustration -> eyebrow -> H1 masked -> body -> CTA)
+  const illustrationDelay = isMobile ? 0.05 : 0.08;
+  const eyebrowDelay = isMobile ? 0.14 : 0.20;
+  const h1Line1Delay = isMobile ? 0.20 : 0.28;
+  const h1Line2Delay = isMobile ? 0.26 : 0.36;
+  const h1Line3Delay = isMobile ? 0.32 : 0.44;
   const h1Duration = isMobile ? 0.35 : 0.55;
 
-  const copyDelay = isMobile ? 0.58 : 0.74;
+  const copyDelay = isMobile ? 0.38 : 0.52;
   const copyDuration = isMobile ? 0.30 : 0.40;
 
-  const ctaDelay = isMobile ? 0.64 : 0.82;
+  const ctaDelay = isMobile ? 0.44 : 0.60;
   const ctaDuration = isMobile ? 0.30 : 0.35;
 
   return (
     <div className="relative w-full bg-[#111312] text-[#F5F7F6] pt-[58px] lg:pt-[62px]">
       
       {/* ========================================================================= */}
-      {/* MAIN HERO SECTION (EDITORIAL SPLIT: ~46% LEFT / ~54% RIGHT)                */}
-      {/* Controlled height ~620–680px, no forced 100vh, CTA clearly above the fold  */}
+      {/* MAIN HERO SECTION (EDITORIAL SPLIT: 50/50 | CONTROLLED HEIGHT ~620–680px)   */}
+      {/* Matching AI Business Transformation hero spacing, padding and alignment     */}
       {/* ========================================================================= */}
       <section className="relative w-full pt-4 sm:pt-6 lg:pt-8 xl:pt-10 pb-10 sm:pb-12 lg:pb-14 border-b border-white/[0.08] overflow-hidden">
         <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-10 xl:gap-14 items-center">
             
             {/* ===================================================================== */}
-            {/* LEFT COLUMN: BESPOKE EDITORIAL SCENE (~46%)                           */}
-            {/* Professional seated at desk reviewing documents & selecting priority  */}
-            {/* Mobile: 220–250px high, order-1 (above text)                          */}
+            {/* LEFT COLUMN: ARCHITECTURAL LINE-ART ILLUSTRATION (50%)                */}
+            {/* Bespoke assessment evaluation visual in true architectural style      */}
             {/* ===================================================================== */}
-            <div className="lg:col-span-5 xl:col-span-5 order-1 lg:order-1 flex items-center justify-center lg:justify-start -mt-2 sm:-mt-4 lg:-mt-6 xl:-mt-8">
-              <div className="relative w-full max-w-[360px] sm:max-w-[430px] md:max-w-[490px] lg:max-w-[560px] aspect-[540/400] h-[220px] sm:h-[250px] md:h-[280px] lg:h-auto flex items-center justify-center select-none pointer-events-none">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, ease: transitionEase, delay: illustrationDelay }}
+              className="lg:col-span-6 order-1 lg:order-1 flex items-center justify-center lg:justify-start -mt-1 sm:-mt-3 lg:-mt-5 xl:-mt-7"
+            >
+              <div className="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[720px] aspect-[520/430] flex items-center justify-center select-none pointer-events-none">
                 
-                {/* Bespoke Editorial Line-Art SVG: Reviewing & Prioritizing Opportunities */}
+                {/* Custom Editorial Line-Art SVG Illustration (Responsive preserveAspectRatio) */}
                 <svg
-                  viewBox="0 0 540 400"
+                  viewBox="0 0 520 430"
                   preserveAspectRatio="xMidYMid meet"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-full h-full max-h-full max-w-full"
-                  aria-label="Editorial illustration of a business professional seated at a desk reviewing assessment documents and selecting a prioritized opportunity"
+                  aria-label="Editorial illustration of AI Transformation Assessment examining workflows, systems and data to discover prioritized transformation opportunities"
                 >
-                  {/* Floor Horizon Reference */}
+                  {/* ------------------------------------------------------------- */}
+                  {/* 1. ARCHITECTURAL GROUNDING BASELINE                           */}
+                  {/* ------------------------------------------------------------- */}
                   <line
                     x1="30"
-                    y1="390"
-                    x2="510"
-                    y2="390"
+                    y1="385"
+                    x2="495"
+                    y2="385"
                     stroke="#F5F7F6"
-                    strokeOpacity="0.2"
-                    strokeWidth="1.1"
+                    strokeOpacity="0.32"
+                    strokeWidth="1.4"
                   />
 
                   {/* ------------------------------------------------------------- */}
-                  {/* 1. THE ARCHITECTURAL DESK (Solid, Grounded Work Surface)       */}
+                  {/* 2. THE EXECUTIVE CONSULTING WORKSPACE DESK                    */}
                   {/* ------------------------------------------------------------- */}
-                  <motion.g
-                    id="grounded-desk"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, ease: transitionEase, delay: deskDelay }}
-                  >
-                    {/* Desk Surface (Solid perspective table between y=230 and y=340) */}
+                  {/* Isometric Desk Surface */}
+                  <polygon
+                    points="60,260 475,250 495,335 45,345"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.8"
+                    strokeWidth="1.5"
+                    fill="#111312"
+                  />
+                  {/* Front Beveled Edge Profile */}
+                  <polygon
+                    points="45,345 495,335 495,343 45,353"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.5"
+                    strokeWidth="1.2"
+                    fill="#151817"
+                  />
+                  {/* Architectural Trestle Legs Grounded to Floor Baseline */}
+                  <line
+                    x1="65"
+                    y1="353"
+                    x2="65"
+                    y2="385"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.45"
+                    strokeWidth="1.4"
+                  />
+                  <line
+                    x1="475"
+                    y1="343"
+                    x2="475"
+                    y2="385"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.45"
+                    strokeWidth="1.4"
+                  />
+                  {/* Stretcher Support Rail */}
+                  <line
+                    x1="65"
+                    y1="375"
+                    x2="475"
+                    y2="368"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.25"
+                    strokeWidth="1.2"
+                  />
+
+                  {/* ------------------------------------------------------------- */}
+                  {/* 3. THE EXECUTIVE ANALYST / DIAGNOSTIC CONSULTANT              */}
+                  {/* ------------------------------------------------------------- */}
+                  {/* Studio Chair Silhouette */}
+                  <path
+                    d="M 50 260 C 45 220, 52 180, 62 165"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.4"
+                    strokeWidth="1.3"
+                  />
+                  <line
+                    x1="72"
+                    y1="315"
+                    x2="72"
+                    y2="355"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.4"
+                    strokeWidth="1.3"
+                  />
+                  <line
+                    x1="72"
+                    y1="355"
+                    x2="48"
+                    y2="385"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.35"
+                    strokeWidth="1.2"
+                  />
+
+                  {/* Analyst Head */}
+                  <circle
+                    cx="95"
+                    cy="180"
+                    r="14"
+                    stroke="#F5F7F6"
+                    strokeOpacity="1"
+                    strokeWidth="1.6"
+                    fill="#111312"
+                  />
+                  {/* Focused Downward Gaze Line */}
+                  <line
+                    x1="100"
+                    y1="182"
+                    x2="108"
+                    y2="188"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.8"
+                    strokeWidth="1.3"
+                  />
+
+                  {/* Collar & Neck Profile */}
+                  <path
+                    d="M 92 194 L 88 215"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.85"
+                    strokeWidth="1.4"
+                  />
+                  <path
+                    d="M 98 194 L 102 215"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.85"
+                    strokeWidth="1.4"
+                  />
+
+                  {/* Shoulders & Tailored Jacket (Attentive posture) */}
+                  <path
+                    d="M 72 225 C 85 210, 110 210, 122 225"
+                    stroke="#F5F7F6"
+                    strokeOpacity="1"
+                    strokeWidth="1.6"
+                  />
+                  {/* Spine Profile */}
+                  <path
+                    d="M 72 225 C 68 255, 70 285, 75 315"
+                    stroke="#F5F7F6"
+                    strokeOpacity="1"
+                    strokeWidth="1.6"
+                  />
+                  {/* Front Chest Line */}
+                  <path
+                    d="M 122 225 C 130 250, 128 275, 120 305"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.9"
+                    strokeWidth="1.5"
+                  />
+
+                  {/* Left Arm & Hand (Anchoring Diagnostic Folio) */}
+                  <line
+                    x1="75"
+                    y1="225"
+                    x2="88"
+                    y2="280"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.9"
+                    strokeWidth="1.5"
+                  />
+                  <line
+                    x1="88"
+                    y1="280"
+                    x2="135"
+                    y2="285"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.95"
+                    strokeWidth="1.5"
+                  />
+                  {/* Hand anchored on Document 1 */}
+                  <path
+                    d="M 135 285 C 142 283, 150 283, 156 286 C 158 288, 156 291, 150 293 C 144 294, 138 292, 135 290"
+                    stroke="#F5F7F6"
+                    strokeOpacity="1"
+                    strokeWidth="1.4"
+                    fill="#111312"
+                  />
+
+                  {/* Right Arm & Hand (Holding Stylus Poised over Priority Document) */}
+                  <line
+                    x1="122"
+                    y1="225"
+                    x2="148"
+                    y2="265"
+                    stroke="#F5F7F6"
+                    strokeOpacity="1"
+                    strokeWidth="1.6"
+                  />
+                  <line
+                    x1="148"
+                    y1="265"
+                    x2="205"
+                    y2="260"
+                    stroke="#F5F7F6"
+                    strokeOpacity="1"
+                    strokeWidth="1.6"
+                  />
+                  {/* Right Hand Contour */}
+                  <path
+                    d="M 205 260 C 213 256, 222 256, 227 259 C 229 262, 226 265, 219 267 L 205 265"
+                    stroke="#F5F7F6"
+                    strokeOpacity="1"
+                    strokeWidth="1.4"
+                    fill="#111312"
+                  />
+                  {/* Review Stylus pointing directly toward Priority Document */}
+                  <line
+                    x1="220"
+                    y1="258"
+                    x2="242"
+                    y2="276"
+                    stroke="#F5F7F6"
+                    strokeOpacity="1"
+                    strokeWidth="1.6"
+                  />
+
+                  {/* ------------------------------------------------------------- */}
+                  {/* 4. THREE ASSESSMENT DIAGNOSTIC DOCUMENTS ON THE DESK          */}
+                  {/* ------------------------------------------------------------- */}
+                  
+                  {/* DOCUMENT 1: Workflows Diagnostic Sheet (Under Left Hand) */}
+                  <g id="assessment-doc-workflows">
                     <polygon
-                      points="90,230 470,230 490,340 50,340"
+                      points="130,270 195,265 210,320 145,326"
                       stroke="#F5F7F6"
-                      strokeOpacity="0.8"
-                      strokeWidth="1.5"
+                      strokeOpacity="0.75"
+                      strokeWidth="1.3"
                       fill="#111312"
                     />
+                    {/* Process Step 1 Box */}
+                    <polygon
+                      points="140,278 158,276 160,286 142,288"
+                      stroke="#F5F7F6"
+                      strokeOpacity="0.6"
+                      strokeWidth="1"
+                    />
+                    {/* Process Connector Arrow */}
+                    <line
+                      x1="160"
+                      y1="281"
+                      x2="168"
+                      y2="280"
+                      stroke="#F5F7F6"
+                      strokeOpacity="0.45"
+                      strokeWidth="1"
+                    />
+                    {/* Process Step 2 Box */}
+                    <polygon
+                      points="168,275 186,273 188,283 170,285"
+                      stroke="#F5F7F6"
+                      strokeOpacity="0.6"
+                      strokeWidth="1"
+                    />
+                    {/* Internal Workflow diagnostic rules */}
+                    <line x1="142" y1="296" x2="195" y2="291" stroke="#F5F7F6" strokeOpacity="0.3" strokeWidth="1" />
+                    <line x1="145" y1="306" x2="200" y2="301" stroke="#F5F7F6" strokeOpacity="0.3" strokeWidth="1" />
+                  </g>
 
-                    {/* Desk Front Edge Profile */}
-                    <line x1="50" y1="340" x2="490" y2="340" stroke="#F5F7F6" strokeOpacity="0.9" strokeWidth="1.6" />
-                    <line x1="50" y1="348" x2="490" y2="348" stroke="#F5F7F6" strokeOpacity="0.5" strokeWidth="1.2" />
-                    <line x1="50" y1="340" x2="50" y2="348" stroke="#F5F7F6" strokeOpacity="0.5" strokeWidth="1.2" />
-                    <line x1="490" y1="340" x2="490" y2="348" stroke="#F5F7F6" strokeOpacity="0.5" strokeWidth="1.2" />
-
-                    {/* Desk Trestle Legs */}
-                    <line x1="65" y1="348" x2="65" y2="390" stroke="#F5F7F6" strokeOpacity="0.4" strokeWidth="1.3" />
-                    <line x1="475" y1="348" x2="475" y2="390" stroke="#F5F7F6" strokeOpacity="0.4" strokeWidth="1.3" />
-                  </motion.g>
-
-                  {/* ------------------------------------------------------------- */}
-                  {/* 2. THE SEATED PROFESSIONAL (Attentive Reviewing Posture)       */}
-                  {/* ------------------------------------------------------------- */}
-                  <motion.g
-                    id="seated-professional"
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: transitionEase, delay: personDelay }}
-                  >
-                    {/* Architectural Studio Chair (Behind Figure) */}
-                    <path
-                      d="M 85 240 C 78 180, 85 140, 95 110 C 100 98, 112 95, 122 98"
+                  {/* DOCUMENT 2: Systems & Enterprise Data Audit Matrix (Midground) */}
+                  <g id="assessment-doc-systems">
+                    <polygon
+                      points="215,263 290,257 308,312 233,319"
+                      stroke="#F5F7F6"
+                      strokeOpacity="0.65"
+                      strokeWidth="1.3"
+                      fill="#111312"
+                    />
+                    {/* Header bar */}
+                    <polygon
+                      points="265,261 285,259 288,266 268,268"
                       stroke="#F5F7F6"
                       strokeOpacity="0.35"
-                      strokeWidth="1.3"
+                      strokeWidth="1"
                     />
-                    <path
-                      d="M 82 250 L 74 330 L 68 390"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.25"
-                      strokeWidth="1.2"
-                    />
+                    {/* Comparative Matrix Rows */}
+                    <line x1="228" y1="275" x2="292" y2="269" stroke="#F5F7F6" strokeOpacity="0.25" strokeWidth="1" />
+                    <line x1="232" y1="286" x2="298" y2="280" stroke="#F5F7F6" strokeOpacity="0.25" strokeWidth="1" />
+                    <line x1="236" y1="297" x2="302" y2="291" stroke="#F5F7F6" strokeOpacity="0.25" strokeWidth="1" />
+                    {/* Column Divider */}
+                    <line x1="260" y1="266" x2="270" y2="308" stroke="#F5F7F6" strokeOpacity="0.2" strokeWidth="1" />
+                  </g>
 
-                    {/* Head & Hair Contour (Focused downward gaze towards desk papers) */}
-                    <path
-                      d="M 132 125 C 122 108, 128 88, 142 78 C 158 68, 180 72, 192 86"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.9"
-                      strokeWidth="1.5"
-                    />
-                    <path
-                      d="M 142 78 C 160 70, 190 75, 200 95 C 204 105, 202 115, 196 122"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.95"
-                      strokeWidth="1.5"
-                    />
-                    {/* Forehead and Brow */}
-                    <path
-                      d="M 196 110 L 202 124 L 198 127"
-                      stroke="#F5F7F6"
-                      strokeOpacity="1"
-                      strokeWidth="1.5"
-                    />
-                    {/* Nose Bridge and Tip (Angle towards documents) */}
-                    <path
-                      d="M 198 127 L 210 142 L 203 146"
-                      stroke="#F5F7F6"
-                      strokeOpacity="1"
-                      strokeWidth="1.5"
-                    />
-                    {/* Lips & Sculpted Jawline */}
-                    <path
-                      d="M 203 146 C 201 152, 199 155, 203 160 C 199 166, 192 170, 184 173"
-                      stroke="#F5F7F6"
-                      strokeOpacity="1"
-                      strokeWidth="1.5"
-                    />
-                    <path
-                      d="M 184 173 C 172 176, 158 170, 152 158"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.85"
-                      strokeWidth="1.4"
-                    />
-                    {/* Ear Contour */}
-                    <path
-                      d="M 154 136 C 150 130, 156 124, 161 129 C 163 133, 161 143, 155 146"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.8"
-                      strokeWidth="1.3"
-                    />
-                    {/* Downcast Eye Line (Attentively reading papers) */}
-                    <line
-                      x1="188"
-                      y1="132"
-                      x2="196"
-                      y2="136"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.95"
-                      strokeWidth="1.4"
-                    />
-
-                    {/* Neck and Collar */}
-                    <path d="M 182 174 L 188 202" stroke="#F5F7F6" strokeOpacity="0.85" strokeWidth="1.4" />
-                    <path d="M 142 145 L 136 195" stroke="#F5F7F6" strokeOpacity="0.85" strokeWidth="1.4" />
-                    <path d="M 180 198 L 198 220 L 185 248" stroke="#F5F7F6" strokeOpacity="1" strokeWidth="1.6" />
-                    <path d="M 172 208 L 160 236" stroke="#F5F7F6" strokeOpacity="0.75" strokeWidth="1.3" />
-
-                    {/* Upper Body & Tailored Jacket (Leaning forward over desk) */}
-                    <path
-                      d="M 136 195 C 115 208, 102 232, 98 268 L 95 320"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.9"
-                      strokeWidth="1.6"
-                    />
-                    <path
-                      d="M 188 202 C 210 215, 230 235, 238 262"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.95"
-                      strokeWidth="1.6"
-                    />
-
-                    {/* LEFT ARM & HAND: Resting on the desk holding Document 1 */}
-                    {/* Upper arm to elbow */}
-                    <path d="M 98 268 L 115 305" stroke="#F5F7F6" strokeOpacity="0.9" strokeWidth="1.5" />
-                    {/* Forearm lying on the desk */}
-                    <path d="M 115 305 L 160 316 L 190 306" stroke="#F5F7F6" strokeOpacity="0.9" strokeWidth="1.5" />
-                    {/* Left Hand Fingers anchored along the document edge */}
-                    <path
-                      d="M 190 306 C 200 302, 214 298, 226 295"
-                      stroke="#F5F7F6"
-                      strokeOpacity="1"
-                      strokeWidth="1.5"
-                    />
-                    <path
-                      d="M 192 310 C 202 306, 214 304, 224 301"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.85"
-                      strokeWidth="1.3"
-                    />
-
-                    {/* RIGHT ARM & HAND: Extending forward with Review Stylus */}
-                    {/* Shoulder to elbow */}
-                    <path d="M 238 262 L 268 295" stroke="#F5F7F6" strokeOpacity="0.95" strokeWidth="1.6" />
-                    {/* Forearm reaching forward over desk */}
-                    <path d="M 268 295 L 320 285" stroke="#F5F7F6" strokeOpacity="0.95" strokeWidth="1.6" />
-                    {/* Hand and Fingers holding stylus poised over selected document */}
-                    <path
-                      d="M 320 285 C 330 278, 342 272, 354 266"
-                      stroke="#F5F7F6"
-                      strokeOpacity="1"
-                      strokeWidth="1.5"
-                    />
-                    <path
-                      d="M 324 288 C 334 284, 346 280, 356 275"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.85"
-                      strokeWidth="1.3"
-                    />
-                    {/* Review Stylus pointing directly toward Priority Document */}
-                    <line
-                      x1="332"
-                      y1="288"
-                      x2="376"
-                      y2="252"
-                      stroke="#F5F7F6"
-                      strokeOpacity="0.95"
-                      strokeWidth="1.6"
-                    />
-                  </motion.g>
-
-                  {/* ------------------------------------------------------------- */}
-                  {/* 3. TWO ASSESSMENT SHEETS GROUNDED DIRECTLY ON THE DESK         */}
-                  {/* ------------------------------------------------------------- */}
-                  <motion.g
-                    id="desk-documents"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, ease: transitionEase, delay: docsDelay }}
-                  >
-                    {/* SHEET 1: Actively Examined Document (Anchored by Left Hand) */}
-                    <g id="examined-sheet-1">
-                      <polygon
-                        points="170,245 255,235 270,310 185,320"
-                        stroke="#F5F7F6"
-                        strokeOpacity="0.85"
-                        strokeWidth="1.35"
-                        fill="#111312"
-                      />
-                      {/* Document Structure Rules */}
-                      <line x1="185" y1="255" x2="225" y2="250" stroke="#F5F7F6" strokeOpacity="0.55" strokeWidth="1.1" />
-                      <line x1="188" y1="268" x2="250" y2="260" stroke="#F5F7F6" strokeOpacity="0.32" strokeWidth="1" />
-                      <line x1="192" y1="280" x2="255" y2="272" stroke="#F5F7F6" strokeOpacity="0.32" strokeWidth="1" />
-                      <line x1="196" y1="292" x2="245" y2="285" stroke="#F5F7F6" strokeOpacity="0.32" strokeWidth="1" />
-                    </g>
-
-                    {/* SHEET 2: Structured Review Matrix Sheet (Midground of Desk) */}
-                    <g id="structured-sheet-2">
-                      <polygon
-                        points="240,225 355,215 375,280 260,290"
-                        stroke="#F5F7F6"
-                        strokeOpacity="0.7"
-                        strokeWidth="1.3"
-                        fill="#111312"
-                      />
-                      {/* Title block & Structured Matrix Lines */}
-                      <polygon points="325,222 350,220 353,230 328,232" stroke="#F5F7F6" strokeOpacity="0.35" strokeWidth="1" />
-                      <line x1="255" y1="242" x2="350" y2="232" stroke="#F5F7F6" strokeOpacity="0.22" strokeWidth="1" />
-                      <line x1="260" y1="256" x2="358" y2="246" stroke="#F5F7F6" strokeOpacity="0.22" strokeWidth="1" />
-                      <line x1="265" y1="270" x2="365" y2="260" stroke="#F5F7F6" strokeOpacity="0.22" strokeWidth="1" />
-                      <line x1="295" y1="228" x2="305" y2="275" stroke="#F5F7F6" strokeOpacity="0.18" strokeWidth="1" />
-                    </g>
-                  </motion.g>
-
-                  {/* ------------------------------------------------------------- */}
-                  {/* 4. SHEET 3: THE SELECTED PRIORITY OPPORTUNITY (Foreground)     */}
-                  {/* Grounded on the desk & highlighted in muted gold (#C9A35B)     */}
-                  {/* ------------------------------------------------------------- */}
-                  <motion.g
-                    id="selected-gold-priority-sheet"
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.55, ease: transitionEase, delay: goldSheetDelay }}
-                  >
-                    {/* Underlying Document Surface on the Desk */}
+                  {/* DOCUMENT 3: THE SELECTED HIGH-VALUE OPPORTUNITY (Foreground Highlight) */}
+                  <g id="assessment-doc-selected-opportunity">
+                    {/* Underlying Document Surface */}
                     <polygon
-                      points="310,240 430,230 450,320 330,330"
+                      points="255,270 385,258 408,332 278,345"
                       stroke="#F5F7F6"
                       strokeOpacity="0.95"
-                      strokeWidth="1.6"
+                      strokeWidth="1.5"
                       fill="#111312"
                     />
 
-                    {/* Muted Gold Selection Perimeter Highlight (#C9A35B) */}
-                    {/* Top Highlight Edge */}
-                    <line
-                      x1="310"
-                      y1="240"
-                      x2="430"
-                      y2="230"
-                      stroke="#C9A35B"
-                      strokeWidth="2.4"
-                    />
-                    {/* Right Highlight Edge */}
-                    <line
-                      x1="430"
-                      y1="230"
-                      x2="450"
-                      y2="320"
-                      stroke="#C9A35B"
-                      strokeWidth="2.1"
-                    />
-                    {/* Bottom Edge Accent */}
-                    <line
-                      x1="450"
-                      y1="320"
-                      x2="330"
-                      y2="330"
-                      stroke="#C9A35B"
-                      strokeOpacity="0.85"
-                      strokeWidth="1.7"
-                    />
-                    {/* Left Edge Accent */}
-                    <line
-                      x1="330"
-                      y1="330"
-                      x2="310"
-                      y2="240"
-                      stroke="#C9A35B"
-                      strokeOpacity="0.85"
-                      strokeWidth="1.7"
-                    />
+                    {/* Muted Gold Perimeter Selection Highlight (#C9A35B) */}
+                    <line x1="255" y1="270" x2="385" y2="258" stroke="#C9A35B" strokeWidth="2.2" />
+                    <line x1="385" y1="258" x2="408" y2="332" stroke="#C9A35B" strokeWidth="2" />
+                    <line x1="408" y1="332" x2="278" y2="345" stroke="#C9A35B" strokeOpacity="0.75" strokeWidth="1.5" />
+                    <line x1="278" y1="345" x2="255" y2="270" stroke="#C9A35B" strokeOpacity="0.75" strokeWidth="1.5" />
 
                     {/* Quiet Priority Beacon Node on Selected Sheet */}
                     <circle
-                      cx="405"
-                      cy="255"
-                      r="4.8"
+                      cx="362"
+                      cy="275"
+                      r="5"
                       stroke="#C9A35B"
                       strokeWidth="1.6"
                       fill="#111312"
                     />
                     <circle
-                      cx="405"
-                      cy="255"
+                      cx="362"
+                      cy="275"
                       r="2.2"
                       fill="#C9A35B"
                     />
 
                     {/* Document Content Rules on the Selected Priority Sheet */}
-                    <line x1="335" y1="255" x2="385" y2="250" stroke="#C9A35B" strokeOpacity="0.85" strokeWidth="1.3" />
-                    <line x1="340" y1="270" x2="425" y2="262" stroke="#F5F7F6" strokeOpacity="0.6" strokeWidth="1.1" />
-                    <line x1="345" y1="285" x2="430" y2="277" stroke="#F5F7F6" strokeOpacity="0.45" strokeWidth="1" />
-                    <line x1="350" y1="300" x2="415" y2="294" stroke="#F5F7F6" strokeOpacity="0.32" strokeWidth="1" />
-                  </motion.g>
+                    <line x1="278" y1="282" x2="345" y2="276" stroke="#C9A35B" strokeOpacity="0.85" strokeWidth="1.4" />
+                    <line x1="282" y1="295" x2="378" y2="286" stroke="#F5F7F6" strokeOpacity="0.6" strokeWidth="1.1" />
+                    <line x1="286" y1="308" x2="385" y2="299" stroke="#F5F7F6" strokeOpacity="0.45" strokeWidth="1" />
+                    <line x1="290" y1="321" x2="370" y2="313" stroke="#F5F7F6" strokeOpacity="0.3" strokeWidth="1" />
+                  </g>
 
-                  {/* Subtle Examination Ray between Stylus Tip and Priority Beacon */}
+                  {/* Stylus Target Ray into Priority Document */}
                   <line
-                    x1="376"
-                    y1="252"
-                    x2="398"
-                    y2="254"
+                    x1="242"
+                    y1="276"
+                    x2="268"
+                    y2="282"
                     stroke="#C9A35B"
-                    strokeWidth="1.2"
+                    strokeWidth="1.4"
+                    strokeOpacity="0.7"
+                    strokeDasharray="2 2"
+                  />
+
+                  {/* ------------------------------------------------------------- */}
+                  {/* 5. OPPORTUNITY EVALUATION MATRIX (VALUE VS. FEASIBILITY)      */}
+                  {/* Background architectural quadrant plotting high-impact ROI    */}
+                  {/* ------------------------------------------------------------- */}
+                  
+                  {/* Vertical Axis (Business Value) */}
+                  <line
+                    x1="310"
+                    y1="205"
+                    x2="310"
+                    y2="85"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.45"
+                    strokeWidth="1.3"
+                  />
+                  <polyline
+                    points="307,92 310,85 313,92"
+                    stroke="#F5F7F6"
                     strokeOpacity="0.6"
-                    strokeDasharray="2.5 2.5"
+                    strokeWidth="1.2"
+                  />
+
+                  {/* Horizontal Axis (Implementation Feasibility) */}
+                  <line
+                    x1="310"
+                    y1="205"
+                    x2="470"
+                    y2="205"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.45"
+                    strokeWidth="1.3"
+                  />
+                  <polyline
+                    points="463,202 470,205 463,208"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.6"
+                    strokeWidth="1.2"
+                  />
+
+                  {/* Quadrant Divider Hairlines */}
+                  <line
+                    x1="310"
+                    y1="145"
+                    x2="460"
+                    y2="145"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.2"
+                    strokeWidth="1"
+                    strokeDasharray="3 3"
+                  />
+                  <line
+                    x1="390"
+                    y1="205"
+                    x2="390"
+                    y2="90"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.2"
+                    strokeWidth="1"
+                    strokeDasharray="3 3"
+                  />
+
+                  {/* Evaluated Opportunity Nodes in Matrix */}
+                  <circle
+                    cx="345"
+                    cy="175"
+                    r="3"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.35"
+                    strokeWidth="1"
+                    fill="#111312"
+                  />
+                  <circle
+                    cx="370"
+                    cy="125"
+                    r="3"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.45"
+                    strokeWidth="1"
+                    fill="#111312"
+                  />
+
+                  {/* THE OPTIMAL HIGH-VALUE OPPORTUNITY NODE (High Value / High Feasibility) */}
+                  <circle
+                    cx="430"
+                    cy="115"
+                    r="5.5"
+                    stroke="#C9A35B"
+                    strokeWidth="1.8"
+                    fill="#111312"
+                  />
+                  <circle
+                    cx="430"
+                    cy="115"
+                    r="2.5"
+                    fill="#C9A35B"
+                  />
+                  {/* Selection Ring */}
+                  <circle
+                    cx="430"
+                    cy="115"
+                    r="9"
+                    stroke="#C9A35B"
+                    strokeOpacity="0.35"
+                    strokeWidth="1"
+                    strokeDasharray="2 2"
+                  />
+
+                  {/* Roadmap Trajectory Arc (Connecting Optimal Opportunity to Deliverable Sheet) */}
+                  <path
+                    d="M 430 115 C 460 170, 420 230, 362 275"
+                    stroke="#C9A35B"
+                    strokeOpacity="0.75"
+                    strokeWidth="1.5"
+                    strokeDasharray="3 3"
+                  />
+
+                  {/* Continuous Feedback Loop returning to Analyst */}
+                  <path
+                    d="M 310 95 C 240 85, 130 120, 95 165"
+                    stroke="#F5F7F6"
+                    strokeOpacity="0.25"
+                    strokeWidth="1.2"
+                    strokeDasharray="4 4"
                   />
                 </svg>
 
               </div>
-            </div>
+            </motion.div>
 
             {/* ===================================================================== */}
-            {/* RIGHT COLUMN: EDITORIAL MASTHEAD COPY & COMPACT CTA (~55%)             */}
-            {/* Retained exactly as approved, content-based auto width, no arrows     */}
+            {/* RIGHT COLUMN: EDITORIAL MASTHEAD COPY & COMPACT CTA (50%)              */}
+            {/* Exactly matching AI Business Transformation hero typography & mobile  */}
             {/* ===================================================================== */}
-            <div className="lg:col-span-7 xl:col-span-7 order-2 lg:order-2 flex flex-col justify-center space-y-4 sm:space-y-4.5 lg:space-y-5 lg:pl-2 xl:pl-4">
+            <div className="lg:col-span-6 order-2 lg:order-2 flex flex-col justify-center space-y-4 sm:space-y-4.5 lg:space-y-5">
               
               {/* 1. Eyebrow Reveal with Muted Gold Dash */}
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, ease: transitionEase, delay: eyebrowDelay }}
-                className="inline-flex items-center gap-2.5 text-[12.5px] sm:text-[13px] font-sans font-medium uppercase tracking-[0.14em] text-[#AEB3AF]"
+                className="inline-flex items-center gap-2.5 text-[13px] sm:text-[13.5px] font-sans font-medium uppercase tracking-[0.12em] text-[#AEB3AF]"
               >
                 <span className="w-3.5 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
                 <span>AI Transformation Assessment</span>
               </motion.div>
 
-              {/* 2. Headline Line-by-Line Masked Reveal (54–64px Desktop / 36–42px Mobile) */}
+              {/* 2. Headline Line-by-Line Masked Reveal (64–68px Desktop / 40–44px Mobile | Max 3 Lines) */}
               <h1
                 aria-label="Discover where AI can create the most value in your business."
                 className="tracking-[-0.035em]"
@@ -449,14 +584,14 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
                   Discover where AI can create the most value in your business.
                 </span>
 
-                {/* Mobile Line Structure (36–42px) */}
+                {/* Mobile Line Structure (40–44px, matching Transformation hero) */}
                 <div className="sm:hidden space-y-0.5" aria-hidden="true">
                   <div className="overflow-hidden pb-[0.08em]">
                     <motion.span
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line1Delay }}
-                      className="block font-sans font-medium text-[36px] min-[390px]:text-[38px] sm:text-[42px] text-[#F5F7F6] leading-[1.04]"
+                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
                     >
                       Discover where AI
                     </motion.span>
@@ -466,7 +601,7 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line2Delay }}
-                      className="block font-sans font-medium text-[36px] min-[390px]:text-[38px] sm:text-[42px] text-[#F5F7F6] leading-[1.04]"
+                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
                     >
                       can create the most value
                     </motion.span>
@@ -476,21 +611,21 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line3Delay }}
-                      className="block font-sans font-medium text-[36px] min-[390px]:text-[38px] sm:text-[42px] text-[#F5F7F6] leading-[1.04]"
+                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
                     >
                       in your business.
                     </motion.span>
                   </div>
                 </div>
 
-                {/* Desktop Line Structure (Controlled 54–64px, line-height 1.04, max 3 lines) */}
+                {/* Desktop Line Structure (Controlled 64–68px, line-height 1.02, max 3 lines) */}
                 <div className="hidden sm:block space-y-0.5 lg:space-y-1" aria-hidden="true">
                   <div className="overflow-hidden pb-[0.08em]">
                     <motion.span
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line1Delay }}
-                      style={{ fontSize: "clamp(42px, 3.8vw, 62px)", lineHeight: 1.04 }}
+                      style={{ fontSize: "clamp(46px, 4.3vw, 68px)", lineHeight: 1.02 }}
                       className="block whitespace-nowrap font-sans font-medium text-[#F5F7F6] tracking-[-0.035em]"
                     >
                       Discover where AI
@@ -501,7 +636,7 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line2Delay }}
-                      style={{ fontSize: "clamp(42px, 3.8vw, 62px)", lineHeight: 1.04 }}
+                      style={{ fontSize: "clamp(46px, 4.3vw, 68px)", lineHeight: 1.02 }}
                       className="block whitespace-nowrap font-sans font-medium text-[#F5F7F6] tracking-[-0.035em]"
                     >
                       can create the most value
@@ -512,7 +647,7 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line3Delay }}
-                      style={{ fontSize: "clamp(42px, 3.8vw, 62px)", lineHeight: 1.04 }}
+                      style={{ fontSize: "clamp(46px, 4.3vw, 68px)", lineHeight: 1.02 }}
                       className="block whitespace-nowrap font-sans font-medium text-[#F5F7F6] tracking-[-0.035em]"
                     >
                       in your business.
@@ -521,17 +656,17 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
                 </div>
               </h1>
 
-              {/* 3. Supporting Copy Fade (Clear & Readable: 18px, #AEB3AF, max-width ~580px) */}
+              {/* 3. Supporting Copy Fade (Clear & Readable: 17.5–18.5px, width 620–660px) */}
               <motion.p
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: copyDuration, ease: transitionEase, delay: copyDelay }}
-                className="text-[17px] sm:text-[17.5px] lg:text-[18px] text-[#AEB3AF] max-w-[580px] leading-[1.54] font-normal tracking-[-0.005em]"
+                className="text-[17.5px] sm:text-[18px] lg:text-[18.5px] text-[#AEB3AF] max-w-[620px] lg:max-w-[660px] leading-[1.52] font-normal tracking-[-0.005em]"
               >
                 A focused assessment of workflows, systems and data to identify practical opportunities and priorities for AI-led transformation.
               </motion.p>
 
-              {/* 4. Single Focused CTA Button (Content-based auto width, restrained padding, no arrows, no lift) */}
+              {/* 4. Single Focused CTA Button (Matching Transformation Hero Mobile & Desktop Behavior) */}
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -541,7 +676,7 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
                 <button
                   type="button"
                   onClick={handleCtaClick}
-                  className="inline-flex h-[50px] sm:h-[52px] items-center justify-center rounded-[4px] bg-[#202522] hover:bg-[#28302A] border border-white/[0.28] hover:border-[#C9A35B]/80 text-[#F5F7F6] px-6 sm:px-7 text-[14px] sm:text-[14.5px] font-sans font-medium tracking-[0.01em] transition-colors duration-200 cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.35)] w-full sm:w-auto max-w-fit text-center select-none"
+                  className="inline-flex h-[50px] sm:h-[52px] items-center justify-center rounded-[4px] bg-[#202522] hover:bg-[#28302A] border border-white/[0.28] hover:border-[#C9A35B]/80 text-[#F5F7F6] px-8 sm:px-10 text-[15px] sm:text-[15.5px] font-sans font-medium tracking-[0.01em] transition-colors duration-200 cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.35)] w-full sm:w-auto text-center select-none"
                   aria-label="Discuss the AI Transformation Assessment"
                 >
                   Discuss the AI Transformation Assessment
