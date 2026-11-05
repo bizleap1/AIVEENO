@@ -7,6 +7,7 @@ import AssessmentHero from "@/components/assessment/AssessmentHero";
 import AssessmentClarity from "@/components/assessment/AssessmentClarity";
 import AssessmentExamine from "@/components/assessment/AssessmentExamine";
 import AssessmentProcess from "@/components/assessment/AssessmentProcess";
+import AssessmentDeliverables from "@/components/assessment/AssessmentDeliverables";
 import DiscoveryModal from "@/components/DiscoveryModal";
 
 /**
@@ -69,9 +70,13 @@ export default function AssessmentClientPage() {
         {/* ========================================================================= */}
         <AssessmentProcess />
 
+        {/* ========================================================================= */}
+        {/* 05 — WHAT YOU RECEIVE (Light Editorial Surface #EEF1F0)                   */}
+        {/* ========================================================================= */}
+        <AssessmentDeliverables />
+
         {/* 
           Future Sections to be implemented and reviewed sequentially:
-          05. What You Receive
           06. Timeline and Commercial Positioning
           07. From Assessment to Transformation
           08. Final CTA
