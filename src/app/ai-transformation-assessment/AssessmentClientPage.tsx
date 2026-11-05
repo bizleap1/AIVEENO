@@ -10,6 +10,7 @@ import AssessmentProcess from "@/components/assessment/AssessmentProcess";
 import AssessmentDeliverables from "@/components/assessment/AssessmentDeliverables";
 import AssessmentEngagement from "@/components/assessment/AssessmentEngagement";
 import AssessmentJourney from "@/components/assessment/AssessmentJourney";
+import AssessmentCta from "@/components/assessment/AssessmentCta";
 import DiscoveryModal from "@/components/DiscoveryModal";
 
 /**
@@ -87,10 +88,10 @@ export default function AssessmentClientPage() {
         {/* ========================================================================= */}
         <AssessmentJourney />
 
-        {/* 
-          Future Sections to be implemented and reviewed sequentially:
-          08. Final CTA
-        */}
+        {/* ========================================================================= */}
+        {/* 08 — FINAL CTA (Light Editorial Conversion Surface #F5F7F6)               */}
+        {/* ========================================================================= */}
+        <AssessmentCta onOpenDiscoveryModal={handleOpenDiscovery} />
       </main>
 
       {/* Global Dark Graphite Footer (#111312) */}
