@@ -9,6 +9,7 @@ import AssessmentExamine from "@/components/assessment/AssessmentExamine";
 import AssessmentProcess from "@/components/assessment/AssessmentProcess";
 import AssessmentDeliverables from "@/components/assessment/AssessmentDeliverables";
 import AssessmentEngagement from "@/components/assessment/AssessmentEngagement";
+import AssessmentJourney from "@/components/assessment/AssessmentJourney";
 import DiscoveryModal from "@/components/DiscoveryModal";
 
 /**
@@ -81,9 +82,13 @@ export default function AssessmentClientPage() {
         {/* ========================================================================= */}
         <AssessmentEngagement />
 
+        {/* ========================================================================= */}
+        {/* 07 — FROM ASSESSMENT TO TRANSFORMATION (Dark Graphite Editorial #111312)   */}
+        {/* ========================================================================= */}
+        <AssessmentJourney />
+
         {/* 
           Future Sections to be implemented and reviewed sequentially:
-          07. From Assessment to Transformation
           08. Final CTA
         */}
       </main>
