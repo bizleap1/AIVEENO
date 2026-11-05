@@ -6,6 +6,7 @@ import Footer from "@/components/navigation/Footer";
 import AssessmentHero from "@/components/assessment/AssessmentHero";
 import AssessmentClarity from "@/components/assessment/AssessmentClarity";
 import AssessmentExamine from "@/components/assessment/AssessmentExamine";
+import AssessmentProcess from "@/components/assessment/AssessmentProcess";
 import DiscoveryModal from "@/components/DiscoveryModal";
 
 /**
@@ -63,9 +64,13 @@ export default function AssessmentClientPage() {
         {/* ========================================================================= */}
         <AssessmentExamine />
 
+        {/* ========================================================================= */}
+        {/* 04 — HOW THE ASSESSMENT WORKS (Dark Graphite Editorial #111312)           */}
+        {/* ========================================================================= */}
+        <AssessmentProcess />
+
         {/* 
           Future Sections to be implemented and reviewed sequentially:
-          04. How the Assessment Works
           05. What You Receive
           06. Timeline and Commercial Positioning
           07. From Assessment to Transformation
