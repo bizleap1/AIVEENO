@@ -5,6 +5,7 @@ import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import AssessmentHero from "@/components/assessment/AssessmentHero";
 import AssessmentClarity from "@/components/assessment/AssessmentClarity";
+import AssessmentExamine from "@/components/assessment/AssessmentExamine";
 import DiscoveryModal from "@/components/DiscoveryModal";
 
 /**
@@ -57,9 +58,13 @@ export default function AssessmentClientPage() {
         {/* ========================================================================= */}
         <AssessmentClarity />
 
+        {/* ========================================================================= */}
+        {/* 03 — WHAT WE EXAMINE (Editorial Scope Matrix #F5F7F6)                     */}
+        {/* ========================================================================= */}
+        <AssessmentExamine />
+
         {/* 
           Future Sections to be implemented and reviewed sequentially:
-          03. What We Examine
           04. How the Assessment Works
           05. What You Receive
           06. Timeline and Commercial Positioning
