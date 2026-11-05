@@ -53,7 +53,7 @@ export default function AssessmentClarity() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: surfaceDuration, ease: transitionEase }}
-      className="relative z-10 w-full scroll-mt-[90px] bg-[#EBEFED] text-[#111312] border-b border-[#D8DEE4] pt-[54px] sm:pt-[62px] lg:pt-[68px] xl:pt-[72px] pb-[54px] sm:pb-[62px] lg:pb-[68px] xl:pb-[72px]"
+      className="relative z-10 w-full scroll-mt-[90px] bg-[#EBEFED] text-[#111312] border-b border-[#D8DEE4] pt-[40px] sm:pt-[46px] lg:pt-[50px] xl:pt-[54px] pb-[40px] sm:pb-[46px] lg:pb-[50px] xl:pb-[54px]"
     >
       <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 xl:gap-16 items-start">
@@ -67,7 +67,7 @@ export default function AssessmentClarity() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: itemDuration, ease: transitionEase, delay: leftGroupDelay }}
-            className="lg:col-span-5 flex flex-col items-start space-y-3 sm:space-y-3.5 lg:space-y-4 pt-[1px]"
+            className="lg:col-span-5 flex flex-col items-start space-y-2 sm:space-y-2.5 lg:space-y-3 pt-[1px]"
           >
             
             {/* 1. Eyebrow with Muted Gold Dash */}
@@ -131,12 +131,12 @@ export default function AssessmentClarity() {
               </div>
 
               {/* Title (26–30px Desktop / 21–23px Mobile) */}
-              <h3 className="text-[21px] sm:text-[23px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.22] mt-2 sm:mt-2.5">
+              <h3 className="text-[21px] sm:text-[23px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.22] mt-1.5 sm:mt-2">
                 A focused review of how your business operates today.
               </h3>
 
               {/* Description (17–18px Desktop / 15–16px Mobile) */}
-              <p className="text-[15.5px] sm:text-[16px] lg:text-[17px] xl:text-[18px] text-[#56616B] font-sans font-normal leading-[1.58] mt-2 sm:mt-2.5 max-w-[640px]">
+              <p className="text-[15.5px] sm:text-[16px] lg:text-[17px] xl:text-[18px] text-[#56616B] font-sans font-normal leading-[1.58] mt-1.5 sm:mt-2 max-w-[640px]">
                 We examine workflows, systems, data and operational inefficiencies to identify practical opportunities for AI-led transformation.
               </p>
             </motion.div>
@@ -147,7 +147,7 @@ export default function AssessmentClarity() {
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.50, ease: transitionEase, delay: dividerDelay }}
-              className="w-full h-px bg-[#CDD5D0] origin-left my-5 sm:my-6 lg:my-6.5 xl:my-7"
+              className="w-full h-px bg-[#CDD5D0] origin-left my-4 sm:my-4.5 lg:my-5"
               aria-hidden="true"
             />
 
@@ -165,12 +165,12 @@ export default function AssessmentClarity() {
               </div>
 
               {/* Title (26–30px Desktop / 21–23px Mobile) */}
-              <h3 className="text-[21px] sm:text-[23px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.22] mt-2 sm:mt-2.5">
+              <h3 className="text-[21px] sm:text-[23px] lg:text-[26px] xl:text-[28px] 2xl:text-[30px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.22] mt-1.5 sm:mt-2">
                 Better decisions begin with understanding the business.
               </h3>
 
               {/* Description (17–18px Desktop / 15–16px Mobile) */}
-              <p className="text-[15.5px] sm:text-[16px] lg:text-[17px] xl:text-[18px] text-[#56616B] font-sans font-normal leading-[1.58] mt-2 sm:mt-2.5 max-w-[640px]">
+              <p className="text-[15.5px] sm:text-[16px] lg:text-[17px] xl:text-[18px] text-[#56616B] font-sans font-normal leading-[1.58] mt-1.5 sm:mt-2 max-w-[640px]">
                 The assessment helps distinguish meaningful opportunities from isolated ideas before moving toward solution design and implementation.
               </p>
             </motion.div>
