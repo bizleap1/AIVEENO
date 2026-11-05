@@ -96,10 +96,10 @@ export default function AssessmentExamine() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: surfaceDuration, ease: transitionEase }}
-      className="relative z-10 w-full scroll-mt-[90px] bg-[#F5F7F6] text-[#111312] border-b border-[#D8DEE4] pt-[56px] sm:pt-[64px] lg:pt-[68px] xl:pt-[72px] pb-[56px] sm:pb-[64px] lg:pb-[68px] xl:pb-[72px]"
+      className="relative z-10 w-full scroll-mt-[90px] bg-[#F5F7F6] text-[#111312] border-b border-[#D8DEE4] pt-[36px] sm:pt-[42px] lg:pt-[46px] xl:pt-[50px] pb-[36px] sm:pb-[42px] lg:pb-[46px] xl:pb-[50px]"
     >
       <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
-        <div className="flex flex-col space-y-10 sm:space-y-12 lg:space-y-14">
+        <div className="flex flex-col space-y-6 sm:space-y-7 lg:space-y-8">
           
           {/* ========================================================================= */}
           {/* 1. SECTION HEADER: EYEBROW + H2 + SCOPE OVERVIEW THESIS                   */}
@@ -109,7 +109,7 @@ export default function AssessmentExamine() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: itemDuration, ease: transitionEase, delay: headerDelay }}
-            className="flex flex-col items-start max-w-[820px] space-y-3 sm:space-y-3.5"
+            className="flex flex-col items-start max-w-[820px] space-y-2 sm:space-y-2.5"
           >
             {/* Eyebrow with Muted Gold Dash */}
             <div className="inline-flex items-center gap-2.5 text-[12px] sm:text-[12.5px] lg:text-[13px] font-sans font-medium uppercase tracking-[0.14em] text-[#56616B] leading-none">
@@ -117,16 +117,16 @@ export default function AssessmentExamine() {
               <span>What We Examine</span>
             </div>
 
-            {/* Headline H2: 40–46px Desktop / 32–36px Mobile */}
+            {/* Headline H2: 38–42px Desktop / 30–34px Mobile */}
             <h2
               aria-label="A closer look at how work gets done."
-              className="text-[32px] min-[390px]:text-[34px] sm:text-[36px] lg:text-[42px] xl:text-[46px] font-heading font-medium text-[#111312] tracking-[-0.03em] leading-[1.08] sm:leading-[1.06]"
+              className="text-[30px] min-[390px]:text-[32px] sm:text-[34px] lg:text-[38px] xl:text-[42px] font-heading font-medium text-[#111312] tracking-[-0.03em] leading-[1.08] sm:leading-[1.06]"
             >
               A closer look at how work gets done.
             </h2>
 
-            {/* Supporting Description: 17–19px Desktop / 15–16px Mobile */}
-            <p className="text-[15.5px] sm:text-[16.5px] lg:text-[17.5px] xl:text-[18px] text-[#56616B] font-sans font-normal leading-[1.58] max-w-[680px] pt-0.5 sm:pt-1">
+            {/* Supporting Description */}
+            <p className="text-[15px] sm:text-[16px] lg:text-[16.5px] xl:text-[17px] text-[#56616B] font-sans font-normal leading-[1.54] max-w-[680px]">
               Exploring operations, technology and opportunities to identify where transformation may create practical business value.
             </p>
           </motion.div>
@@ -134,7 +134,7 @@ export default function AssessmentExamine() {
           {/* ========================================================================= */}
           {/* 2. THREE-COLUMN EDITORIAL SCOPE MATRIX (DESKTOP DIVIDERS / MOBILE STACK)  */}
           {/* ========================================================================= */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-[#D4DAD6] border-t border-[#D4DAD6] pt-8 sm:pt-10 lg:pt-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-[#D4DAD6] border-t border-[#D4DAD6] pt-5 sm:pt-6 lg:pt-7">
             {scopeGroups.map((group, idx) => {
               const colDelay = colBaseDelay + idx * colStagger;
 
@@ -147,10 +147,10 @@ export default function AssessmentExamine() {
                   transition={{ duration: itemDuration, ease: transitionEase, delay: colDelay }}
                   className={`flex flex-col ${
                     idx === 0
-                      ? "lg:pr-8 xl:pr-12 pt-0 pb-8 sm:pb-10 lg:pb-0"
+                      ? "lg:pr-8 xl:pr-12 pt-0 pb-6 sm:pb-7 lg:pb-0"
                       : idx === 1
-                      ? "lg:px-8 xl:px-12 py-8 sm:py-10 lg:py-0"
-                      : "lg:pl-8 xl:pl-12 pt-8 sm:pt-10 lg:pt-0 pb-0"
+                      ? "lg:px-8 xl:px-12 py-6 sm:py-7 lg:py-0"
+                      : "lg:pl-8 xl:pl-12 pt-6 sm:pt-7 lg:pt-0 pb-0"
                   }`}
                 >
                   {/* Small Muted-Gold Column Identifier */}
@@ -160,8 +160,8 @@ export default function AssessmentExamine() {
                     <span className="text-[#56616B]">{group.category}</span>
                   </div>
 
-                  {/* Column Heading: 26–30px Desktop / 24–26px Mobile */}
-                  <h3 className="text-[23px] sm:text-[25px] lg:text-[27px] xl:text-[29px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.2] mt-3 sm:mt-3.5 mb-5 sm:mb-6">
+                  {/* Column Heading: 24–28px Desktop / 22–24px Mobile */}
+                  <h3 className="text-[22px] sm:text-[24px] lg:text-[25px] xl:text-[27px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.2] mt-2 sm:mt-2.5 mb-3.5 sm:mb-4">
                     {group.title}
                   </h3>
 
@@ -170,7 +170,7 @@ export default function AssessmentExamine() {
                     {group.items.map((item) => (
                       <div
                         key={item}
-                        className="py-3.5 sm:py-4 border-b border-[#D4DAD6]/70 text-[16.5px] sm:text-[17px] lg:text-[17.5px] xl:text-[18px] font-sans font-normal text-[#111312] leading-[1.4] select-none"
+                        className="py-2.5 sm:py-3 border-b border-[#D4DAD6]/70 text-[15.5px] sm:text-[16px] lg:text-[16.5px] xl:text-[17px] font-sans font-normal text-[#111312] leading-[1.4] select-none"
                       >
                         {item}
                       </div>
@@ -186,3 +186,4 @@ export default function AssessmentExamine() {
     </motion.section>
   );
 }
+
