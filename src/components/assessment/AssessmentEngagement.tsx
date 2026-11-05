@@ -8,23 +8,20 @@ import { motion } from "motion/react";
  * Aiveeno — AI Transformation Assessment Page: Section 06
  * TIMELINE & COMMERCIAL POSITIONING (#F5F7F6 Light Editorial Surface)
  * 
- * Purpose:
- * Clear, transparent commercial and operational positioning communicating:
- * 1. Typical Duration: ~1 week (estimated, not an artificial guarantee)
- * 2. Engagement Model: A focused, paid consulting engagement (not a free audit, no invented pricing)
- * 
- * Design Principles (Accenture-Inspired Typographic Positioning):
+ * Final Polish (Accenture-Level Discipline):
  * - Surface: Solid #F5F7F6 (Clean light surface following Section 05 #EEF1F0).
- * - Typography: Instrument Sans, Primary #111312, Muted #56616B, Accent #C9A35B, Divider #D9DDDA.
+ * - Typography: Instrument Sans throughout.
+ *   - Main Headline: Controlled 42–46px desktop, 30–34px mobile.
+ *   - Typical Duration Hero: ~1 week at 70–76px desktop, 54–60px mobile.
+ *   - Paid Assessment Statement: 30–34px desktop, 25–28px mobile.
+ *   - Supporting copy: 15–16.5px with refined line-height.
  * - Layout:
- *   - Top: Eyebrow + Prominent Headline (Focused in scope. Clear in direction.).
+ *   - Top: Eyebrow + Headline.
  *   - Thin 1px full-width horizontal divider (#D9DDDA).
- *   - Below: Two large editorial information areas:
- *     - Left: TYPICAL DURATION with oversized typographic hero "~1 week" + stakeholder qualifier.
- *     - Right: ENGAGEMENT MODEL with dignified statement "A focused, paid assessment." + consulting context.
- *   - Single subtle vertical divider between the two columns on desktop, horizontal divider on mobile.
- * - Natural compact height: Content-driven ~360–420px (zero 100vh forcing).
- * - Restraint: Zero cards, zero shadows, zero countdowns, zero dashboards, zero CTAs.
+ *   - Below: Two large editorial information areas (Duration left | Model right).
+ *   - Single subtle vertical divider between columns on desktop, horizontal on mobile.
+ * - Natural compact height: Content-driven ~360–400px (zero 100vh forcing).
+ * - Zero cards, zero countdowns, zero dashboards, zero CTAs.
  */
 
 const transitionEase = [0.22, 1, 0.36, 1] as const;
@@ -41,7 +38,7 @@ export default function AssessmentEngagement() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Animation Timings (Subtle Reveal: 500–650ms range)
+  // Animation Timings (Subtle Reveal: 550–700ms range)
   const surfaceDuration = isMobile ? 0.40 : 0.65;
   const surfaceY = isMobile ? 12 : 20;
 
@@ -58,7 +55,7 @@ export default function AssessmentEngagement() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: surfaceDuration, ease: transitionEase }}
-      className="relative z-10 w-full scroll-mt-[90px] bg-[#F5F7F6] text-[#111312] border-b border-[#D8DEE4] pt-[40px] sm:pt-[46px] lg:pt-[52px] xl:pt-[56px] pb-[40px] sm:pb-[46px] lg:pb-[52px] xl:pb-[56px]"
+      className="relative z-10 w-full scroll-mt-[90px] bg-[#F5F7F6] text-[#111312] border-b border-[#D8DEE4] pt-[38px] sm:pt-[44px] lg:pt-[48px] xl:pt-[52px] pb-[38px] sm:pb-[44px] lg:pb-[48px] xl:pb-[52px]"
     >
       <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
         <div className="flex flex-col space-y-6 sm:space-y-7 lg:space-y-8">
@@ -79,10 +76,10 @@ export default function AssessmentEngagement() {
               <span>The Engagement</span>
             </div>
 
-            {/* Headline H2: 38–44px Desktop / 32–36px Mobile */}
+            {/* Headline H2: 42–46px Desktop / 30–34px Mobile */}
             <h2
               aria-label="Focused in scope. Clear in direction."
-              className="text-[30px] min-[390px]:text-[32px] sm:text-[36px] lg:text-[40px] xl:text-[44px] font-heading font-medium text-[#111312] tracking-[-0.03em] leading-[1.08] sm:leading-[1.06]"
+              className="text-[30px] min-[390px]:text-[32px] sm:text-[34px] lg:text-[42px] xl:text-[46px] font-heading font-medium text-[#111312] tracking-[-0.03em] leading-[1.08] sm:leading-[1.06]"
             >
               Focused in scope. Clear in direction.
             </h2>
@@ -119,14 +116,14 @@ export default function AssessmentEngagement() {
                 Typical Duration
               </div>
 
-              {/* Large Typographic Hero Statement: ~1 week */}
-              <div className="text-[52px] sm:text-[60px] lg:text-[64px] xl:text-[70px] font-heading font-medium text-[#111312] tracking-[-0.035em] leading-[0.98] mb-3 sm:mb-3.5 select-none">
+              {/* Large Typographic Hero Statement: ~1 week (70–76px Desktop / 54–60px Mobile) */}
+              <div className="text-[54px] sm:text-[62px] lg:text-[70px] xl:text-[76px] font-heading font-medium text-[#111312] tracking-[-0.035em] leading-[0.98] mb-3 sm:mb-3.5 select-none">
                 ~1 week
               </div>
 
-              {/* Supporting Copy */}
+              {/* Supporting Copy: Direct & Non-Repetitive */}
               <p className="text-[15px] sm:text-[15.5px] lg:text-[16px] xl:text-[16.5px] text-[#56616B] font-sans font-normal leading-[1.58] max-w-[480px]">
-                Approximately one week, subject to stakeholder access and information availability.
+                Subject to stakeholder access and information availability.
               </p>
             </motion.div>
 
@@ -143,8 +140,8 @@ export default function AssessmentEngagement() {
                 Engagement Model
               </div>
 
-              {/* Statement: A focused, paid assessment. */}
-              <div className="text-[25px] sm:text-[27px] lg:text-[29px] xl:text-[31px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.2] mb-3 sm:mb-3.5">
+              {/* Statement: A focused, paid assessment. (30–34px Desktop / 25–28px Mobile) */}
+              <div className="text-[25px] sm:text-[27px] lg:text-[30px] xl:text-[32px] 2xl:text-[34px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.2] mb-3 sm:mb-3.5">
                 A focused, paid assessment.
               </div>
 
