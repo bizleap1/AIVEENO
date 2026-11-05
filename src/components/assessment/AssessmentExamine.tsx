@@ -8,22 +8,19 @@ import { motion } from "motion/react";
  * Aiveeno — AI Transformation Assessment Page: Section 03
  * WHAT WE EXAMINE (#F5F7F6 Primary Light Editorial Surface)
  * 
- * Purpose:
- * Editorial Scope Matrix detailing the 9 assessment scope areas across
- * 3 clear presentation groupings: Operations, Technology, and Opportunity.
- * 
- * Design Principles (Accenture-Inspired Scope Matrix):
+ * Refined Editorial Scope Matrix (Accenture-Level Visual Restraint):
  * - Surface: Solid #F5F7F6 (Primary light surface with soft transition from Section 02 #EBEFED).
- * - Layout:
- *   - Editorial Header: Eyebrow + Strong concise H2 + Supporting thesis.
- *   - 3-Column Scope Matrix separated by thin #D4DAD6 vertical dividers.
- *   - Each column features:
- *     - Small muted-gold column identifier (01 / OPERATIONS, 02 / TECHNOLOGY, 03 / OPPORTUNITY).
- *     - Large, dignified column heading (26–30px).
- *     - Architectural scope items with subtle horizontal dividers.
- * - Restraint:
- *   - Zero cards, zero rounded boxes, zero icons, zero accordion states, zero hover pointer cursors.
- *   - All 9 assessment areas immediately visible on initial view.
+ * - Layout & Dividers:
+ *   - Only 3 main divider lines on desktop (#D9DDDA):
+ *     1. One full-width horizontal divider beneath the section header.
+ *     2. Two subtle vertical column dividers separating the 3 columns.
+ *   - Zero horizontal lines between individual scope items (spaced with generous 18–24px rhythm).
+ * - Typography:
+ *   - Column Identifiers: Clean Instrument Sans (no typewriter/monospace).
+ *   - Column Headings: Prominent & structured (26–28px, Instrument Sans 500).
+ *   - Scope Items: 17–18px Instrument Sans with clean whitespace separation.
+ * - Mobile: Clean vertical stack with single subtle horizontal dividers between groups.
+ * - Zero cards, zero rounded boxes, zero icons, zero hover micro-interactions.
  */
 
 const transitionEase = [0.22, 1, 0.36, 1] as const;
@@ -80,14 +77,15 @@ export default function AssessmentExamine() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Animation Timings (Restrained Sequential Reveal)
+  // Animation Timings (Subtle Entrance Reveal)
   const surfaceDuration = isMobile ? 0.40 : 0.65;
   const surfaceY = isMobile ? 12 : 20;
 
-  const headerDelay = isMobile ? 0.08 : 0.16;
-  const colStagger = isMobile ? 0.08 : 0.10;
+  const headerDelay = isMobile ? 0.08 : 0.15;
+  const dividerDelay = isMobile ? 0.14 : 0.24;
   const colBaseDelay = isMobile ? 0.18 : 0.28;
-  const itemDuration = isMobile ? 0.35 : 0.50;
+  const colStagger = isMobile ? 0.07 : 0.09;
+  const itemDuration = isMobile ? 0.35 : 0.48;
 
   return (
     <motion.section
@@ -99,7 +97,7 @@ export default function AssessmentExamine() {
       className="relative z-10 w-full scroll-mt-[90px] bg-[#F5F7F6] text-[#111312] border-b border-[#D8DEE4] pt-[36px] sm:pt-[42px] lg:pt-[46px] xl:pt-[50px] pb-[36px] sm:pb-[42px] lg:pb-[46px] xl:pb-[50px]"
     >
       <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
-        <div className="flex flex-col space-y-6 sm:space-y-7 lg:space-y-8">
+        <div className="flex flex-col space-y-5 sm:space-y-6 lg:space-y-7">
           
           {/* ========================================================================= */}
           {/* 1. SECTION HEADER: EYEBROW + H2 + SCOPE OVERVIEW THESIS                   */}
@@ -132,16 +130,28 @@ export default function AssessmentExamine() {
           </motion.div>
 
           {/* ========================================================================= */}
-          {/* 2. THREE-COLUMN EDITORIAL SCOPE MATRIX (DESKTOP DIVIDERS / MOBILE STACK)  */}
+          {/* SINGLE FULL-WIDTH DIVIDER (1px #D9DDDA)                                   */}
           {/* ========================================================================= */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-[#D4DAD6] border-t border-[#D4DAD6] pt-5 sm:pt-6 lg:pt-7">
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, ease: transitionEase, delay: dividerDelay }}
+            className="w-full h-px bg-[#D9DDDA] origin-left"
+            aria-hidden="true"
+          />
+
+          {/* ========================================================================= */}
+          {/* 2. THREE-COLUMN EDITORIAL MATRIX (2 VERTICAL DIVIDERS ON DESKTOP)         */}
+          {/* ========================================================================= */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-[#D9DDDA] pt-1 sm:pt-2">
             {scopeGroups.map((group, idx) => {
               const colDelay = colBaseDelay + idx * colStagger;
 
               return (
                 <motion.div
                   key={group.category}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: itemDuration, ease: transitionEase, delay: colDelay }}
@@ -153,24 +163,24 @@ export default function AssessmentExamine() {
                       : "lg:pl-8 xl:pl-12 pt-6 sm:pt-7 lg:pt-0 pb-0"
                   }`}
                 >
-                  {/* Small Muted-Gold Column Identifier */}
-                  <div className="inline-flex items-center gap-1.5 text-[11px] sm:text-[11.5px] font-mono font-medium tracking-[0.16em] uppercase text-[#C9A35B] leading-none">
-                    <span>{group.number}</span>
+                  {/* Column Identifier in Instrument Sans (No monospace) */}
+                  <div className="inline-flex items-center gap-1.5 text-[11px] sm:text-[11.5px] lg:text-[12px] font-sans font-medium tracking-[0.14em] uppercase text-[#56616B] leading-none">
+                    <span className="text-[#C9A35B] font-semibold">{group.number}</span>
                     <span className="text-[#8E9791]">/</span>
-                    <span className="text-[#56616B]">{group.category}</span>
+                    <span>{group.category}</span>
                   </div>
 
-                  {/* Column Heading: 24–28px Desktop / 22–24px Mobile */}
-                  <h3 className="text-[22px] sm:text-[24px] lg:text-[25px] xl:text-[27px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.2] mt-2 sm:mt-2.5 mb-3.5 sm:mb-4">
+                  {/* Prominent Column Heading: 24–28px Desktop / 22–24px Mobile */}
+                  <h3 className="text-[23px] sm:text-[25px] lg:text-[26px] xl:text-[28px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.2] mt-2 sm:mt-2.5 mb-4 sm:mb-5 lg:mb-6">
                     {group.title}
                   </h3>
 
-                  {/* Scope Items List with Subtle Hairline Dividers */}
-                  <div className="flex flex-col border-t border-[#D4DAD6]">
+                  {/* Scope Items with Generous 18–24px Vertical Whitespace (No horizontal lines) */}
+                  <div className="flex flex-col space-y-4 sm:space-y-4.5 lg:space-y-5">
                     {group.items.map((item) => (
                       <div
                         key={item}
-                        className="py-2.5 sm:py-3 border-b border-[#D4DAD6]/70 text-[15.5px] sm:text-[16px] lg:text-[16.5px] xl:text-[17px] font-sans font-normal text-[#111312] leading-[1.4] select-none"
+                        className="text-[16px] sm:text-[16.5px] lg:text-[17px] xl:text-[17.5px] font-sans font-normal text-[#111312] leading-[1.4] select-none"
                       >
                         {item}
                       </div>
@@ -186,4 +196,3 @@ export default function AssessmentExamine() {
     </motion.section>
   );
 }
-
