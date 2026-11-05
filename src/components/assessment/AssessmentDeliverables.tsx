@@ -8,53 +8,49 @@ import { motion } from "motion/react";
  * Aiveeno — AI Transformation Assessment Page: Section 05
  * WHAT YOU RECEIVE (#EEF1F0 Light Editorial Surface)
  * 
- * Purpose:
- * Executive Report Showcase presenting the tangible deliverables of the
- * assessment engagement without resorting to fake dashboards or fictional charts.
- * 
- * Design Principles (Accenture-Inspired Report Showcase):
- * - Surface: Solid #EEF1F0 (Refined light editorial surface following dark Section 04 #111312).
- * - Typography: Instrument Sans, Primary #111312, Body #56616B, Accent #C9A35B, Divider #D0D7D4.
- * - Layout:
- *   - Asymmetric 40 / 60 editorial split:
- *     - Left ~40% (lg:col-span-5): Eyebrow + Strong concise H2 + Framing thesis.
- *     - Right ~60% (lg:col-span-7): Editorial report-index composition with 3 core content groups:
- *       01 / WHERE TO FOCUS — Opportunity Map & Priorities
- *       02 / WHAT TO CONSIDER — Solutions & Feasibility
- *       03 / WHAT COMES NEXT — Practical Next Steps
- *   - Only two very thin horizontal dividers separating the three content groups on the right.
+ * Refined Full-Width Editorial Report Index (Accenture-Inspired Presentation):
+ * - Surface: Solid #EEF1F0 (Smooth contrast following dark Section 04 #111312).
+ * - Full-Width Layout:
+ *   - Top: Eyebrow + Prominent Headline + Concise framing thesis.
+ *   - Thin horizontal full-width divider.
+ *   - 3 Full-Width Aligned Editorial Bands (Index | Title | Explanation):
+ *     01 — Opportunity Map & Priorities
+ *     02 — Solutions & Feasibility
+ *     03 — Practical Next Steps
+ * - Desktop Alignment:
+ *   - 3 columns per band across 12-column grid:
+ *     Col 1 (1 col): Muted-gold index (01, 02, 03)
+ *     Col 2 (5 cols): Large deliverable heading (24–28px)
+ *     Col 3 (6 cols): Concise explanation (16–17px, #56616B)
  * - Restraint:
- *   - Zero fake screenshots, zero fictional ROI claims, zero 3D document graphics, zero cards.
- *   - Both columns top-aligned (items-start) for immediate visual balance.
+ *   - Zero cards, zero rounded boxes, zero icons, zero fake dashboard previews.
+ *   - Only thin horizontal dividers (#D0D7D4) between bands.
+ * - Mobile: Single-column stacked bands (number -> title -> description).
  */
 
 const transitionEase = [0.22, 1, 0.36, 1] as const;
 
-interface ReportGroup {
-  number: string;
-  category: string;
+interface ReportBand {
+  index: string;
   title: string;
   description: string;
 }
 
-const reportGroups: ReportGroup[] = [
+const reportBands: ReportBand[] = [
   {
-    number: "01",
-    category: "WHERE TO FOCUS",
+    index: "01",
     title: "Opportunity Map & Priorities",
-    description: "Identify potential AI opportunities and prioritize them by business relevance.",
+    description: "Potential AI opportunities organized by business relevance and priority.",
   },
   {
-    number: "02",
-    category: "WHAT TO CONSIDER",
+    index: "02",
     title: "Solutions & Feasibility",
-    description: "Present recommended solution directions, feasibility considerations and potential business impact/ROI considerations.",
+    description: "Recommended solutions, feasibility considerations and potential business impact/ROI considerations.",
   },
   {
-    number: "03",
-    category: "WHAT COMES NEXT",
+    index: "03",
     title: "Practical Next Steps",
-    description: "Outline the direction for moving from assessment findings toward transformation planning.",
+    description: "A direction for moving from assessment findings toward transformation planning.",
   },
 ];
 
@@ -70,13 +66,14 @@ export default function AssessmentDeliverables() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Animation Timings (Restrained Light Surface Rise)
+  // Animation Timings (Subtle Light Surface Rise & Staggered Bands)
   const surfaceDuration = isMobile ? 0.40 : 0.70;
   const surfaceY = isMobile ? 12 : 20;
 
-  const leftGroupDelay = isMobile ? 0.08 : 0.15;
-  const rightBaseDelay = isMobile ? 0.16 : 0.26;
-  const rightStagger = isMobile ? 0.07 : 0.09;
+  const headerDelay = isMobile ? 0.08 : 0.15;
+  const dividerDelay = isMobile ? 0.14 : 0.22;
+  const bandBaseDelay = isMobile ? 0.18 : 0.26;
+  const bandStagger = isMobile ? 0.06 : 0.08;
   const itemDuration = isMobile ? 0.35 : 0.48;
 
   return (
@@ -86,21 +83,20 @@ export default function AssessmentDeliverables() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{ duration: surfaceDuration, ease: transitionEase }}
-      className="relative z-10 w-full scroll-mt-[90px] bg-[#EEF1F0] text-[#111312] border-b border-[#D8DEE4] pt-[50px] sm:pt-[58px] lg:pt-[64px] xl:pt-[68px] pb-[50px] sm:pb-[58px] lg:pb-[64px] xl:pb-[68px]"
+      className="relative z-10 w-full scroll-mt-[90px] bg-[#EEF1F0] text-[#111312] border-b border-[#D8DEE4] pt-[42px] sm:pt-[48px] lg:pt-[54px] xl:pt-[58px] pb-[42px] sm:pb-[48px] lg:pb-[54px] xl:pb-[58px]"
     >
       <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 xl:gap-16 items-start">
+        <div className="flex flex-col space-y-6 sm:space-y-7 lg:space-y-8">
           
           {/* ========================================================================= */}
-          {/* LEFT COLUMN: ~40% (lg:col-span-5) — TOP-ALIGNED EYEBROW + H2 + THESIS     */}
-          {/* Top-aligned with right report horizon, eliminating excessive whitespace   */}
+          {/* 1. SECTION HEADER: EYEBROW + H2 + INTRODUCTION THESIS                     */}
           {/* ========================================================================= */}
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: itemDuration, ease: transitionEase, delay: leftGroupDelay }}
-            className="lg:col-span-5 flex flex-col items-start space-y-2.5 sm:space-y-3 pt-[1px]"
+            transition={{ duration: itemDuration, ease: transitionEase, delay: headerDelay }}
+            className="flex flex-col items-start max-w-[820px] space-y-2 sm:space-y-2.5"
           >
             {/* Eyebrow with Muted Gold Dash */}
             <div className="inline-flex items-center gap-2.5 text-[12px] sm:text-[12.5px] lg:text-[13px] font-sans font-medium uppercase tracking-[0.14em] text-[#56616B] leading-none">
@@ -108,59 +104,69 @@ export default function AssessmentDeliverables() {
               <span>What You Receive</span>
             </div>
 
-            {/* Headline H2: 44–50px Desktop / 34–38px Mobile */}
+            {/* Headline H2: 38–44px Desktop / 32–36px Mobile */}
             <h2
               aria-label="Clarity you can act on."
-              className="text-[34px] min-[390px]:text-[36px] sm:text-[38px] lg:text-[44px] xl:text-[48px] 2xl:text-[50px] font-heading font-medium text-[#111312] tracking-[-0.035em] leading-[1.08] sm:leading-[1.05]"
+              className="text-[32px] min-[390px]:text-[34px] sm:text-[36px] lg:text-[40px] xl:text-[44px] font-heading font-medium text-[#111312] tracking-[-0.03em] leading-[1.08] sm:leading-[1.05]"
             >
               Clarity you can act on.
             </h2>
 
-            {/* Supporting Description: 16–17px */}
-            <p className="text-[15.5px] sm:text-[16px] lg:text-[16.5px] xl:text-[17px] text-[#56616B] font-sans font-normal leading-[1.58] max-w-[540px] pt-0.5 sm:pt-1">
-              An executive-ready assessment report outlining opportunities, recommended solutions, feasibility considerations and practical next steps.
+            {/* Framing Introduction */}
+            <p className="text-[15px] sm:text-[16px] lg:text-[16.5px] xl:text-[17px] text-[#56616B] font-sans font-normal leading-[1.54] max-w-[640px]">
+              An executive-ready assessment report with clear priorities and practical next steps.
             </p>
           </motion.div>
 
           {/* ========================================================================= */}
-          {/* RIGHT COLUMN: ~60% (lg:col-span-7) — EDITORIAL REPORT-INDEX COMPOSITION   */}
-          {/* 3 report groups separated by only two subtle horizontal hairlines         */}
+          {/* SUBTLE FULL-WIDTH DIVIDER (1px #D0D7D4)                                   */}
           {/* ========================================================================= */}
-          <div className="lg:col-span-7 flex flex-col items-start lg:pl-3 xl:pl-6 divide-y divide-[#D0D7D4]">
-            {reportGroups.map((group, idx) => {
-              const groupDelay = rightBaseDelay + idx * rightStagger;
+          <motion.div
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, ease: transitionEase, delay: dividerDelay }}
+            className="w-full h-px bg-[#D0D7D4] origin-left"
+            aria-hidden="true"
+          />
+
+          {/* ========================================================================= */}
+          {/* 2. THREE FULL-WIDTH EDITORIAL REPORT BANDS                                 */}
+          {/* Desktop: 3 aligned columns (Index | Title | Description)                   */}
+          {/* ========================================================================= */}
+          <div className="flex flex-col divide-y divide-[#D0D7D4]">
+            {reportBands.map((band, idx) => {
+              const bandDelay = bandBaseDelay + idx * bandStagger;
 
               return (
                 <motion.div
-                  key={group.category}
+                  key={band.index}
                   initial={{ opacity: 0, y: 8 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: itemDuration, ease: transitionEase, delay: groupDelay }}
-                  className={`flex flex-col items-start w-full ${
-                    idx === 0
-                      ? "pb-6 sm:pb-7 lg:pb-8 pt-0"
-                      : idx === 1
-                      ? "py-6 sm:py-7 lg:py-8"
-                      : "pt-6 sm:pt-7 lg:pt-8 pb-0"
-                  }`}
+                  transition={{ duration: itemDuration, ease: transitionEase, delay: bandDelay }}
+                  className="grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-3 lg:gap-8 items-start lg:items-baseline py-5 sm:py-6 lg:py-6.5 xl:py-7 first:pt-2 sm:first:pt-3 lg:first:pt-4 last:pb-1"
                 >
-                  {/* Small Muted-Gold Identifier in Instrument Sans */}
-                  <div className="inline-flex items-center gap-1.5 text-[11px] sm:text-[11.5px] lg:text-[12px] font-sans font-medium tracking-[0.14em] uppercase text-[#56616B] leading-none">
-                    <span className="text-[#C9A35B] font-semibold">{group.number}</span>
-                    <span className="text-[#8E9791]">/</span>
-                    <span>{group.category}</span>
+                  {/* Column 1: Small Gold Index (lg:col-span-1) */}
+                  <div className="lg:col-span-1 flex items-center">
+                    <span className="text-[12px] sm:text-[12.5px] lg:text-[13px] font-sans font-semibold tracking-[0.14em] uppercase text-[#C9A35B] leading-none">
+                      {band.index}
+                    </span>
                   </div>
 
-                  {/* Group Title: 24–28px Desktop / 22–24px Mobile */}
-                  <h3 className="text-[22px] sm:text-[24px] lg:text-[25px] xl:text-[27px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.22] mt-2 sm:mt-2.5 mb-1.5 sm:mb-2">
-                    {group.title}
-                  </h3>
+                  {/* Column 2: Deliverable Title (lg:col-span-5) */}
+                  <div className="lg:col-span-5 flex items-center">
+                    <h3 className="text-[21px] sm:text-[23px] lg:text-[25px] xl:text-[27px] font-heading font-medium text-[#111312] tracking-[-0.025em] leading-[1.22]">
+                      {band.title}
+                    </h3>
+                  </div>
 
-                  {/* Description: 16–17px Instrument Sans */}
-                  <p className="text-[15.5px] sm:text-[16px] lg:text-[16.5px] xl:text-[17px] text-[#56616B] font-sans font-normal leading-[1.58] max-w-[620px]">
-                    {group.description}
-                  </p>
+                  {/* Column 3: Concise Explanation (lg:col-span-6) */}
+                  <div className="lg:col-span-6 flex items-center">
+                    <p className="text-[15px] sm:text-[15.5px] lg:text-[16px] xl:text-[16.5px] text-[#56616B] font-sans font-normal leading-[1.58] max-w-[620px]">
+                      {band.description}
+                    </p>
+                  </div>
                 </motion.div>
               );
             })}
