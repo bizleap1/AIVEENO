@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import SolutionsHero from "@/components/solutions/SolutionsHero";
+import SolutionsProblems from "@/components/solutions/SolutionsProblems";
 import DiscoveryModal from "@/components/DiscoveryModal";
 import { Container } from "@/components/ui/Container";
 import { SectionIntro } from "@/components/ui/SectionIntro";
@@ -38,7 +39,7 @@ export default function SolutionsClientPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F8FA] text-[#111827]">
+    <div className="min-h-screen flex flex-col bg-[#F5F7F6] text-[#111312]">
       {/* Global Enterprise Navbar with transparent overlay on dark hero */}
       <Navbar transparentOnHero onOpenDiscoveryModal={handleOpenDiscovery} />
 
@@ -47,6 +48,11 @@ export default function SolutionsClientPage() {
         {/* 01 — ARCHITECTURAL HERO SECTION (#111312 Dark Graphite Editorial)          */}
         {/* ========================================================================= */}
         <SolutionsHero onOpenDiscoveryModal={handleOpenDiscovery} />
+
+        {/* ========================================================================= */}
+        {/* 02 — BUSINESS PROBLEMS WORTH SOLVING (#F5F7F6 Editorial Rows)             */}
+        {/* ========================================================================= */}
+        <SolutionsProblems />
 
         {/* Detailed Solutions Grid */}
         <section className="py-20 bg-white border-b border-[#D9DEE7]">

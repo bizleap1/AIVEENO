@@ -86,7 +86,7 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
               transition={{ duration: 0.65, ease: transitionEase, delay: illustrationDelay }}
               className="lg:col-span-6 order-1 lg:order-1 flex items-center justify-center lg:justify-start -mt-1 sm:-mt-3 lg:-mt-5 xl:-mt-7"
             >
-              <div className="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[720px] aspect-[520/430] flex items-center justify-center select-none pointer-events-none">
+              <div className="relative w-full max-w-[300px] min-[390px]:max-w-[330px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[720px] aspect-[520/430] flex items-center justify-center select-none pointer-events-none">
                 
                 {/* Custom Editorial Line-Art SVG Illustration (Responsive preserveAspectRatio) */}
                 <svg
@@ -584,14 +584,14 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
                   Discover where AI can create the most value in your business.
                 </span>
 
-                {/* Mobile Line Structure (40–44px, matching Transformation hero) */}
+                {/* Mobile Line Structure (disciplined 3-line scale matching Transformation hero) */}
                 <div className="sm:hidden space-y-0.5" aria-hidden="true">
                   <div className="overflow-hidden pb-[0.08em]">
                     <motion.span
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line1Delay }}
-                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
+                      className="block font-sans font-medium text-[31px] min-[390px]:text-[34px] sm:text-[40px] text-[#F5F7F6] leading-[1.04]"
                     >
                       Discover where AI
                     </motion.span>
@@ -601,7 +601,7 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line2Delay }}
-                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
+                      className="block font-sans font-medium text-[31px] min-[390px]:text-[34px] sm:text-[40px] text-[#F5F7F6] leading-[1.04]"
                     >
                       can create the most value
                     </motion.span>
@@ -611,7 +611,7 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line3Delay }}
-                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
+                      className="block font-sans font-medium text-[31px] min-[390px]:text-[34px] sm:text-[40px] text-[#F5F7F6] leading-[1.04]"
                     >
                       in your business.
                     </motion.span>

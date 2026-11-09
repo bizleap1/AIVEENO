@@ -59,13 +59,12 @@ export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroPro
   const eyebrowDelay = isMobile ? 0.14 : 0.20;
   const h1Line1Delay = isMobile ? 0.20 : 0.28;
   const h1Line2Delay = isMobile ? 0.26 : 0.36;
-  const h1Line3Delay = isMobile ? 0.32 : 0.44;
   const h1Duration = isMobile ? 0.35 : 0.55;
 
-  const copyDelay = isMobile ? 0.38 : 0.52;
+  const copyDelay = isMobile ? 0.34 : 0.46;
   const copyDuration = isMobile ? 0.30 : 0.40;
 
-  const ctaDelay = isMobile ? 0.44 : 0.60;
+  const ctaDelay = isMobile ? 0.40 : 0.54;
   const ctaDuration = isMobile ? 0.30 : 0.35;
 
   return (
@@ -75,7 +74,7 @@ export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroPro
       {/* MAIN HERO SECTION (EDITORIAL SPLIT: 50/50 | CONTROLLED HEIGHT ~620–680px)   */}
       {/* Matching AI Business Transformation hero spacing, padding and alignment     */}
       {/* ========================================================================= */}
-      <section className="relative w-full pt-4 sm:pt-6 lg:pt-8 xl:pt-10 pb-10 sm:pb-12 lg:pb-14 border-b border-white/[0.08] overflow-hidden">
+      <section className="relative w-full pt-4 sm:pt-6 lg:pt-8 xl:pt-10 pb-10 sm:pb-12 lg:pb-14 overflow-hidden">
         <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-10 xl:gap-14 items-center">
             
@@ -89,7 +88,7 @@ export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroPro
               transition={{ duration: 0.65, ease: transitionEase, delay: illustrationDelay }}
               className="lg:col-span-6 order-1 lg:order-1 flex items-center justify-center lg:justify-start -mt-1 sm:-mt-3 lg:-mt-5 xl:-mt-7"
             >
-              <div className="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[720px] aspect-[520/430] flex items-center justify-center select-none pointer-events-none">
+              <div className="relative w-full max-w-[300px] min-[390px]:max-w-[330px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[720px] aspect-[520/430] flex items-center justify-center select-none pointer-events-none">
                 
                 {/* Custom Editorial Line-Art SVG Illustration (Responsive preserveAspectRatio) */}
                 <svg
@@ -447,7 +446,7 @@ export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroPro
 
             {/* ===================================================================== */}
             {/* RIGHT COLUMN: EDITORIAL MASTHEAD COPY & COMPACT CTA (50%)              */}
-            {/* Exactly matching AI Business Transformation hero typography & mobile  */}
+            {/* Vertically aligned with illustration | Business-first framework copy   */}
             {/* ===================================================================== */}
             <div className="lg:col-span-6 order-2 lg:order-2 flex flex-col justify-center space-y-4 sm:space-y-4.5 lg:space-y-5">
               
@@ -459,28 +458,28 @@ export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroPro
                 className="inline-flex items-center gap-2.5 text-[13px] sm:text-[13.5px] font-sans font-medium uppercase tracking-[0.12em] text-[#AEB3AF]"
               >
                 <span className="w-3.5 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
-                <span>Proprietary Methodology</span>
+                <span>Our Framework</span>
               </motion.div>
 
-              {/* 2. Headline Line-by-Line Masked Reveal (64–68px Desktop / 40–44px Mobile | Max 3 Lines) */}
+              {/* 2. Headline Line-by-Line Masked Reveal */}
               <h1
-                aria-label="A disciplined lifecycle for enterprise AI transformation."
+                aria-label="Our AI Transformation Framework."
                 className="tracking-[-0.035em]"
               >
                 <span className="sr-only">
-                  A disciplined lifecycle for enterprise AI transformation.
+                  Our AI Transformation Framework.
                 </span>
 
-                {/* Mobile Line Structure (40–44px, matching Transformation hero) */}
+                {/* Mobile Line Structure (36–42px balanced 2-line layout) */}
                 <div className="sm:hidden space-y-0.5" aria-hidden="true">
                   <div className="overflow-hidden pb-[0.08em]">
                     <motion.span
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line1Delay }}
-                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
+                      className="block font-sans font-medium text-[36px] min-[390px]:text-[38px] sm:text-[42px] text-[#F5F7F6] leading-[1.04]"
                     >
-                      A disciplined lifecycle
+                      Our AI Transformation
                     </motion.span>
                   </div>
                   <div className="overflow-hidden pb-[0.08em]">
@@ -488,24 +487,14 @@ export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroPro
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line2Delay }}
-                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
+                      className="block font-sans font-medium text-[36px] min-[390px]:text-[38px] sm:text-[42px] text-[#F5F7F6] leading-[1.04]"
                     >
-                      for enterprise AI
-                    </motion.span>
-                  </div>
-                  <div className="overflow-hidden pb-[0.08em]">
-                    <motion.span
-                      initial={{ y: "100%", opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line3Delay }}
-                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
-                    >
-                      transformation.
+                      Framework.
                     </motion.span>
                   </div>
                 </div>
 
-                {/* Desktop Line Structure (Controlled 64–68px, line-height 1.02, max 3 lines) */}
+                {/* Desktop Line Structure (Controlled 46–68px, line-height 1.02) */}
                 <div className="hidden sm:block space-y-0.5 lg:space-y-1" aria-hidden="true">
                   <div className="overflow-hidden pb-[0.08em]">
                     <motion.span
@@ -515,7 +504,7 @@ export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroPro
                       style={{ fontSize: "clamp(46px, 4.3vw, 68px)", lineHeight: 1.02 }}
                       className="block whitespace-nowrap font-sans font-medium text-[#F5F7F6] tracking-[-0.035em]"
                     >
-                      A disciplined lifecycle
+                      Our AI Transformation
                     </motion.span>
                   </div>
                   <div className="overflow-hidden pb-[0.08em]">
@@ -526,34 +515,23 @@ export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroPro
                       style={{ fontSize: "clamp(46px, 4.3vw, 68px)", lineHeight: 1.02 }}
                       className="block whitespace-nowrap font-sans font-medium text-[#F5F7F6] tracking-[-0.035em]"
                     >
-                      for enterprise AI
-                    </motion.span>
-                  </div>
-                  <div className="overflow-hidden pb-[0.08em]">
-                    <motion.span
-                      initial={{ y: "100%", opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line3Delay }}
-                      style={{ fontSize: "clamp(46px, 4.3vw, 68px)", lineHeight: 1.02 }}
-                      className="block whitespace-nowrap font-sans font-medium text-[#F5F7F6] tracking-[-0.035em]"
-                    >
-                      transformation.
+                      Framework.
                     </motion.span>
                   </div>
                 </div>
               </h1>
 
-              {/* 3. Supporting Copy Fade (Clear & Readable: 17.5–18.5px, width 620–660px) */}
+              {/* 3. Supporting Copy Fade (Mobile: 16–17px, Desktop: 17.5–18.5px) */}
               <motion.p
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: copyDuration, ease: transitionEase, delay: copyDelay }}
-                className="text-[17.5px] sm:text-[18px] lg:text-[18.5px] text-[#AEB3AF] max-w-[620px] lg:max-w-[660px] leading-[1.52] font-normal tracking-[-0.005em]"
+                className="text-[16px] sm:text-[16.5px] lg:text-[17.5px] xl:text-[18px] text-[#AEB3AF] max-w-[620px] lg:max-w-[660px] leading-[1.54] font-normal tracking-[-0.005em]"
               >
-                Start with business strategy and operational reality. Identify where automation creates defensible value. Engineer production-grade systems. Enable organizational adoption. Continuously refine.
+                A business-first approach to identifying opportunities, designing solutions, enabling adoption and continuously improving how your organization operates.
               </motion.p>
 
-              {/* 4. Single Focused CTA Button (Matching Transformation Hero Mobile & Desktop Behavior) */}
+              {/* 4. Single Focused CTA Button (Tonal transition only, no arrows or glow) */}
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -564,7 +542,7 @@ export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroPro
                   type="button"
                   onClick={handleCtaClick}
                   className="inline-flex h-[50px] sm:h-[52px] items-center justify-center rounded-[4px] bg-[#202522] hover:bg-[#28302A] border border-white/[0.28] hover:border-[#C9A35B]/80 text-[#F5F7F6] px-8 sm:px-10 text-[15px] sm:text-[15.5px] font-sans font-medium tracking-[0.01em] transition-colors duration-200 cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.35)] w-full sm:w-auto text-center select-none"
-                  aria-label="Book a Discovery Call regarding our methodology"
+                  aria-label="Book a Discovery Call"
                 >
                   Book a Discovery Call
                 </button>

@@ -84,7 +84,7 @@ export default function SolutionsHero({ onOpenDiscoveryModal }: SolutionsHeroPro
               transition={{ duration: 0.65, ease: transitionEase, delay: illustrationDelay }}
               className="lg:col-span-6 order-1 lg:order-1 flex items-center justify-center lg:justify-start -mt-1 sm:-mt-3 lg:-mt-5 xl:-mt-7"
             >
-              <div className="relative w-full max-w-[340px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[720px] aspect-[520/430] flex items-center justify-center select-none pointer-events-none">
+              <div className="relative w-full max-w-[300px] min-[390px]:max-w-[330px] sm:max-w-[420px] md:max-w-[480px] lg:max-w-[660px] xl:max-w-[720px] aspect-[520/430] flex items-center justify-center select-none pointer-events-none">
                 
                 {/* Custom Editorial Line-Art SVG Illustration (Responsive preserveAspectRatio) */}
                 <svg
@@ -421,31 +421,31 @@ export default function SolutionsHero({ onOpenDiscoveryModal }: SolutionsHeroPro
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, ease: transitionEase, delay: eyebrowDelay }}
-                className="inline-flex items-center gap-2.5 text-[13px] sm:text-[13.5px] font-sans font-medium uppercase tracking-[0.12em] text-[#AEB3AF]"
+                className="inline-flex items-center gap-2.5 text-[12.5px] sm:text-[13px] font-sans font-medium uppercase tracking-[0.14em] text-[#AEB3AF]"
               >
                 <span className="w-3.5 h-px bg-[#C9A35B] shrink-0" aria-hidden="true" />
-                <span>Production Systems & Architecture</span>
+                <span>AI Solutions / Use Cases</span>
               </motion.div>
 
-              {/* 2. Headline Line-by-Line Masked Reveal (64–68px Desktop / 40–44px Mobile | Max 3 Lines) */}
+              {/* 2. Headline Line-by-Line Masked Reveal (58–66px Desktop / 36–42px Mobile) */}
               <h1
-                aria-label="Enterprise AI systems built for operational reality."
+                aria-label="Practical AI solutions for real business needs."
                 className="tracking-[-0.035em]"
               >
                 <span className="sr-only">
-                  Enterprise AI systems built for operational reality.
+                  Practical AI solutions for real business needs.
                 </span>
 
-                {/* Mobile Line Structure (40–44px, matching Transformation hero) */}
+                {/* Mobile Line Structure (36–42px with natural wrapping) */}
                 <div className="sm:hidden space-y-0.5" aria-hidden="true">
                   <div className="overflow-hidden pb-[0.08em]">
                     <motion.span
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line1Delay }}
-                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
+                      className="block font-sans font-medium text-[34px] min-[390px]:text-[38px] sm:text-[42px] text-[#F5F7F6] leading-[1.04]"
                     >
-                      Enterprise AI systems
+                      Practical AI solutions
                     </motion.span>
                   </div>
                   <div className="overflow-hidden pb-[0.08em]">
@@ -453,9 +453,9 @@ export default function SolutionsHero({ onOpenDiscoveryModal }: SolutionsHeroPro
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line2Delay }}
-                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
+                      className="block font-sans font-medium text-[34px] min-[390px]:text-[38px] sm:text-[42px] text-[#F5F7F6] leading-[1.04]"
                     >
-                      built for complex
+                      for real
                     </motion.span>
                   </div>
                   <div className="overflow-hidden pb-[0.08em]">
@@ -463,24 +463,24 @@ export default function SolutionsHero({ onOpenDiscoveryModal }: SolutionsHeroPro
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line3Delay }}
-                      className="block font-sans font-medium text-[40px] min-[390px]:text-[42px] sm:text-[44px] text-[#F5F7F6] leading-[1.02]"
+                      className="block font-sans font-medium text-[34px] min-[390px]:text-[38px] sm:text-[42px] text-[#F5F7F6] leading-[1.04]"
                     >
-                      operational reality.
+                      business needs.
                     </motion.span>
                   </div>
                 </div>
 
-                {/* Desktop Line Structure (Controlled 64–68px, line-height 1.02, max 3 lines) */}
+                {/* Desktop Line Structure (Controlled 58–66px, line-height 1.02) */}
                 <div className="hidden sm:block space-y-0.5 lg:space-y-1" aria-hidden="true">
                   <div className="overflow-hidden pb-[0.08em]">
                     <motion.span
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line1Delay }}
-                      style={{ fontSize: "clamp(46px, 4.3vw, 68px)", lineHeight: 1.02 }}
+                      style={{ fontSize: "clamp(46px, 4.3vw, 66px)", lineHeight: 1.02 }}
                       className="block whitespace-nowrap font-sans font-medium text-[#F5F7F6] tracking-[-0.035em]"
                     >
-                      Enterprise AI systems
+                      Practical AI solutions
                     </motion.span>
                   </div>
                   <div className="overflow-hidden pb-[0.08em]">
@@ -488,37 +488,26 @@ export default function SolutionsHero({ onOpenDiscoveryModal }: SolutionsHeroPro
                       initial={{ y: "100%", opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line2Delay }}
-                      style={{ fontSize: "clamp(46px, 4.3vw, 68px)", lineHeight: 1.02 }}
+                      style={{ fontSize: "clamp(46px, 4.3vw, 66px)", lineHeight: 1.02 }}
                       className="block whitespace-nowrap font-sans font-medium text-[#F5F7F6] tracking-[-0.035em]"
                     >
-                      built for complex
-                    </motion.span>
-                  </div>
-                  <div className="overflow-hidden pb-[0.08em]">
-                    <motion.span
-                      initial={{ y: "100%", opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: h1Duration, ease: transitionEase, delay: h1Line3Delay }}
-                      style={{ fontSize: "clamp(46px, 4.3vw, 68px)", lineHeight: 1.02 }}
-                      className="block whitespace-nowrap font-sans font-medium text-[#F5F7F6] tracking-[-0.035em]"
-                    >
-                      operational reality.
+                      for real business needs.
                     </motion.span>
                   </div>
                 </div>
               </h1>
 
-              {/* 3. Supporting Copy Fade (Clear & Readable: 17.5–18.5px, width 620–660px) */}
+              {/* 3. Supporting Description Fade (Clear & Readable: 18–19px Desktop / 16–17px Mobile) */}
               <motion.p
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: copyDuration, ease: transitionEase, delay: copyDelay }}
-                className="text-[17.5px] sm:text-[18px] lg:text-[18.5px] text-[#AEB3AF] max-w-[620px] lg:max-w-[660px] leading-[1.52] font-normal tracking-[-0.005em]"
+                className="text-[16px] sm:text-[17px] lg:text-[18px] xl:text-[18.5px] text-[#AEB3AF] max-w-[620px] lg:max-w-[660px] leading-[1.54] font-normal tracking-[-0.005em]"
               >
-                Engineered to execute inside your private cloud or on-premises environment. We build production systems that integrate seamlessly with ERP, CRM, and core operational data.
+                From intelligent automation to connected business systems, we design and build AI solutions that address real operational challenges.
               </motion.p>
 
-              {/* 4. Single Focused CTA Button (Matching Transformation Hero Mobile & Desktop Behavior) */}
+              {/* 4. Single Focused CTA Button (Tonal transition only, zero arrows, zero glow/scale) */}
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -529,9 +518,9 @@ export default function SolutionsHero({ onOpenDiscoveryModal }: SolutionsHeroPro
                   type="button"
                   onClick={handleCtaClick}
                   className="inline-flex h-[50px] sm:h-[52px] items-center justify-center rounded-[4px] bg-[#202522] hover:bg-[#28302A] border border-white/[0.28] hover:border-[#C9A35B]/80 text-[#F5F7F6] px-8 sm:px-10 text-[15px] sm:text-[15.5px] font-sans font-medium tracking-[0.01em] transition-colors duration-200 cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.35)] w-full sm:w-auto text-center select-none"
-                  aria-label="Discuss Your AI Architecture"
+                  aria-label="Book a Discovery Call"
                 >
-                  Discuss Your AI Architecture
+                  Book a Discovery Call
                 </button>
               </motion.div>
 
