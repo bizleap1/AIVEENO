@@ -5,6 +5,7 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import { Container } from "@/components/ui/Container";
 import { motion, AnimatePresence } from "motion/react";
+import { trackDiscoveryEvent } from "@/lib/analytics";
 
 /**
  * Aiveeno — Global Footer (COMPACT DARK GRAPHITE ENTERPRISE CALIBER)
@@ -105,6 +106,12 @@ export default function Footer() {
             <div className="mt-7 sm:mt-8">
               <Link
                 href="/contact"
+                onClick={() =>
+                  trackDiscoveryEvent({
+                    event: "discovery_cta_click",
+                    source_context: "Footer Desktop",
+                  })
+                }
                 className="group relative inline-flex flex-col py-0.5 text-[13.5px] font-sans font-medium text-[#F5F5F1] hover:text-white transition-colors duration-200 focus:outline-none"
               >
                 <span>Book a Discovery Call</span>
@@ -251,6 +258,12 @@ export default function Footer() {
           <div className="pt-1 pb-2">
             <Link
               href="/contact"
+              onClick={() =>
+                trackDiscoveryEvent({
+                  event: "discovery_cta_click",
+                  source_context: "Footer Mobile",
+                })
+              }
               className="inline-block text-[13.5px] font-sans font-medium text-[#F5F5F1] hover:text-white transition-colors duration-200"
             >
               Book a Discovery Call

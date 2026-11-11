@@ -55,15 +55,15 @@ export default function SolutionsProblems() {
   return (
     <section
       id="business-problems"
-      className="relative z-10 w-full scroll-mt-[90px] bg-[#F5F7F6] text-[#111312] pt-12 sm:pt-14 lg:pt-16 xl:pt-20 pb-12 sm:pb-14 lg:pb-16 xl:pb-20"
+      className="relative z-10 w-full scroll-mt-[60px] bg-[#F5F7F6] text-[#111312] pt-8 sm:pt-9 lg:pt-9 pb-8 sm:pb-9 lg:pb-10"
     >
       <Container className="max-w-[1440px] xl:max-w-[1500px] px-5 sm:px-6 lg:px-12">
-        <div className="flex flex-col space-y-10 sm:space-y-12 lg:space-y-14">
+        <div className="flex flex-col space-y-6 sm:space-y-7 lg:space-y-8">
           
           {/* ========================================================================= */}
           {/* SECTION HEADER: FULL-WIDTH EDITORIAL MASTHEAD                              */}
           {/* ========================================================================= */}
-          <div className="max-w-[840px] xl:max-w-[900px] space-y-3 sm:space-y-3.5">
+          <div className="max-w-[840px] xl:max-w-[900px] space-y-2 sm:space-y-2.5">
             {/* Eyebrow with Muted Gold Dash */}
             <motion.div
               initial={{ opacity: 0, y: 4 }}
@@ -76,14 +76,14 @@ export default function SolutionsProblems() {
               <span>The Business Context</span>
             </motion.div>
 
-            {/* Headline H2: 48–56px Desktop / 34–38px Mobile */}
-            <div className="overflow-hidden pb-1">
+            {/* Headline H2: 44–48px Desktop / 30–34px Mobile */}
+            <div className="overflow-hidden pb-0.5">
               <motion.h2
                 initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.55, ease: transitionEase, delay: 0.08 }}
-                className="font-sans font-medium text-[32px] min-[390px]:text-[34px] sm:text-[40px] lg:text-[48px] xl:text-[54px] text-[#111312] tracking-[-0.03em] leading-[1.08]"
+                className="font-sans font-medium text-[30px] min-[390px]:text-[32px] sm:text-[38px] lg:text-[44px] xl:text-[48px] text-[#111312] tracking-[-0.03em] leading-[1.04]"
               >
                 Real operational problems.
                 <br />
@@ -91,13 +91,13 @@ export default function SolutionsProblems() {
               </motion.h2>
             </div>
 
-            {/* Supporting Description: 17–18px Desktop / 16px Mobile */}
+            {/* Supporting Description: 16.5–17px Desktop / 15px Mobile */}
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease: transitionEase, delay: 0.16 }}
-              className="font-sans text-[15.5px] sm:text-[16.5px] lg:text-[17.5px] xl:text-[18px] text-[#56616B] leading-[1.6] font-normal max-w-[720px] pt-1"
+              className="font-sans text-[15px] sm:text-[16px] lg:text-[16.5px] xl:text-[17px] text-[#56616B] leading-[1.52] font-normal max-w-[700px]"
             >
               The most valuable AI applications start with understanding where work becomes inefficient, information gets fragmented and decisions become harder.
             </motion.p>
@@ -119,19 +119,19 @@ export default function SolutionsProblems() {
                   ease: transitionEase,
                   delay: 0.1 + idx * 0.08,
                 }}
-                className="border-b border-[#0D1B2A]/[0.08] py-6 sm:py-7 lg:py-8"
+                className="border-b border-[#0D1B2A]/[0.08] py-3.5 sm:py-4 lg:py-4"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 lg:gap-10 items-baseline">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-2.5 sm:gap-3 lg:gap-10 items-baseline">
                   {/* Left Column (Desktop ~42%): Problem Title */}
                   <div className="lg:col-span-5">
-                    <h3 className="font-sans font-medium text-[21px] sm:text-[23px] lg:text-[25px] xl:text-[27px] text-[#111312] tracking-[-0.02em] leading-snug">
+                    <h3 className="font-sans font-medium text-[19px] sm:text-[21px] lg:text-[23px] xl:text-[24px] text-[#111312] tracking-[-0.02em] leading-[1.3]">
                       {challenge.title}
                     </h3>
                   </div>
 
                   {/* Right Column (Desktop ~58%): One-Line Explanation */}
                   <div className="lg:col-span-7">
-                    <p className="font-sans text-[15.5px] sm:text-[16.5px] lg:text-[17.5px] text-[#56616B] leading-[1.58] font-normal max-w-[640px]">
+                    <p className="font-sans text-[15px] sm:text-[15.5px] lg:text-[16.5px] text-[#56616B] leading-[1.52] font-normal max-w-[640px]">
                       {challenge.explanation}
                     </p>
                   </div>

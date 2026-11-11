@@ -1,18 +1,22 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import { Container } from "@/components/ui/Container";
-import { SectionIntro } from "@/components/ui/SectionIntro";
 import { CTAButton } from "@/components/ui/CTAButton";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Case Studies & Verified Outcomes | Aiveeno",
-  description: "Audited client case studies, systems architectures, and verified quantitative outcomes.",
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Case Studies & Verified Outcomes",
+  description:
+    "Audited client case studies, systems architectures, and verified quantitative outcomes.",
+  path: "/case-studies",
+  noIndex: true,
+});
 
 export default function CaseStudiesPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F7F8FA] text-[#111827]">
-      <Navbar />
+      <Navbar solidBackground />
 
       <main className="flex-1 pt-32 pb-24">
         <Container>
@@ -23,7 +27,7 @@ export default function CaseStudiesPage() {
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-heading font-medium text-[#0B1020] tracking-tight leading-[1.02]">
-              Case Studies & Outcomes.
+              Case Studies &amp; Outcomes.
             </h1>
 
             <p className="text-lg sm:text-xl text-[#667085] leading-relaxed font-normal">

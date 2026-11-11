@@ -1,26 +1,42 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, IBM_Plex_Mono, Inter } from "next/font/google";
+import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 
-const instrumentSans = Instrument_Sans({
-  subsets: ["latin"],
+const instrumentSans = localFont({
+  src: "./fonts/instrument-sans-latin.woff2",
   variable: "--font-sans",
   display: "swap",
-  weight: ["400", "500", "600"],
+  weight: "400 700",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
+const inter = localFont({
+  src: "./fonts/inter-latin.woff2",
   variable: "--font-inter",
   display: "swap",
-  weight: ["400", "500", "600"],
+  weight: "100 900",
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
+const ibmPlexMono = localFont({
+  src: [
+    {
+      path: "./fonts/ibm-plex-mono-400.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/ibm-plex-mono-500.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/ibm-plex-mono-600.woff2",
+      weight: "600",
+      style: "normal",
+    },
+  ],
   variable: "--font-mono",
   display: "swap",
-  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -60,14 +76,6 @@ export const metadata: Metadata = {
     title: "Aiveeno | AI Transformation & Automation Solutions",
     description:
       "We help organizations transform how their business operates with AI. Practical enterprise transformation grounded in business reality, workflows, and resilient cloud architecture.",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Aiveeno | AI Transformation & Automation Solutions",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -90,10 +98,10 @@ export const metadata: Metadata = {
     icon: [
       { url: "/favicon.ico" },
       { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icon.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: [
-      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
     shortcut: "/favicon.ico",
   },
@@ -114,6 +122,12 @@ export default function RootLayout({
       "Enterprise technology transformation consultancy specializing in AI Business Transformation, Cloud Consulting, Data Engineering, and Software Modernization.",
   };
 
+  const rawGtmId = process.env.NEXT_PUBLIC_GTM_ID?.trim();
+  const gtmId = rawGtmId && /^GTM-[A-Z0-9]+$/i.test(rawGtmId) ? rawGtmId : null;
+  const rawGaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
+  const gaMeasurementId =
+    rawGaId && /^G-[A-Z0-9]+$/i.test(rawGaId) ? rawGaId : null;
+
   return (
     <html
       lang="en"
@@ -123,11 +137,28 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLdOrganization).replace(/</g, "\\u003c"),
+          }}
         />
       </head>
       <body className="min-h-screen bg-[#F5F7F6] text-[#0D1117] font-sans selection:bg-[#0D1117] selection:text-[#F5F7F6]">
         {children}
+        {gtmId ? (
+          <Script id="gtm-loader" strategy="afterInteractive">
+            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${JSON.stringify(gtmId)});`}
+          </Script>
+        ) : gaMeasurementId ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-config" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){window.dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config',${JSON.stringify(gaMeasurementId)},{anonymize_ip:true});`}
+            </Script>
+          </>
+        ) : null}
       </body>
     </html>
   );

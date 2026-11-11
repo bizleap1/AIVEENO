@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { motion } from "motion/react";
 
@@ -30,6 +31,7 @@ export default function CloudTechnologyHero({
   onOpenDiscoveryModal,
 }: CloudTechnologyHeroProps) {
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -44,7 +46,7 @@ export default function CloudTechnologyHero({
     if (onOpenDiscoveryModal) {
       onOpenDiscoveryModal("Cloud & Technology Strategy Consultation");
     } else {
-      window.location.href = "/contact";
+      router.push("/contact");
     }
   };
 

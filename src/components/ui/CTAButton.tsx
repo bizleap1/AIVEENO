@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface CTAButtonProps {
@@ -26,7 +25,6 @@ export function CTAButton({
   href,
   onClick,
   className,
-  icon = "upRight",
   type = "button",
   disabled = false,
 }: CTAButtonProps) {

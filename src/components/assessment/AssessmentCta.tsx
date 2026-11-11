@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { motion } from "motion/react";
 
@@ -26,11 +27,13 @@ interface AssessmentCtaProps {
 }
 
 export default function AssessmentCta({ onOpenDiscoveryModal }: AssessmentCtaProps) {
+  const router = useRouter();
+
   const handleCtaClick = () => {
     if (onOpenDiscoveryModal) {
       onOpenDiscoveryModal("AI Transformation Assessment Final CTA");
     } else {
-      window.location.href = "/contact";
+      router.push("/contact");
     }
   };
 

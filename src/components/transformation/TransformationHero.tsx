@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { motion } from "motion/react";
 
@@ -37,6 +38,7 @@ export default function TransformationHero({
   onOpenDiscoveryModal,
 }: TransformationHeroProps) {
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -51,7 +53,7 @@ export default function TransformationHero({
     if (onOpenDiscoveryModal) {
       onOpenDiscoveryModal("AI Business Transformation Flagship Hero");
     } else {
-      window.location.href = "/contact";
+      router.push("/contact");
     }
   };
 

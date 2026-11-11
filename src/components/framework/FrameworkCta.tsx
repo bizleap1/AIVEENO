@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { motion } from "motion/react";
 
@@ -24,11 +25,13 @@ interface FrameworkCtaProps {
 }
 
 export default function FrameworkCta({ onOpenDiscoveryModal }: FrameworkCtaProps) {
+  const router = useRouter();
+
   const handleCtaClick = () => {
     if (onOpenDiscoveryModal) {
       onOpenDiscoveryModal("Framework Page Final CTA");
     } else {
-      window.location.href = "/contact";
+      router.push("/contact");
     }
   };
 
@@ -91,7 +94,7 @@ export default function FrameworkCta({ onOpenDiscoveryModal }: FrameworkCtaProps
               transition={{ duration: 0.45, ease: transitionEase, delay: 0.22 }}
               className="font-sans text-[15px] sm:text-[15.5px] lg:text-[16.5px] text-[#56616B] leading-[1.58] font-normal max-w-[440px]"
             >
-              Explore how a business-first approach could guide your organization's next steps.
+              Explore how a business-first approach could guide your organization&apos;s next steps.
             </motion.p>
 
             {/* Primary Action Button (Tonal shift hover only, zero arrows, zero lift) */}

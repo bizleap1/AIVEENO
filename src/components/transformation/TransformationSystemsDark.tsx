@@ -188,7 +188,7 @@ export default function TransformationSystemsDark() {
                   className={`group w-full text-left py-2.5 xl:py-3 border-b border-white/[0.08] transition-colors duration-150 flex items-center justify-between cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-[#C9A35B] ${
                     isActive ? "text-[#F5F7F6]" : "text-[#7B847F] hover:text-[#D1D7D3]"
                   }`}
-                  aria-selected={isActive}
+                  aria-pressed={isActive}
                 >
                   <div className="flex items-baseline gap-3.5 xl:gap-4 min-w-0 pr-3">
                     <span

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { motion } from "motion/react";
 
@@ -31,6 +32,7 @@ interface SolutionsHeroProps {
 
 export default function SolutionsHero({ onOpenDiscoveryModal }: SolutionsHeroProps) {
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -45,7 +47,7 @@ export default function SolutionsHero({ onOpenDiscoveryModal }: SolutionsHeroPro
     if (onOpenDiscoveryModal) {
       onOpenDiscoveryModal("Enterprise AI Solutions Hero");
     } else {
-      window.location.href = "/contact";
+      router.push("/contact");
     }
   };
 

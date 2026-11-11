@@ -55,7 +55,7 @@ export default function FrameworkContinuous() {
                 transition={{ duration: 0.55, ease: transitionEase, delay: 0.08 }}
                 className="font-sans font-medium text-[32px] min-[390px]:text-[34px] sm:text-[40px] lg:text-[48px] xl:text-[52px] text-[#111312] tracking-[-0.03em] leading-[1.08]"
               >
-                Transformation doesn't end at launch.
+                Transformation doesn&apos;t end at launch.
               </motion.h2>
             </div>
 

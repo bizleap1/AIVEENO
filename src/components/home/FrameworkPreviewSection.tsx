@@ -79,6 +79,12 @@ export default function FrameworkPreviewSection() {
   const [hasEntered, setHasEntered] = useState(false);
 
   useEffect(() => {
+    const reduceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduceQuery.matches) {
+      const rafId = requestAnimationFrame(() => setHasEntered(true));
+      return () => cancelAnimationFrame(rafId);
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -109,7 +115,7 @@ export default function FrameworkPreviewSection() {
         {/* ========================================================================= */}
         <div
           className={cn(
-            "grid grid-cols-1 lg:grid-cols-[58%_42%] lg:gap-12 items-end justify-between transition-all duration-650 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            "grid grid-cols-1 lg:grid-cols-[58%_42%] lg:gap-12 items-end justify-between transition-all duration-650 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:opacity-100! motion-reduce:translate-y-0!",
             hasEntered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           )}
         >
@@ -139,7 +145,7 @@ export default function FrameworkPreviewSection() {
         {/* ========================================================================= */}
         <div
           className={cn(
-            "hidden lg:block mt-6 lg:mt-6 xl:mt-8 transition-all duration-700 delay-100 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            "hidden lg:block mt-6 lg:mt-6 xl:mt-8 transition-all duration-700 delay-100 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:delay-0 motion-reduce:opacity-100! motion-reduce:translate-y-0!",
             hasEntered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           )}
         >
@@ -166,7 +172,7 @@ export default function FrameworkPreviewSection() {
                 stroke="#0D1B2A"
                 strokeOpacity="0.14"
                 strokeWidth="1.5"
-                className="transition-all duration-700 ease-out"
+                className="transition-all duration-700 ease-out motion-reduce:transition-none! motion-reduce:[stroke-dashoffset:0]!"
                 style={{
                   strokeDasharray: 1400,
                   strokeDashoffset: hasEntered ? 0 : 1400,
@@ -189,7 +195,7 @@ export default function FrameworkPreviewSection() {
                 strokeOpacity="0.10"
                 strokeWidth="1.2"
                 strokeDasharray="4 4"
-                className="transition-all duration-700"
+                className="transition-all duration-700 motion-reduce:transition-none! motion-reduce:opacity-80!"
                 style={{
                   opacity: hasEntered ? 0.8 : 0,
                   transition: "opacity 800ms ease-out 700ms",
@@ -205,6 +211,7 @@ export default function FrameworkPreviewSection() {
                 fontFamily="inherit"
                 fontWeight="500"
                 letterSpacing="0.08em"
+                className="motion-reduce:transition-none! motion-reduce:opacity-75!"
                 style={{
                   opacity: hasEntered ? 0.75 : 0,
                   transition: "opacity 600ms ease-out 800ms",
@@ -235,12 +242,19 @@ export default function FrameworkPreviewSection() {
                 return (
                   <g
                     key={`desktop-stage-${stage.number}`}
-                    className="cursor-pointer outline-none focus:outline-none group"
+                    className="cursor-pointer outline-none focus-visible:outline-2 focus-visible:outline-[#C9A35B] group motion-reduce:transition-none! motion-reduce:opacity-100!"
                     onMouseEnter={() => setHoveredStage(idx)}
                     onMouseLeave={() => setHoveredStage(null)}
                     onClick={() => setActiveStage(idx)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setActiveStage(idx);
+                      }
+                    }}
                     role="button"
                     tabIndex={0}
+                    aria-pressed={isSelected}
                     aria-label={`Framework Stage ${stage.number}: ${stage.name}`}
                     style={{
                       opacity: hasEntered ? 1 : 0,
@@ -258,7 +272,7 @@ export default function FrameworkPreviewSection() {
                       strokeOpacity={isHighlighted ? 0.9 : 0.14}
                       strokeWidth={isHighlighted ? 1.4 : 1}
                       strokeDasharray={isHighlighted ? "none" : "2 2"}
-                      className="transition-all duration-200"
+                      className="transition-all duration-200 motion-reduce:transition-none"
                     />
 
                     {/* Milestone Node on Path: Clean Solid Geometry */}
@@ -270,7 +284,7 @@ export default function FrameworkPreviewSection() {
                       stroke={isHighlighted ? "#C9A35B" : "#0D1B2A"}
                       strokeWidth={isHighlighted ? 1.4 : 1.2}
                       strokeOpacity={isHighlighted ? 1 : 0.25}
-                      className="transition-all duration-200"
+                      className="transition-all duration-200 motion-reduce:transition-none"
                     />
 
                     {/* Stage Number (e.g. STAGE 01) */}
@@ -284,7 +298,7 @@ export default function FrameworkPreviewSection() {
                       fontWeight="600"
                       fontFamily="inherit"
                       letterSpacing="0.10em"
-                      className="transition-all duration-200"
+                      className="transition-all duration-200 motion-reduce:transition-none"
                     >
                       STAGE {stage.number}
                     </text>
@@ -300,7 +314,7 @@ export default function FrameworkPreviewSection() {
                       fontWeight={isHighlighted ? "600" : "500"}
                       fontFamily="inherit"
                       letterSpacing="-0.025em"
-                      className="transition-all duration-200"
+                      className="transition-all duration-200 motion-reduce:transition-none"
                     >
                       {stage.name.toUpperCase()}
                     </text>
@@ -315,7 +329,7 @@ export default function FrameworkPreviewSection() {
                       fontSize="12.5"
                       fontWeight="400"
                       fontFamily="inherit"
-                      className="transition-all duration-200"
+                      className="transition-all duration-200 motion-reduce:transition-none"
                     >
                       {stage.summary}
                     </text>
@@ -339,7 +353,7 @@ export default function FrameworkPreviewSection() {
 
               <div className="flex items-center gap-6">
                 <span className="hidden xl:inline text-[11.5px] font-sans uppercase tracking-[0.08em] text-[#56616B]/70">
-                  PROPRIETARY CONSULTING LIFECYCLE
+                  CONNECTED CONSULTING LIFECYCLE
                 </span>
 
                 {/* Integrated Bottom-Right Text CTA */}
@@ -364,7 +378,7 @@ export default function FrameworkPreviewSection() {
         {/* ========================================================================= */}
         <div
           className={cn(
-            "block lg:hidden mt-9 transition-all duration-700 delay-100 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            "block lg:hidden mt-9 transition-all duration-700 delay-100 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:delay-0 motion-reduce:opacity-100! motion-reduce:translate-y-0!",
             hasEntered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           )}
         >
@@ -377,13 +391,22 @@ export default function FrameworkPreviewSection() {
               return (
                 <div
                   key={`mob-journey-${stage.number}`}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={isActive}
                   onClick={() => setActiveStage(idx)}
-                  className="relative group cursor-pointer transition-all duration-200"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveStage(idx);
+                    }
+                  }}
+                  className="relative group cursor-pointer transition-all duration-200 motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C9A35B] rounded-[4px]"
                 >
                   {/* Left Node Milestone: Clean Solid Geometric Dot */}
                   <span
                     className={cn(
-                      "absolute -left-[32px] sm:-left-[40px] top-1.5 w-2.5 h-2.5 rounded-full transition-all duration-200",
+                      "absolute -left-[32px] sm:-left-[40px] top-1.5 w-2.5 h-2.5 rounded-full transition-all duration-200 motion-reduce:transition-none",
                       isActive ? "bg-[#C9A35B]" : "bg-[#0D1B2A]/25"
                     )}
                   />

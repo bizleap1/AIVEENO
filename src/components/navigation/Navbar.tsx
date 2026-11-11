@@ -1,13 +1,19 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "@/components/Logo";
 import { navigationData } from "@/data/navigation";
-import { ChevronDown, ArrowRight, Menu, X, ArrowUpRight, Plus, Minus } from "lucide-react";
+import { ChevronDown, Menu, X, Plus, Minus } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
+import { trackDiscoveryEvent } from "@/lib/analytics";
+
+const subscribeClientHydration = () => () => {};
+const getClientHydrationSnapshot = () => true;
+const getClientHydrationServerSnapshot = () => false;
 
 interface NavbarProps {
   onOpenDiscoveryModal?: (context?: string) => void;
@@ -16,22 +22,30 @@ interface NavbarProps {
 }
 
 export default function Navbar({
-  onOpenDiscoveryModal,
   solidBackground,
   transparentOnHero,
 }: NavbarProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    subscribeClientHydration,
+    getClientHydrationSnapshot,
+    getClientHydrationServerSnapshot
+  );
   const [scrolled, setScrolled] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [activeMenu, setActiveMenu] = useState<"ai" | "cloud" | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<"ai" | "cloud" | null>(null);
   const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const aiMenuRef = useRef<HTMLDivElement | null>(null);
+  const cloudMenuRef = useRef<HTMLDivElement | null>(null);
+  const aiChevronRef = useRef<HTMLButtonElement | null>(null);
+  const cloudTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const suppressFocusOpenRef = useRef(false);
+  const hoverOpenedRef = useRef<{ menu: "ai" | "cloud" | null; at: number }>({
+    menu: null,
+    at: 0,
+  });
   const pathname = usePathname();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -54,9 +68,12 @@ export default function Navbar({
   }, []);
 
   useEffect(() => {
-    setActiveMenu(null);
-    setMobileMenuOpen(false);
-    setMobileExpanded(null);
+    const rafId = requestAnimationFrame(() => {
+      setActiveMenu(null);
+      setMobileMenuOpen(false);
+      setMobileExpanded(null);
+    });
+    return () => cancelAnimationFrame(rafId);
   }, [pathname]);
 
   // Lock body scroll when mobile menu is open
@@ -71,9 +88,55 @@ export default function Navbar({
     };
   }, [mobileMenuOpen]);
 
-  const handleMouseEnter = (menu: "ai" | "cloud") => {
+  // Close open dropdown on Escape key or click outside
+  useEffect(() => {
+    if (!activeMenu) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        const wasAiFocused = aiMenuRef.current?.contains(document.activeElement);
+        const wasCloudFocused = cloudMenuRef.current?.contains(document.activeElement);
+        setActiveMenu(null);
+        if (wasAiFocused || wasCloudFocused) {
+          suppressFocusOpenRef.current = true;
+          requestAnimationFrame(() => {
+            suppressFocusOpenRef.current = false;
+          });
+          if (wasAiFocused) {
+            aiChevronRef.current?.focus();
+          } else if (wasCloudFocused) {
+            cloudTriggerRef.current?.focus();
+          }
+        }
+      }
+    };
+
+    const handlePointerDown = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node;
+      const inAi = aiMenuRef.current?.contains(target);
+      const inCloud = cloudMenuRef.current?.contains(target);
+      if (!inAi && !inCloud) {
+        setActiveMenu(null);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+    };
+  }, [activeMenu]);
+
+  const handleMouseEnter = (menu: "ai" | "cloud", fromHover: boolean = true) => {
     if (menuTimeoutRef.current) {
       clearTimeout(menuTimeoutRef.current);
+    }
+    if (activeMenu !== menu && fromHover) {
+      hoverOpenedRef.current = { menu, at: Date.now() };
     }
     setActiveMenu(menu);
   };
@@ -84,11 +147,16 @@ export default function Navbar({
     }, 180);
   };
 
-  const handleDiscoveryClick = (context: string = "Navbar: Book a Discovery Call") => {
-    if (onOpenDiscoveryModal) {
-      onOpenDiscoveryModal(context);
-    } else {
-      window.location.href = "/contact";
+  const handleBlurClose = (
+    e: React.FocusEvent<HTMLDivElement>,
+    ref: React.RefObject<HTMLDivElement | null>,
+    menu: "ai" | "cloud"
+  ) => {
+    const nextFocused = e.relatedTarget as Node | null;
+    if (!nextFocused || !ref.current?.contains(nextFocused)) {
+      if (activeMenu === menu) {
+        setActiveMenu(null);
+      }
     }
   };
 
@@ -117,7 +185,9 @@ export default function Navbar({
         "fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
         mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1.5",
         isOverDarkHero
-          ? "bg-transparent border-b border-transparent shadow-none"
+          ? scrolled
+            ? "bg-[#111312]/92 backdrop-blur-[14px] border-b border-white/[0.08] shadow-[0_2px_10px_rgba(0,0,0,0.28)]"
+            : "bg-transparent border-b border-transparent shadow-none"
           : solidBackground || scrolled
           ? "bg-[#F5F7F6]/95 backdrop-blur-[16px] border-b border-[#D9DDDA]/50 shadow-[0_1px_2px_rgba(13,17,23,0.015)]"
           : "bg-[#F5F7F6]/95 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border-b border-[#0D1B2A]/[0.06] lg:border-transparent"
@@ -132,31 +202,48 @@ export default function Navbar({
         <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-6 lg:px-12">
           <div className="flex items-center justify-between">
             {/* LEFT SECTION: AI Transformation | Cloud & Technology (Aligned towards Logo) */}
-            <nav className="hidden lg:flex items-center justify-end gap-7 xl:gap-8 flex-1 pr-7 xl:pr-9">
+            <nav
+              aria-label="Service offerings"
+              className="hidden lg:flex items-center justify-end gap-7 xl:gap-8 flex-1 pr-7 xl:pr-9"
+            >
               
-              {/* 1. AI Transformation (Dropdown) */}
+              {/* 1. AI Transformation (Compact Enterprise Dropdown + Direct Parent Link) */}
               <div
-                className="relative"
+                ref={aiMenuRef}
+                className="relative flex items-center"
                 onMouseEnter={() => handleMouseEnter("ai")}
                 onMouseLeave={handleMouseLeave}
+                onPointerDownCapture={() => {
+                  suppressFocusOpenRef.current = true;
+                  requestAnimationFrame(() => {
+                    suppressFocusOpenRef.current = false;
+                  });
+                }}
+                onFocusCapture={() => {
+                  if (suppressFocusOpenRef.current) {
+                    suppressFocusOpenRef.current = false;
+                    return;
+                  }
+                  handleMouseEnter("ai", false);
+                }}
+                onBlurCapture={(e) => handleBlurClose(e, aiMenuRef, "ai")}
               >
-                <button
-                  type="button"
-                  onClick={() => setActiveMenu(activeMenu === "ai" ? null : "ai")}
-                  className={cn(
-                    "group flex items-center gap-1.5 py-1 text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors cursor-pointer focus:outline-none",
-                    isOverDarkHero
-                      ? (isAiActive || activeMenu === "ai"
-                          ? "text-white font-semibold"
-                          : "text-[#F0F3F1] hover:text-white font-medium")
-                      : (isAiActive || activeMenu === "ai"
-                          ? "text-[#0D1B2A] font-medium"
-                          : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal")
-                  )}
-                  aria-expanded={activeMenu === "ai"}
-                >
-                  <span className="relative">
-                    AI Transformation
+                <div className="group flex items-center gap-0.5 py-1.5">
+                  <Link
+                    href="/ai-business-transformation"
+                    onClick={() => setActiveMenu(null)}
+                    className={cn(
+                      "relative text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4",
+                      isOverDarkHero
+                        ? (isAiActive || activeMenu === "ai"
+                            ? "text-white font-semibold"
+                            : "text-[#F0F3F1] hover:text-white font-medium")
+                        : (isAiActive || activeMenu === "ai"
+                            ? "text-[#0D1B2A] font-medium"
+                            : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal")
+                    )}
+                  >
+                    <span>AI Transformation</span>
                     {isAiActive && (
                       <span
                         className={cn(
@@ -166,91 +253,158 @@ export default function Navbar({
                         aria-hidden="true"
                       />
                     )}
-                  </span>
-                  <ChevronDown
+                  </Link>
+
+                  <button
+                    ref={aiChevronRef}
+                    type="button"
+                    onClick={() => {
+                      if (activeMenu === "ai") {
+                        // Avoid immediately closing on a fast pointer move+click that triggered hover just milliseconds prior
+                        if (
+                          hoverOpenedRef.current.menu === "ai" &&
+                          Date.now() - hoverOpenedRef.current.at < 300
+                        ) {
+                          hoverOpenedRef.current = { menu: null, at: 0 };
+                          return;
+                        }
+                        setActiveMenu(null);
+                      } else {
+                        hoverOpenedRef.current = { menu: null, at: 0 };
+                        setActiveMenu("ai");
+                      }
+                    }}
+                    aria-label="Toggle AI Transformation menu"
+                    aria-expanded={activeMenu === "ai"}
+                    aria-controls="ai-transformation-dropdown"
                     className={cn(
-                      "w-2.5 h-2.5 transition-transform duration-200 stroke-[1.75]",
+                      "inline-flex items-center justify-center p-1 -mr-1 rounded-[4px] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A35B]",
                       isOverDarkHero
-                        ? "text-[#F0F3F1] group-hover:text-white"
-                        : "text-[#3B4A5A]/60 group-hover:text-[#0D1B2A]",
-                      activeMenu === "ai" ? "rotate-180" : ""
+                        ? "text-[#F0F3F1] hover:text-white"
+                        : "text-[#3B4A5A]/70 hover:text-[#0D1B2A]"
                     )}
-                  />
-                </button>
-
-                {/* AI Dropdown Menu */}
-                {activeMenu === "ai" && (
-                  <div
-                    className="absolute top-full left-0 mt-2.5 w-[520px] rounded-[14px] border border-[#E8EDEB] bg-[#F5F7F6]/98 backdrop-blur-xl p-5 shadow-[0_16px_36px_-6px_rgba(13,17,23,0.08)] animate-in fade-in zoom-in-95 duration-150 z-50"
-                    onMouseEnter={() => handleMouseEnter("ai")}
-                    onMouseLeave={handleMouseLeave}
                   >
-                    <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[#E8EDEB]">
-                      <div className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#D4A64A]" />
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#6F7479] font-medium">
-                          AI Transformation Architecture
-                        </span>
-                      </div>
-                      <Link
-                        href="/ai-business-transformation"
-                        onClick={() => setActiveMenu(null)}
-                        className="text-[12px] font-mono text-[#0D1117] hover:text-[#D4A64A] flex items-center gap-1 transition-colors"
-                      >
-                        <span>Overview</span>
-                        <ArrowUpRight className="w-3 h-3" />
-                      </Link>
-                    </div>
+                    <ChevronDown
+                      className={cn(
+                        "w-2.5 h-2.5 transition-transform duration-200 stroke-[1.75]",
+                        activeMenu === "ai" ? "rotate-180" : ""
+                      )}
+                    />
+                  </button>
+                </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {navigationData.aiTransformation.items.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setActiveMenu(null)}
-                          className="group p-3 rounded-[10px] hover:bg-[#EAEFED]/70 transition-all border border-transparent hover:border-[#E8EDEB]/60 flex flex-col justify-between"
-                        >
-                          <div>
-                            <div className="text-[13.5px] font-medium text-[#0D1117] group-hover:text-[#0D1117] flex items-center justify-between">
-                              <span>{item.title}</span>
-                              <ArrowRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#D4A64A]" />
-                            </div>
-                            <p className="text-[12px] text-[#6F7479] mt-1 leading-snug line-clamp-2">
-                              {item.description}
-                            </p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
+                {/* Compact AI Transformation Dropdown (Zero hover gap via pt-2.5 bridge wrapper) */}
+                <AnimatePresence>
+                  {activeMenu === "ai" && (
+                    <motion.div
+                      id="ai-transformation-dropdown"
+                      role="region"
+                      aria-label="AI Transformation submenu"
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute top-full left-0 pt-2.5 w-[388px] z-50"
+                      onMouseEnter={() => handleMouseEnter("ai")}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      <div className="rounded-[12px] border border-[#D9DDDA] bg-[#F5F7F6] p-2.5 shadow-[0_10px_24px_-8px_rgba(13,17,23,0.08)]">
+                        <div className="flex flex-col gap-1">
+                          {navigationData.aiTransformation.items.map((item) => {
+                            const isItemActive =
+                              pathname === item.href || pathname.startsWith(`${item.href}/`);
 
-                    {/* Featured Strip in Menu */}
-                    <div className="mt-3 pt-3 border-t border-[#E8EDEB] flex items-center justify-between bg-[#EAEFED]/40 rounded-[10px] p-2.5 px-3.5">
-                      <div className="text-[12px] text-[#6F7479]">
-                        <span className="font-medium text-[#0D1117]">1-Week Engagement:</span> AI Transformation Assessment
+                            return (
+                              <Link
+                                key={item.href}
+                                href={item.href}
+                                aria-current={isItemActive ? "page" : undefined}
+                                onClick={() => setActiveMenu(null)}
+                                className={cn(
+                                  "group/item relative flex flex-col justify-center rounded-[8px] py-2.5 pr-3.5 pl-4 transition-colors duration-200 focus-visible:outline-none",
+                                  isItemActive
+                                    ? "bg-[#E8ECE9]"
+                                    : "bg-transparent hover:bg-[#E8ECE9] focus-visible:bg-[#E8ECE9]"
+                                )}
+                              >
+                                {/* Thin muted-gold left indicator (#C9A35B): persistent on active route, smooth reveal on hover/focus */}
+                                <span
+                                  aria-hidden="true"
+                                  className={cn(
+                                    "absolute left-1.5 top-2.5 bottom-2.5 w-[2px] rounded-full bg-[#C9A35B] transition-opacity duration-200",
+                                    isItemActive
+                                      ? "opacity-100"
+                                      : "opacity-0 group-hover/item:opacity-100 group-focus-visible/item:opacity-100"
+                                  )}
+                                />
+
+                                <span className="font-sans text-[15px] font-medium leading-[1.3] tracking-[-0.01em] text-[#0D1117]">
+                                  {item.title}
+                                </span>
+
+                                {item.description && (
+                                  <span
+                                    className={cn(
+                                      "font-sans text-[12.5px] leading-[1.35] mt-0.5",
+                                      isItemActive ? "text-[#4D5760]" : "text-[#5E6871]"
+                                    )}
+                                  >
+                                    {item.description}
+                                  </span>
+                                )}
+                              </Link>
+                            );
+                          })}
+                        </div>
                       </div>
-                      <Link
-                        href="/ai-transformation-assessment"
-                        onClick={() => setActiveMenu(null)}
-                        className="text-[12px] font-mono font-medium text-[#0D1117] hover:text-[#D4A64A] flex items-center transition-colors"
-                      >
-                        <span>Explore</span>
-                      </Link>
-                    </div>
-                  </div>
-                )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
-              {/* 2. Cloud & Technology (Mega Dropdown) */}
+              {/* 2. Cloud & Technology (Unified Enterprise Dropdown Styling) */}
               <div
-                className="relative"
+                ref={cloudMenuRef}
+                className="relative flex items-center"
                 onMouseEnter={() => handleMouseEnter("cloud")}
                 onMouseLeave={handleMouseLeave}
+                onPointerDownCapture={() => {
+                  suppressFocusOpenRef.current = true;
+                  requestAnimationFrame(() => {
+                    suppressFocusOpenRef.current = false;
+                  });
+                }}
+                onFocusCapture={() => {
+                  if (suppressFocusOpenRef.current) {
+                    suppressFocusOpenRef.current = false;
+                    return;
+                  }
+                  handleMouseEnter("cloud", false);
+                }}
+                onBlurCapture={(e) => handleBlurClose(e, cloudMenuRef, "cloud")}
               >
                 <button
+                  ref={cloudTriggerRef}
                   type="button"
-                  onClick={() => setActiveMenu(activeMenu === "cloud" ? null : "cloud")}
+                  onClick={() => {
+                    if (activeMenu === "cloud") {
+                      if (
+                        hoverOpenedRef.current.menu === "cloud" &&
+                        Date.now() - hoverOpenedRef.current.at < 300
+                      ) {
+                        hoverOpenedRef.current = { menu: null, at: 0 };
+                        return;
+                      }
+                      setActiveMenu(null);
+                    } else {
+                      hoverOpenedRef.current = { menu: null, at: 0 };
+                      setActiveMenu("cloud");
+                    }
+                  }}
+                  aria-expanded={activeMenu === "cloud"}
+                  aria-controls="cloud-technology-dropdown"
                   className={cn(
-                    "group flex items-center gap-1.5 py-1 text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors cursor-pointer focus:outline-none",
+                    "group flex items-center gap-1.5 py-1.5 text-[13.5px] lg:text-[14px] font-sans tracking-[-0.01em] transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A35B] rounded-[4px]",
                     isOverDarkHero
                       ? (isCloudActive || activeMenu === "cloud"
                           ? "text-white font-semibold"
@@ -259,7 +413,6 @@ export default function Navbar({
                           ? "text-[#0D1B2A] font-medium"
                           : "text-[#3B4A5A] hover:text-[#0D1B2A] font-normal")
                   )}
-                  aria-expanded={activeMenu === "cloud"}
                 >
                   <span className="relative">
                     Cloud & Technology
@@ -284,52 +437,111 @@ export default function Navbar({
                   />
                 </button>
 
-                {/* Cloud & Technology Dropdown Menu */}
-                {activeMenu === "cloud" && (
-                  <div
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 w-[660px] max-w-[calc(100vw-32px)] rounded-[14px] border border-[#E8EDEB] bg-[#F5F7F6]/98 backdrop-blur-xl p-5 shadow-[0_16px_36px_-6px_rgba(13,17,23,0.08)] animate-in fade-in zoom-in-95 duration-150 z-50"
-                    onMouseEnter={() => handleMouseEnter("cloud")}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[#E8EDEB]">
-                      <div className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#D4A64A]" />
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-[#6F7479] font-medium">
-                          Cloud & Engineering Capabilities
-                        </span>
-                      </div>
-                      <Link
-                        href="/cloud-technology"
-                        onClick={() => setActiveMenu(null)}
-                        className="text-[12px] font-mono text-[#0D1117] hover:text-[#D4A64A] flex items-center gap-1 transition-colors"
-                      >
-                        <span>All Capabilities</span>
-                        <ArrowUpRight className="w-3 h-3" />
-                      </Link>
-                    </div>
+                {/* Cloud & Technology Dropdown Menu (Overview Row + Two Grouped Columns) */}
+                <AnimatePresence>
+                  {activeMenu === "cloud" && (
+                    <motion.div
+                      id="cloud-technology-dropdown"
+                      role="region"
+                      aria-label="Cloud and Technology submenu"
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                      className="absolute top-full left-1/2 -translate-x-[45%] xl:-translate-x-1/2 pt-2.5 w-[696px] max-w-[calc(100vw-32px)] z-50"
+                      onMouseEnter={() => handleMouseEnter("cloud")}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      <div className="rounded-[12px] border border-[#D9DDDA] bg-[#F5F7F6] p-3 shadow-[0_10px_24px_-8px_rgba(13,17,23,0.08)]">
+                        {/* Top Featured Overview Link */}
+                        {navigationData.cloudTechnology.featured && (
+                          <>
+                            <Link
+                              href={navigationData.cloudTechnology.featured.href}
+                              aria-current={pathname === "/cloud-technology" ? "page" : undefined}
+                              onClick={() => setActiveMenu(null)}
+                              className={cn(
+                                "group/item relative flex flex-col justify-center rounded-[8px] py-2.5 pr-4 pl-4 transition-colors duration-200 focus-visible:outline-none",
+                                pathname === "/cloud-technology"
+                                  ? "bg-[#E8ECE9]"
+                                  : "bg-[#E8ECE9]/55 hover:bg-[#E8ECE9] focus-visible:bg-[#E8ECE9]"
+                              )}
+                            >
+                              <span
+                                aria-hidden="true"
+                                className={cn(
+                                  "absolute left-1.5 top-2.5 bottom-2.5 w-[2px] rounded-full bg-[#C9A35B] transition-opacity duration-200",
+                                  pathname === "/cloud-technology"
+                                    ? "opacity-100"
+                                    : "opacity-0 group-hover/item:opacity-100 group-focus-visible/item:opacity-100"
+                                )}
+                              />
+                              <span className="font-sans text-[15px] font-medium leading-[1.3] tracking-[-0.01em] text-[#0D1117]">
+                                {navigationData.cloudTechnology.featured.title}
+                              </span>
+                              <span
+                                className={cn(
+                                  "font-sans text-[12.5px] leading-[1.35] mt-0.5",
+                                  pathname === "/cloud-technology" ? "text-[#4D5760]" : "text-[#5E6871]"
+                                )}
+                              >
+                                {navigationData.cloudTechnology.featured.description}
+                              </span>
+                            </Link>
 
-                    <div className="grid grid-cols-2 gap-2">
-                      {navigationData.cloudTechnology.items.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setActiveMenu(null)}
-                          className="group p-2.5 rounded-[10px] hover:bg-[#EAEFED]/70 transition-all border border-transparent hover:border-[#E8EDEB]/60 flex flex-col justify-between"
-                        >
-                          <div>
-                            <div className="text-[13px] font-medium text-[#0D1117] flex items-center justify-between">
-                              <span>{item.title}</span>
-                              <ArrowRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-[#D4A64A]" />
+                            <div className="my-2.5 border-t border-[#D9DDDA]/75" aria-hidden="true" />
+                          </>
+                        )}
+
+                        {/* Two Grouped Service Columns */}
+                        <div className="grid grid-cols-2 gap-x-6 px-0.5 py-0.5">
+                          {navigationData.cloudTechnology.groups?.map((group) => (
+                            <div key={group.label} className="flex flex-col">
+                              <div className="px-3.5 pt-0.5 pb-2 font-sans text-[11px] font-semibold uppercase tracking-[0.09em] text-[#8E6C2A]">
+                                {group.label}
+                              </div>
+
+                              <div className="flex flex-col gap-0.5">
+                                {group.items.map((item) => {
+                                  const isItemActive =
+                                    pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+                                  return (
+                                    <Link
+                                      key={item.href}
+                                      href={item.href}
+                                      aria-current={isItemActive ? "page" : undefined}
+                                      onClick={() => setActiveMenu(null)}
+                                      className={cn(
+                                        "group/item relative flex items-center rounded-[8px] py-2 pr-3.5 pl-4 transition-colors duration-200 focus-visible:outline-none",
+                                        isItemActive
+                                          ? "bg-[#E8ECE9]"
+                                          : "bg-transparent hover:bg-[#E8ECE9] focus-visible:bg-[#E8ECE9]"
+                                      )}
+                                    >
+                                      <span
+                                        aria-hidden="true"
+                                        className={cn(
+                                          "absolute left-1.5 top-2 bottom-2 w-[2px] rounded-full bg-[#C9A35B] transition-opacity duration-200",
+                                          isItemActive
+                                            ? "opacity-100"
+                                            : "opacity-0 group-hover/item:opacity-100 group-focus-visible/item:opacity-100"
+                                        )}
+                                      />
+                                      <span className="font-sans text-[14.5px] font-medium leading-[1.35] tracking-[-0.01em] text-[#0D1117]">
+                                        {item.title}
+                                      </span>
+                                    </Link>
+                                  );
+                                })}
+                              </div>
                             </div>
-                            <p className="text-[11.5px] text-[#6F7479] mt-0.5 leading-snug line-clamp-1">
-                              {item.description}
-                            </p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </nav>
 
@@ -343,7 +555,7 @@ export default function Navbar({
 
             {/* RIGHT SECTION: About | Contact (Aligned towards Logo) + Book a Discovery Call (pinned right) */}
             <div className="hidden lg:flex items-center justify-between flex-1 pl-7 xl:pl-9">
-              <nav className="flex items-center gap-7 xl:gap-8">
+              <nav aria-label="Company navigation" className="flex items-center gap-7 xl:gap-8">
                 {/* About */}
                 <div className="relative flex flex-col items-center">
                   <Link
@@ -402,9 +614,14 @@ export default function Navbar({
               </nav>
 
               {/* Primary CTA: Book a Discovery Call */}
-              <button
-                type="button"
-                onClick={() => handleDiscoveryClick("Navbar: Book a Discovery Call")}
+              <Link
+                href="/contact"
+                onClick={() =>
+                  trackDiscoveryEvent({
+                    event: "discovery_cta_click",
+                    source_context: "Navbar Desktop",
+                  })
+                }
                 className={cn(
                   "inline-flex items-center justify-center h-[44px] px-4 rounded-[8px] text-[13.5px] font-medium transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 shrink-0 shadow-xs whitespace-nowrap select-none",
                   isOverDarkHero
@@ -413,7 +630,7 @@ export default function Navbar({
                 )}
               >
                 <span>Book a Discovery Call</span>
-              </button>
+              </Link>
             </div>
 
             {/* Tablet / Mobile Controls: Clean 24px Hamburger Icon on Far Right */}
@@ -474,65 +691,67 @@ export default function Navbar({
 
         {/* Scrollable Menu Items Content */}
         <div className="flex-1 overflow-y-auto overscroll-contain px-5 sm:px-6 py-5 flex flex-col justify-between">
-          <nav className="flex flex-col divide-y divide-[#0D1B2A]/[0.06]">
+          <nav aria-label="Mobile navigation" className="flex flex-col divide-y divide-[#0D1B2A]/[0.06]">
             
             {/* 1. AI Transformation (Accordion) */}
             <div className="py-1.5">
               <button
                 type="button"
                 onClick={() => setMobileExpanded((prev) => (prev === "ai" ? null : "ai"))}
-                className="w-full min-h-[52px] py-3.5 flex items-center justify-between text-[20px] sm:text-[22px] font-sans font-medium text-[#0D1B2A] tracking-[-0.015em] cursor-pointer"
+                className="w-full min-h-[52px] py-3.5 flex items-center justify-between text-[20px] sm:text-[22px] font-sans font-medium text-[#0D1B2A] tracking-[-0.015em] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A35B] rounded-[6px]"
                 aria-expanded={mobileExpanded === "ai"}
               >
                 <span className={cn(isAiActive ? "text-[#0D1B2A]" : "")}>
                   AI Transformation
                 </span>
                 {mobileExpanded === "ai" ? (
-                  <Minus className="w-5 h-5 text-[#D4A64A] transition-transform duration-200" />
+                  <Minus className="w-5 h-5 text-[#C9A35B] transition-transform duration-200" />
                 ) : (
                   <Plus className="w-5 h-5 text-[#3B4A5A] transition-transform duration-200" />
                 )}
               </button>
 
-              {mobileExpanded === "ai" && (
-                <div className="pl-4 sm:pl-5 pr-1 pt-1 pb-3 flex flex-col space-y-0.5 animate-in fade-in duration-250">
-                  <Link
-                    href="/ai-business-transformation"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+              <AnimatePresence initial={false}>
+                {mobileExpanded === "ai" && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden"
                   >
-                    Overview
-                  </Link>
-                  <Link
-                    href="/ai-business-transformation"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    AI Business Transformation
-                  </Link>
-                  <Link
-                    href="/framework"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    Our Framework
-                  </Link>
-                  <Link
-                    href="/ai-transformation-assessment"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    AI Transformation Assessment
-                  </Link>
-                  <Link
-                    href="/ai-solutions"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    AI Solutions
-                  </Link>
-                </div>
-              )}
+                    <div className="pl-4 sm:pl-5 pr-1 pt-1 pb-3 flex flex-col space-y-0.5">
+                      {navigationData.aiTransformation.items.map((item) => {
+                        const isItemActive =
+                          pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+                        return (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            aria-current={isItemActive ? "page" : undefined}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={cn(
+                              "relative min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans transition-colors duration-200 rounded-[8px] pl-4 pr-3 focus-visible:outline-none focus-visible:bg-[#E8ECE9]",
+                              isItemActive
+                                ? "font-medium text-[#0D1117] bg-[#E8ECE9]"
+                                : "text-[#3B4A5A] hover:text-[#0D1B2A] hover:bg-[#E8ECE9]/70"
+                            )}
+                          >
+                            {isItemActive && (
+                              <span
+                                aria-hidden="true"
+                                className="absolute left-1.5 top-2.5 bottom-2.5 w-[2px] rounded-full bg-[#C9A35B]"
+                              />
+                            )}
+                            {item.title}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* 2. Cloud & Technology (Accordion) */}
@@ -540,79 +759,91 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={() => setMobileExpanded((prev) => (prev === "cloud" ? null : "cloud"))}
-                className="w-full min-h-[52px] py-3.5 flex items-center justify-between text-[20px] sm:text-[22px] font-sans font-medium text-[#0D1B2A] tracking-[-0.015em] cursor-pointer"
+                className="w-full min-h-[52px] py-3.5 flex items-center justify-between text-[20px] sm:text-[22px] font-sans font-medium text-[#0D1B2A] tracking-[-0.015em] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C9A35B] rounded-[6px]"
                 aria-expanded={mobileExpanded === "cloud"}
               >
                 <span className={cn(isCloudActive ? "text-[#0D1B2A]" : "")}>
                   Cloud & Technology
                 </span>
                 {mobileExpanded === "cloud" ? (
-                  <Minus className="w-5 h-5 text-[#D4A64A] transition-transform duration-200" />
+                  <Minus className="w-5 h-5 text-[#C9A35B] transition-transform duration-200" />
                 ) : (
                   <Plus className="w-5 h-5 text-[#3B4A5A] transition-transform duration-200" />
                 )}
               </button>
 
-              {mobileExpanded === "cloud" && (
-                <div className="pl-4 sm:pl-5 pr-1 pt-1 pb-3 flex flex-col space-y-0.5 animate-in fade-in duration-250">
-                  <Link
-                    href="/cloud-technology"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
+              <AnimatePresence initial={false}>
+                {mobileExpanded === "cloud" && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden"
                   >
-                    Overview
-                  </Link>
-                  <Link
-                    href="/cloud-consulting"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    Cloud Consulting
-                  </Link>
-                  <Link
-                    href="/cloud-migration-modernization"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    Migration & Modernization
-                  </Link>
-                  <Link
-                    href="/cloud-managed-services"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    Managed Services
-                  </Link>
-                  <Link
-                    href="/cloud-security-governance"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    Security & Governance
-                  </Link>
-                  <Link
-                    href="/devops-automation"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    DevOps & Automation
-                  </Link>
-                  <Link
-                    href="/data-engineering"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    Data Engineering
-                  </Link>
-                  <Link
-                    href="/software-development"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans text-[#3B4A5A] hover:text-[#0D1B2A] transition-colors"
-                  >
-                    Software Development
-                  </Link>
-                </div>
-              )}
+                    <div className="pl-3 sm:pl-4 pr-1 pt-1 pb-3 flex flex-col">
+                      {/* Overview Link First */}
+                      {navigationData.cloudTechnology.featured && (
+                        <Link
+                          href={navigationData.cloudTechnology.featured.href}
+                          aria-current={pathname === "/cloud-technology" ? "page" : undefined}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className={cn(
+                            "relative min-h-[48px] flex items-center text-[15px] sm:text-[16px] font-sans transition-colors duration-200 rounded-[8px] pl-4 pr-3 focus-visible:outline-none focus-visible:bg-[#E8ECE9]",
+                            pathname === "/cloud-technology"
+                              ? "font-medium text-[#0D1117] bg-[#E8ECE9]"
+                              : "font-medium text-[#0D1B2A] bg-[#E8ECE9]/45 hover:bg-[#E8ECE9]/80"
+                          )}
+                        >
+                          {pathname === "/cloud-technology" && (
+                            <span
+                              aria-hidden="true"
+                              className="absolute left-1.5 top-2.5 bottom-2.5 w-[2px] rounded-full bg-[#C9A35B]"
+                            />
+                          )}
+                          {navigationData.cloudTechnology.featured.title}
+                        </Link>
+                      )}
+
+                      {/* Grouped Mobile Links */}
+                      {navigationData.cloudTechnology.groups?.map((group) => (
+                        <div key={group.label} className="mt-3.5 flex flex-col space-y-0.5">
+                          <div className="pl-4 pr-2 pb-1 font-sans text-[11px] font-semibold uppercase tracking-[0.09em] text-[#8E6C2A]">
+                            {group.label}
+                          </div>
+                          {group.items.map((item) => {
+                            const isItemActive =
+                              pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+                            return (
+                              <Link
+                                key={item.href}
+                                href={item.href}
+                                aria-current={isItemActive ? "page" : undefined}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className={cn(
+                                  "relative min-h-[46px] flex items-center text-[15px] sm:text-[16px] font-sans transition-colors duration-200 rounded-[8px] pl-4 pr-3 focus-visible:outline-none focus-visible:bg-[#E8ECE9]",
+                                  isItemActive
+                                    ? "font-medium text-[#0D1117] bg-[#E8ECE9]"
+                                    : "text-[#3B4A5A] hover:text-[#0D1B2A] hover:bg-[#E8ECE9]/70"
+                                )}
+                              >
+                                {isItemActive && (
+                                  <span
+                                    aria-hidden="true"
+                                    className="absolute left-1.5 top-2.5 bottom-2.5 w-[2px] rounded-full bg-[#C9A35B]"
+                                  />
+                                )}
+                                {item.title}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* 3. About */}
@@ -642,16 +873,19 @@ export default function Navbar({
           {/* Bottom CTA Section */}
           <div className="pt-8 pb-6 mt-auto shrink-0">
             <div className="h-px bg-[#0D1B2A]/[0.08] mb-6" />
-            <button
-              type="button"
+            <Link
+              href="/contact"
               onClick={() => {
                 setMobileMenuOpen(false);
-                handleDiscoveryClick("Mobile Menu: Book a Discovery Call");
+                trackDiscoveryEvent({
+                  event: "discovery_cta_click",
+                  source_context: "Navbar Mobile",
+                });
               }}
               className="w-full min-h-[48px] h-12 sm:h-[50px] flex items-center justify-center rounded-[8px] bg-[#0D1117] text-[#F5F7F6] text-[15px] font-sans font-medium tracking-[0.01em] hover:bg-[#1C2C3E] active:scale-[0.99] transition-colors duration-200 cursor-pointer shadow-xs"
             >
               <span>Book a Discovery Call</span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>,

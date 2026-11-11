@@ -1,29 +1,33 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import { Container } from "@/components/ui/Container";
-import { SectionIntro } from "@/components/ui/SectionIntro";
 import { CTAButton } from "@/components/ui/CTAButton";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Executive Insights & Architecture Papers | Aiveeno",
-  description: "Executive briefings, architectural blueprints, and analysis on enterprise AI transformation and cloud engineering.",
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Executive Insights & Architecture Papers",
+  description:
+    "Executive briefings, architectural blueprints, and analysis on enterprise AI transformation and cloud engineering.",
+  path: "/insights",
+  noIndex: true,
+});
 
 export default function InsightsPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F7F8FA] text-[#111827]">
-      <Navbar />
+      <Navbar solidBackground />
 
       <main className="flex-1 pt-32 pb-24">
         <Container>
           <div className="max-w-3xl space-y-6">
             <div className="inline-flex items-center gap-2 text-[11px] font-mono font-medium tracking-[0.16em] uppercase text-[#667085]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#3157FF]" />
-              <span>Thought Leadership & Analysis</span>
+              <span>Thought Leadership &amp; Analysis</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-heading font-medium text-[#0B1020] tracking-tight leading-[1.02]">
-              Executive Insights & Research.
+              Executive Insights &amp; Research.
             </h1>
 
             <p className="text-lg sm:text-xl text-[#667085] leading-relaxed font-normal">

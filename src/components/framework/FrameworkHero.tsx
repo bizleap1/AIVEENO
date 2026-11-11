@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { motion } from "motion/react";
 
@@ -36,6 +37,7 @@ interface FrameworkHeroProps {
 
 export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroProps) {
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -50,7 +52,7 @@ export default function FrameworkHero({ onOpenDiscoveryModal }: FrameworkHeroPro
     if (onOpenDiscoveryModal) {
       onOpenDiscoveryModal("AI Transformation Framework Hero");
     } else {
-      window.location.href = "/contact";
+      router.push("/contact");
     }
   };
 

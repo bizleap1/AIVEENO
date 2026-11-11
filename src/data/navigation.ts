@@ -5,6 +5,11 @@ export interface NavItem {
   badge?: string;
 }
 
+export interface NavGroup {
+  label: string;
+  items: NavItem[];
+}
+
 export interface NavCategory {
   title: string;
   href?: string;
@@ -15,6 +20,7 @@ export interface NavCategory {
     href: string;
     ctaLabel: string;
   };
+  groups?: NavGroup[];
   items: NavItem[];
 }
 
@@ -43,22 +49,22 @@ export const navigationData: {
       {
         title: "AI Business Transformation",
         href: "/ai-business-transformation",
-        description: "Transform how the organization operates, makes decisions and creates value.",
-      },
-      {
-        title: "Our Framework",
-        href: "/framework",
-        description: "Proprietary consulting methodology connecting business reality to engineering execution.",
+        description: "The flagship transformation offering",
       },
       {
         title: "AI Transformation Assessment",
         href: "/ai-transformation-assessment",
-        description: "Structured entry point delivering an executive opportunity report and roadmap.",
+        description: "Identify and prioritize opportunities",
+      },
+      {
+        title: "Our Framework",
+        href: "/framework",
+        description: "Explore our transformation approach",
       },
       {
         title: "AI Solutions / Use Cases",
         href: "/ai-solutions",
-        description: "Production AI systems, intelligent workflows and enterprise automation.",
+        description: "Discover practical AI applications",
       },
     ],
   },
@@ -67,11 +73,55 @@ export const navigationData: {
     href: "/cloud-technology",
     description: "Enterprise infrastructure, data architectures, DevOps and software foundations.",
     featured: {
-      title: "Technology Architecture",
-      description: "Resilient cloud and data foundations engineered specifically to support AI transformation.",
+      title: "Cloud & Technology Overview",
+      description: "Explore our technology capabilities and approach.",
       href: "/cloud-technology",
-      ctaLabel: "Explore Overview",
+      ctaLabel: "Overview",
     },
+    groups: [
+      {
+        label: "CLOUD SERVICES",
+        items: [
+          {
+            title: "Cloud Consulting / Advisory",
+            href: "/cloud-consulting",
+          },
+          {
+            title: "Cloud Migration & Modernization",
+            href: "/cloud-migration-modernization",
+          },
+          {
+            title: "Cloud Managed Services",
+            href: "/cloud-managed-services",
+          },
+          {
+            title: "Cloud Security & Governance",
+            href: "/cloud-security-governance",
+          },
+          {
+            title: "Cloud Optimization",
+            href: "/cloud-optimization",
+          },
+        ],
+      },
+      {
+        label: "ENGINEERING & DEVELOPMENT",
+        items: [
+          {
+            title: "DevOps & Automation",
+            href: "/devops-automation",
+          },
+          {
+            title: "Data Engineering",
+            href: "/data-engineering",
+          },
+          {
+            title: "Software Development",
+            href: "/software-development",
+          },
+        ],
+      },
+    ],
     items: [
       {
         title: "Cloud Consulting",

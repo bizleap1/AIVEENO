@@ -136,7 +136,6 @@ export default function CloudFoundationSection() {
                   fill
                   sizes="(max-width: 1024px) 100vw, 58vw"
                   className="object-cover object-[72%_center] scale-[1.07]"
-                  priority
                 />
               </div>
 

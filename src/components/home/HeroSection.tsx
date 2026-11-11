@@ -18,9 +18,26 @@
  * Navbar is NOT included — the site's own <Navbar /> should be fixed with a solid #F5F7F6 bg.
  */
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+
+const MOBILE_MEDIA_QUERY = "(max-width: 767px)";
+
+function subscribeMobileViewport(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  const mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
+  mediaQuery.addEventListener("change", callback);
+  return () => mediaQuery.removeEventListener("change", callback);
+}
+
+function getMobileViewportSnapshot() {
+  return window.matchMedia(MOBILE_MEDIA_QUERY).matches;
+}
+
+function getMobileViewportServerSnapshot() {
+  return false;
+}
 
 const CONTAINER = 1200; // must match the max width of the next section's grid
 
@@ -47,7 +64,7 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
   const wrapRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
   const subRef = useRef<HTMLDivElement>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
@@ -57,9 +74,17 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
   const mobileStatementsRef = useRef<HTMLDivElement>(null);
   const mobileLabelRefs = useRef<(HTMLParagraphElement | null)[]>([]);
   const [heroMounted, setHeroMounted] = useState(false);
+  const isMobileViewport = useSyncExternalStore(
+    subscribeMobileViewport,
+    getMobileViewportSnapshot,
+    getMobileViewportServerSnapshot
+  );
+  const MobileHeadingTag = isMobileViewport ? "h1" : "p";
+  const DesktopHeadingTag = isMobileViewport ? "p" : "h1";
 
   useEffect(() => {
-    setHeroMounted(true);
+    const rafId = requestAnimationFrame(() => setHeroMounted(true));
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
   useEffect(() => {
@@ -551,9 +576,9 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
 
     // ================= DOM sync =================
     const ctaParts = Array.from(cta.children) as HTMLElement[];
-    cta.style.transition = "transform .2s";
-    ctaParts.forEach((el) => { el.style.transition = "opacity .3s ease"; });
-    if (sub) sub.style.transition = "opacity .3s ease, transform .2s";
+    cta.style.transition = reduce ? "none" : "transform .2s";
+    ctaParts.forEach((el) => { el.style.transition = reduce ? "none" : "opacity .3s ease"; });
+    if (sub) sub.style.transition = reduce ? "none" : "opacity .3s ease, transform .2s";
     let buttonShown: boolean | null = null;
     function setButton(show: boolean) {
       if (mobile) return; // Mobile CTA is always cleanly visible
@@ -740,10 +765,11 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
             ref={mobileHeroRef}
             className="pointer-events-none relative z-[2] flex h-full flex-col items-center px-4 pt-[92px] text-center md:hidden"
           >
-            <h1
+            <MobileHeadingTag
+              aria-hidden={!isMobileViewport || undefined}
               className="mx-auto text-center font-sans tracking-[-0.035em] text-[#0D1117]"
               style={{
-                fontFamily: 'var(--font-instrument-sans), "Instrument Sans", sans-serif',
+                fontFamily: 'var(--font-sans), "Instrument Sans", sans-serif',
                 fontWeight: 500,
                 fontSize: "clamp(38px, 9.8vw, 42px)",
                 lineHeight: 1.02,
@@ -754,7 +780,7 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
               <span className="block overflow-hidden py-0.5">
                 <span
                   className={cn(
-                    "block whitespace-nowrap transition-all duration-600 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    "block whitespace-nowrap transition-all duration-600 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
                     heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
                   )}
                 >
@@ -764,7 +790,7 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
               <span className="block overflow-hidden py-0.5">
                 <span
                   className={cn(
-                    "block whitespace-nowrap transition-all duration-600 delay-75 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    "block whitespace-nowrap transition-all duration-600 delay-75 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:delay-0",
                     heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
                   )}
                 >
@@ -774,14 +800,14 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
               <span className="block overflow-hidden py-0.5">
                 <span
                   className={cn(
-                    "block whitespace-nowrap transition-all duration-600 delay-150 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    "block whitespace-nowrap transition-all duration-600 delay-150 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:delay-0",
                     heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
                   )}
                 >
                   with AI.
                 </span>
               </span>
-            </h1>
+            </MobileHeadingTag>
 
             <button
               type="button"
@@ -789,7 +815,7 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
               className={cn(
                 "pointer-events-auto mt-[20px] inline-flex h-[44px] cursor-pointer items-center justify-center rounded-[8px] bg-[#0D1117] px-5 text-[14px] font-sans font-medium leading-none text-[#F5F7F6] border border-transparent hover:border-[#D4A64A]/60 hover:bg-[#161D26] hover:-translate-y-px transition-all duration-200 whitespace-nowrap shadow-sm",
                 heroMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
-                "transition-all duration-400 delay-200 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                "transition-all duration-400 delay-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:delay-0"
               )}
             >
               <span>Book a Discovery Call</span>
@@ -799,7 +825,7 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
               className={cn(
                 "mt-[20px] max-w-[300px] mx-auto text-center font-sans text-[13.5px] min-[390px]:text-[14px] leading-[1.45] text-[#6F7479]",
                 heroMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
-                "transition-all duration-500 delay-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                "transition-all duration-500 delay-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:delay-0"
               )}
             >
               Move from isolated AI experimentation to a structured transformation program.
@@ -828,33 +854,34 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
 
           {/* Desktop initial viewport & finale container (>= 768px) */}
           <div className="pointer-events-none relative z-[2] hidden md:flex h-full flex-col items-center pt-[clamp(110px,16vh,190px)] text-center">
-            <h1
-              ref={headingRef}
-              className="mx-auto max-w-[1040px] px-5"
-              /* inline on purpose: global h1 styles in globals.css were overriding the Tailwind size */
-              style={{ fontSize: "clamp(34px, 4.2vw, 62px)", lineHeight: 1.08, letterSpacing: "-0.025em", fontWeight: 500, margin: 0 }}
-            >
-              <span className="block overflow-hidden py-1">
-                <span
-                  className={cn(
-                    "inline-block whitespace-nowrap transition-all duration-750 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                    heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-                  )}
-                >
-                  Transform how your business
+            <div ref={headingRef} className="mx-auto max-w-[1040px] px-5">
+              <DesktopHeadingTag
+                aria-hidden={isMobileViewport || undefined}
+                /* inline on purpose: global h1 styles in globals.css were overriding the Tailwind size */
+                style={{ fontSize: "clamp(34px, 4.2vw, 62px)", lineHeight: 1.08, letterSpacing: "-0.025em", fontWeight: 500, margin: 0 }}
+              >
+                <span className="block overflow-hidden py-1">
+                  <span
+                    className={cn(
+                      "inline-block whitespace-nowrap transition-all duration-750 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+                      heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                    )}
+                  >
+                    Transform how your business
+                  </span>
                 </span>
-              </span>
-              <span className="block overflow-hidden py-1">
-                <span
-                  className={cn(
-                    "inline-block whitespace-nowrap transition-all duration-750 delay-100 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                    heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-                  )}
-                >
-                  operates with AI.
+                <span className="block overflow-hidden py-1">
+                  <span
+                    className={cn(
+                      "inline-block whitespace-nowrap transition-all duration-750 delay-100 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:delay-0",
+                      heroMounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
+                    )}
+                  >
+                    operates with AI.
+                  </span>
                 </span>
-              </span>
-            </h1>
+              </DesktopHeadingTag>
+            </div>
 
             <button
               ref={ctaRef}
@@ -876,7 +903,7 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
                 Move from isolated AI experimentation to a structured transformation program.
               </p>
               <Link
-                href="/ai-business-transformation/"
+                href="/ai-business-transformation"
                 className="inline-flex items-center text-[15px] font-medium text-[#0D1117] transition-all hover:underline"
               >
                 <span>Explore AI Transformation</span>
@@ -887,7 +914,7 @@ export default function HeroSection({ onOpenDiscoveryModal, children }: HeroSect
           {/* scroll hint */}
           <div ref={hintRef} aria-hidden="true" className="absolute bottom-6 left-1/2 z-[2] -translate-x-1/2 md:bottom-7">
             <div className="flex h-[32px] w-[20px] justify-center rounded-full border-[1.5px] border-[#D9DDDA] pt-1.5 md:h-[34px] md:w-[22px]">
-              <span className="h-1.5 w-[2.5px] animate-bounce rounded-full bg-[#6F7479] md:h-2 md:w-[3px]" />
+              <span className="h-1.5 w-[2.5px] animate-bounce motion-reduce:animate-none rounded-full bg-[#6F7479] md:h-2 md:w-[3px]" />
             </div>
           </div>
         </section>

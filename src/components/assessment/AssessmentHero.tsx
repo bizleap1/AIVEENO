@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { motion } from "motion/react";
 
@@ -33,6 +34,7 @@ interface AssessmentHeroProps {
 
 export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroProps) {
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -47,7 +49,7 @@ export default function AssessmentHero({ onOpenDiscoveryModal }: AssessmentHeroP
     if (onOpenDiscoveryModal) {
       onOpenDiscoveryModal("AI Transformation Assessment Hero");
     } else {
-      window.location.href = "/contact";
+      router.push("/contact");
     }
   };
 

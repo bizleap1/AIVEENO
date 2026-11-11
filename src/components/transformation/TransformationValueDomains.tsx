@@ -291,8 +291,9 @@ interface TransformationValueDomainsProps {
 }
 
 export default function TransformationValueDomains({
-  onOpenDiscoveryModal: _onOpenDiscoveryModal,
+  onOpenDiscoveryModal,
 }: TransformationValueDomainsProps = {}) {
+  void onOpenDiscoveryModal;
   // Mobile tap-to-reveal state (one item active at a time)
   const [activeMobileId, setActiveMobileId] = useState<string | null>("operations");
 

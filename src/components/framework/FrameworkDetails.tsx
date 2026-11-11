@@ -217,7 +217,7 @@ export default function FrameworkDetails() {
                         ? "bg-[#EBEFED] text-[#111312] font-semibold"
                         : "text-[#56616B] hover:text-[#111312] hover:bg-black/[0.02] font-normal"
                     }`}
-                    aria-selected={isSelected}
+                    aria-pressed={isSelected}
                   >
                     <div className="flex items-center gap-3.5 min-w-0">
                       {/* Number Index */}

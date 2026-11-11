@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { MotionConfig } from "motion/react";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import FrameworkHero from "@/components/framework/FrameworkHero";
@@ -10,6 +11,7 @@ import FrameworkDetails from "@/components/framework/FrameworkDetails";
 import FrameworkContinuous from "@/components/framework/FrameworkContinuous";
 import FrameworkCta from "@/components/framework/FrameworkCta";
 import DiscoveryModal from "@/components/DiscoveryModal";
+import { trackDiscoveryEvent } from "@/lib/analytics";
 
 /**
  * Aiveeno — AI Transformation Framework Page (/framework/)
@@ -37,6 +39,11 @@ export default function FrameworkClientPage() {
   const handleOpenDiscovery = (contextOrInterest: string = "AI Transformation Framework") => {
     setDiscoveryInterest("AI Transformation Framework");
     setSourceContext(contextOrInterest);
+    trackDiscoveryEvent({
+      event: "discovery_cta_click",
+      area_of_interest: "AI Transformation Framework",
+      source_context: contextOrInterest,
+    });
     setIsDiscoveryOpen(true);
   };
 
@@ -45,52 +52,54 @@ export default function FrameworkClientPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F5F7F6] text-[#111312]">
-      {/* Global Enterprise Navbar with transparent overlay on dark hero */}
-      <Navbar transparentOnHero onOpenDiscoveryModal={handleOpenDiscovery} />
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen flex flex-col bg-[#F5F7F6] text-[#111312]">
+        {/* Global Enterprise Navbar with transparent overlay on dark hero */}
+        <Navbar transparentOnHero onOpenDiscoveryModal={handleOpenDiscovery} />
 
-      <main className="flex-1">
-        {/* ========================================================================= */}
-        {/* 01 — ARCHITECTURAL HERO SECTION (#111312 Dark Graphite Editorial)          */}
-        {/* ========================================================================= */}
-        <FrameworkHero onOpenDiscoveryModal={handleOpenDiscovery} />
+        <main className="flex-1">
+          {/* ========================================================================= */}
+          {/* 01 — ARCHITECTURAL HERO SECTION (#111312 Dark Graphite Editorial)          */}
+          {/* ========================================================================= */}
+          <FrameworkHero onOpenDiscoveryModal={handleOpenDiscovery} />
 
-        {/* ========================================================================= */}
-        {/* 02 — CORE PRINCIPLE (#EBEFED Alternate Light Surface)                     */}
-        {/* ========================================================================= */}
-        <FrameworkPrinciple />
+          {/* ========================================================================= */}
+          {/* 02 — CORE PRINCIPLE (#EBEFED Alternate Light Surface)                     */}
+          {/* ========================================================================= */}
+          <FrameworkPrinciple />
 
-        {/* ========================================================================= */}
-        {/* 03 — THE CONNECTED LIFECYCLE (#111312 Main Visual Rail Section)           */}
-        {/* ========================================================================= */}
-        <FrameworkLifecycle />
+          {/* ========================================================================= */}
+          {/* 03 — THE CONNECTED LIFECYCLE (#111312 Main Visual Rail Section)           */}
+          {/* ========================================================================= */}
+          <FrameworkLifecycle />
 
-        {/* ========================================================================= */}
-        {/* 04 — INSIDE THE FRAMEWORK (#F5F7F6 4-Facet Stage Detail Explorer)         */}
-        {/* ========================================================================= */}
-        <FrameworkDetails />
+          {/* ========================================================================= */}
+          {/* 04 — INSIDE THE FRAMEWORK (#F5F7F6 4-Facet Stage Detail Explorer)         */}
+          {/* ========================================================================= */}
+          <FrameworkDetails />
 
-        {/* ========================================================================= */}
-        {/* 05 — CONTINUOUS TRANSFORMATION (#EEF1F0 Typography-Led Iterative Section) */}
-        {/* ========================================================================= */}
-        <FrameworkContinuous />
+          {/* ========================================================================= */}
+          {/* 05 — CONTINUOUS TRANSFORMATION (#EEF1F0 Typography-Led Iterative Section) */}
+          {/* ========================================================================= */}
+          <FrameworkContinuous />
 
-        {/* ========================================================================= */}
-        {/* 06 — FINAL CTA (#F5F7F6 Asymmetric Editorial Conversion Split)            */}
-        {/* ========================================================================= */}
-        <FrameworkCta onOpenDiscoveryModal={handleOpenDiscovery} />
-      </main>
+          {/* ========================================================================= */}
+          {/* 06 — FINAL CTA (#F5F7F6 Asymmetric Editorial Conversion Split)            */}
+          {/* ========================================================================= */}
+          <FrameworkCta onOpenDiscoveryModal={handleOpenDiscovery} />
+        </main>
 
-      {/* Global Dark Graphite Footer (#111312) */}
-      <Footer />
+        {/* Global Dark Graphite Footer (#111312) */}
+        <Footer />
 
-      {/* Enterprise Discovery Call Booking Modal */}
-      <DiscoveryModal
-        isOpen={isDiscoveryOpen}
-        onClose={handleCloseDiscovery}
-        initialInterest={discoveryInterest}
-        sourceContext={sourceContext}
-      />
-    </div>
+        {/* Enterprise Discovery Call Booking Modal */}
+        <DiscoveryModal
+          isOpen={isDiscoveryOpen}
+          onClose={handleCloseDiscovery}
+          initialInterest={discoveryInterest}
+          sourceContext={sourceContext}
+        />
+      </div>
+    </MotionConfig>
   );
 }

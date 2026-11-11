@@ -93,7 +93,6 @@ export default function AssessmentSection({
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover object-[center_65%] scale-[1.08]"
-                priority
               />
             </div>
           </motion.div>
@@ -168,7 +167,7 @@ export default function AssessmentSection({
               className="pt-2 sm:pt-2.5 border-t border-[#0D1B2A]/[0.08] space-y-1.5"
             >
               <div className="flex flex-wrap items-center gap-x-2.5 sm:gap-x-3 gap-y-1 text-[12.5px] sm:text-[13px] font-sans leading-normal">
-                <span className="font-medium text-[#0D1B2A]">Focused assessment</span>
+                <span className="font-medium text-[#0D1B2A]">Focused paid assessment</span>
                 <span className="text-[#0D1B2A]/60 text-[11px] select-none" aria-hidden="true">•</span>
                 <span className="font-medium text-[#0D1B2A]">Approximately one week*</span>
                 <span className="text-[#0D1B2A]/60 text-[11px] select-none" aria-hidden="true">•</span>

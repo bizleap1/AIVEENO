@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { MotionConfig } from "motion/react";
 import Navbar from "@/components/navigation/Navbar";
 import Footer from "@/components/navigation/Footer";
 import AssessmentHero from "@/components/assessment/AssessmentHero";
@@ -12,6 +13,7 @@ import AssessmentEngagement from "@/components/assessment/AssessmentEngagement";
 import AssessmentJourney from "@/components/assessment/AssessmentJourney";
 import AssessmentCta from "@/components/assessment/AssessmentCta";
 import DiscoveryModal from "@/components/DiscoveryModal";
+import { trackDiscoveryEvent } from "@/lib/analytics";
 
 /**
  * Aiveeno — AI Transformation Assessment Page (/ai-transformation-assessment/)
@@ -40,6 +42,11 @@ export default function AssessmentClientPage() {
   const handleOpenDiscovery = (contextOrInterest: string = "AI Transformation Assessment") => {
     setDiscoveryInterest("AI Transformation Assessment");
     setSourceContext(contextOrInterest);
+    trackDiscoveryEvent({
+      event: "discovery_cta_click",
+      area_of_interest: "AI Transformation Assessment",
+      source_context: contextOrInterest,
+    });
     setIsDiscoveryOpen(true);
   };
 
@@ -48,63 +55,65 @@ export default function AssessmentClientPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F5F7F6] text-[#111312]">
-      {/* Global Enterprise Navbar with transparent overlay on dark hero */}
-      <Navbar transparentOnHero onOpenDiscoveryModal={handleOpenDiscovery} />
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen flex flex-col bg-[#F5F7F6] text-[#111312]">
+        {/* Global Enterprise Navbar with transparent overlay on dark hero */}
+        <Navbar transparentOnHero onOpenDiscoveryModal={handleOpenDiscovery} />
 
-      <main className="flex-1">
-        {/* ========================================================================= */}
-        {/* 01 — HERO SECTION (Dark Graphite Editorial Asymmetric Composition)        */}
-        {/* ========================================================================= */}
-        <AssessmentHero onOpenDiscoveryModal={handleOpenDiscovery} />
+        <main className="flex-1">
+          {/* ========================================================================= */}
+          {/* 01 — HERO SECTION (Dark Graphite Editorial Asymmetric Composition)        */}
+          {/* ========================================================================= */}
+          <AssessmentHero onOpenDiscoveryModal={handleOpenDiscovery} />
 
-        {/* ========================================================================= */}
-        {/* 02 — CLARITY BEFORE IMPLEMENTATION (Light Contrast Surface #EBEFED)       */}
-        {/* ========================================================================= */}
-        <AssessmentClarity />
+          {/* ========================================================================= */}
+          {/* 02 — CLARITY BEFORE IMPLEMENTATION (Light Contrast Surface #EBEFED)       */}
+          {/* ========================================================================= */}
+          <AssessmentClarity />
 
-        {/* ========================================================================= */}
-        {/* 03 — WHAT WE EXAMINE (Editorial Scope Matrix #F5F7F6)                     */}
-        {/* ========================================================================= */}
-        <AssessmentExamine />
+          {/* ========================================================================= */}
+          {/* 03 — WHAT WE EXAMINE (Editorial Scope Matrix #F5F7F6)                     */}
+          {/* ========================================================================= */}
+          <AssessmentExamine />
 
-        {/* ========================================================================= */}
-        {/* 04 — HOW THE ASSESSMENT WORKS (Dark Graphite Editorial #111312)           */}
-        {/* ========================================================================= */}
-        <AssessmentProcess />
+          {/* ========================================================================= */}
+          {/* 04 — HOW THE ASSESSMENT WORKS (Dark Graphite Editorial #111312)           */}
+          {/* ========================================================================= */}
+          <AssessmentProcess />
 
-        {/* ========================================================================= */}
-        {/* 05 — WHAT YOU RECEIVE (Light Editorial Surface #EEF1F0)                   */}
-        {/* ========================================================================= */}
-        <AssessmentDeliverables />
+          {/* ========================================================================= */}
+          {/* 05 — WHAT YOU RECEIVE (Light Editorial Surface #EEF1F0)                   */}
+          {/* ========================================================================= */}
+          <AssessmentDeliverables />
 
-        {/* ========================================================================= */}
-        {/* 06 — TIMELINE & COMMERCIAL POSITIONING (Light Editorial Surface #F5F7F6)  */}
-        {/* ========================================================================= */}
-        <AssessmentEngagement />
+          {/* ========================================================================= */}
+          {/* 06 — TIMELINE & COMMERCIAL POSITIONING (Light Editorial Surface #F5F7F6)  */}
+          {/* ========================================================================= */}
+          <AssessmentEngagement />
 
-        {/* ========================================================================= */}
-        {/* 07 — FROM ASSESSMENT TO TRANSFORMATION (Dark Graphite Editorial #111312)   */}
-        {/* ========================================================================= */}
-        <AssessmentJourney />
+          {/* ========================================================================= */}
+          {/* 07 — FROM ASSESSMENT TO TRANSFORMATION (Dark Graphite Editorial #111312)   */}
+          {/* ========================================================================= */}
+          <AssessmentJourney />
 
-        {/* ========================================================================= */}
-        {/* 08 — FINAL CTA (Light Editorial Conversion Surface #F5F7F6)               */}
-        {/* ========================================================================= */}
-        <AssessmentCta onOpenDiscoveryModal={handleOpenDiscovery} />
-      </main>
+          {/* ========================================================================= */}
+          {/* 08 — FINAL CTA (Light Editorial Conversion Surface #F5F7F6)               */}
+          {/* ========================================================================= */}
+          <AssessmentCta onOpenDiscoveryModal={handleOpenDiscovery} />
+        </main>
 
-      {/* Global Dark Graphite Footer (#111312) */}
-      <Footer />
+        {/* Global Dark Graphite Footer (#111312) */}
+        <Footer />
 
-      {/* Enterprise Discovery Call Booking Modal */}
-      <DiscoveryModal
-        isOpen={isDiscoveryOpen}
-        onClose={handleCloseDiscovery}
-        initialInterest={discoveryInterest}
-        sourceContext={sourceContext}
-      />
-    </div>
+        {/* Enterprise Discovery Call Booking Modal */}
+        <DiscoveryModal
+          isOpen={isDiscoveryOpen}
+          onClose={handleCloseDiscovery}
+          initialInterest={discoveryInterest}
+          sourceContext={sourceContext}
+        />
+      </div>
+    </MotionConfig>
   );
 }
 
